@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Collection — Boozy Estate</title>
+  <meta name="description" content="A look at what Boozy Estate collects — vintage and collectible American whiskey that represents the depth and history of the category."/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 36px;
+    }
+
+    .bottle-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bottle-card:hover {
+      border-color: var(--amber-dark);
+      transform: translateY(-3px);
+    }
+
+    .bottle-img-wrap {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(160deg, #1a0e02, #2e1a06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .bottle-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 16px;
+    }
+
+    .bottle-img-wrap .no-img {
+      font-size: 3.5rem;
+      opacity: 0.2;
+    }
+
+    .bottle-body {
+      padding: 16px 18px 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bottle-category {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 6px;
+    }
+
+    .bottle-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.3;
+      margin-bottom: 8px;
+      flex: 1;
+    }
+
+    .bottle-desc {
+      font-size: 0.77rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .bottle-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .bottle-specs { color: var(--text-muted); }
+    .bottle-specs span + span::before { content: ' · '; }
+
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 32px 0 0;
+      align-items: center;
+    }
+
+    .filter-btn {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--cream-dim);
+      cursor: pointer;
+      transition: all 0.18s;
+      font-family: 'Source Serif 4', serif;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--amber);
+      color: var(--amber);
+      background: rgba(200,132,26,0.06);
+    }
+
+    /* Loading state */
+    .loading-msg {
+      text-align: center;
+      color: var(--text-muted);
+      padding: 60px 0;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+
+    .loading-msg::after {
+      content: '...';
+      animation: dots 1.4s steps(4, end) infinite;
+    }
+
+    @keyframes dots {
+      0%, 20% { content: ''; }
+      40%      { content: '.'; }
+      60%      { content: '..'; }
+      80%, 100%{ content: '...'; }
+    }
+
+    /* Count badge */
+    .count-badge {
+      display: inline-block;
+      background: rgba(200,132,26,0.15);
+      color: var(--amber);
+      border-radius: 2px;
+      font-size: 0.7rem;
+      padding: 1px 6px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    @media (max-width: 560px) {
+      .collection-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    }
+    @media (max-width: 400px) {
+      .collection-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Boozy <span>Estate</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="history.html">History</a></li>
+        <li><a href="valuing.html">Valuing Your Collection</a></li>
+        <li><a href="collection.html" class="active">The Collection</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <p class="eyebrow">What We Collect</p>
+    <h1>The <span>Collection</span></h1>
+    <p>A look at the kinds of bottles that matter to us — vintage American whiskey, rare decanters, and collectible spirits that tell a story. This is the standard we know and collect to.</p>
+  </header>
+
+  <div class="wrapper--wide" style="padding-top: 20px;">
+
+    <!-- INTRO NOTE -->
+    <div class="spotlight" style="display:flex; align-items:flex-start; gap:16px; margin-top:40px;">
+      <div style="font-size:1.6rem; opacity:0.7; flex-shrink:0;">🥃</div>
+      <div>
+        <strong>What we look for.</strong> These are the bottles we seek out — vintage decanters, rare single barrels, and historically significant American whiskey. If you have something like this sitting in a cabinet, a storage unit, or an estate, we'd like to hear from you.
+      </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all" onclick="filterCollection('all', this)">All</button>
+    </div>
+
+    <!-- COLLECTION GRID -->
+    <div id="collectionGrid">
+      <div class="loading-msg">Loading collection from Baxus</div>
+    </div>
+
+    <!-- CTA -->
+    <div style="text-align:center; margin-top: 64px; padding: 56px 24px; border: 1px solid var(--border); border-radius: 6px; background: var(--card-bg);">
+      <p class="section-label" style="text-align:center;">Have Something Like This?</p>
+      <h2 style="font-family:'Playfair Display',serif; font-size:1.7rem; color:var(--cream); margin-bottom:16px; line-height:1.2;">We Acquire Collections.<br>We Help Move Them.</h2>
+      <p style="color:var(--cream-dim); max-width:480px; margin:0 auto 28px; font-size:0.92rem;">Whether you've inherited a collection, built one over decades, or found something interesting at an estate sale — we're interested. Reach out and let's talk about what you have.</p>
+      <a href="mailto:hello@boozyestate.com" class="btn btn-primary">Get in Touch →</a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-logo">Boozy <span>Estate</span></div>
+    <p class="footer-tagline">American Whiskey Collectibles</p>
+    <ul class="footer-links">
+      <li><a href="history.html">History</a></li>
+      <li><a href="valuing.html">Valuing</a></li>
+      <li><a href="collection.html">Collection</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Boozy Estate. All rights reserved.</p>
+  </footer>
+
+  <script src="nav.js"></script>
+  <script>
+    const BAXUS_API = 'https://services.baxus.co/api/search/assets?size=100&from=0&ownerId=5616';
+    let allBottles = [];
+
+    // ── Fetch from Baxus API ──
+    async function loadCollection() {
+      try {
+        const res = await fetch(BAXUS_API);
+        const data = await res.json();
+
+        // Deduplicate: keep best entry per unique name
+        const seen = new Map();
+        for (const a of data.assets) {
+          const s = a._source;
+          const key = s.name;
+          const br = s.bottle_release || {};
+          const imgs = br.bottle_release_images || [];
+          const img = br.image_url || (imgs[0] && imgs[0].image_url) || null;
+
+          if (!seen.has(key)) {
+            seen.set(key, {
+              name: s.name,
+              abv: br.abv || s.abv || null,
+              volume_ml: br.volume_ml || null,
+              vintage: br.vintage || null,
+              age: br.age_years || null,
+              description: (br.description || '').trim(),
+              image: img,
+            });
+          } else {
+            const ex = seen.get(key);
+            if (!ex.image && img) ex.image = img;
+          }
+        }
+
+        allBottles = Array.from(seen.values());
+        renderCollection(allBottles);
+      } catch (err) {
+        document.getElementById('collectionGrid').innerHTML =
+          '<p style="text-align:center;color:var(--text-muted);padding:60px 0;">Unable to load collection data. Please try again later.</p>';
+      }
+    }
+
+    // ── Render grid ──
+    function renderCollection(bottles) {
+      const grid = document.getElementById('collectionGrid');
+      if (!bottles.length) {
+        grid.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:60px 0;">No bottles found.</p>';
+        return;
+      }
+
+      grid.innerHTML = `<div class="collection-grid">${bottles.map(b => bottleCard(b)).join('')}</div>`;
+    }
+
+    // ── Card template ──
+    function bottleCard(b) {
+      const imgHtml = b.image
+        ? `<img src="${b.image}" alt="${escHtml(b.name)}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\"no-img\\">🥃</span>'">`
+        : `<span class="no-img">🥃</span>`;
+
+      const specs = [];
+      if (b.abv)       specs.push(`${b.abv}% ABV`);
+      if (b.volume_ml) specs.push(`${b.volume_ml}ml`);
+      if (b.vintage)   specs.push(b.vintage);
+      if (b.age)       specs.push(`${b.age}yr`);
+
+      const descHtml = b.description
+        ? `<p class="bottle-desc">${escHtml(b.description)}</p>`
+        : '';
+
+      const metaHtml = specs.length
+        ? `<div class="bottle-meta"><div class="bottle-specs">${specs.map(s => `<span>${escHtml(s)}</span>`).join('')}</div></div>`
+        : '';
+
+      return `
+        <div class="bottle-card">
+          <div class="bottle-img-wrap">${imgHtml}</div>
+          <div class="bottle-body">
+            <div class="bottle-name">${escHtml(b.name)}</div>
+            ${descHtml}
+            ${metaHtml}
+          </div>
+        </div>`;
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // ── Init ──
+    loadCollection();
+  </script>
+</body>
+</html>
