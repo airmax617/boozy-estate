@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Boozy Estate</title>
+  <meta name="description" content="Get in touch with Boozy Estate about collectible American whiskey decanters, the database, or the collection."/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .contact-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 80px 28px 120px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 48px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: #160d02;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 16px;
+      color: var(--cream);
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.92rem;
+      transition: border-color 0.2s;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--amber-dark);
+    }
+
+    .form-group textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .form-group select option {
+      background: #160d02;
+    }
+
+    .form-submit {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 8px;
+    }
+
+    .form-note {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .contact-alt {
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .contact-method {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .contact-method-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .contact-method a {
+      color: var(--cream-dim);
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+
+    .contact-method a:hover { color: var(--cream); }
+
+    .success-msg {
+      display: none;
+      background: rgba(200,132,26,0.1);
+      border: 1px solid var(--amber-dark);
+      border-radius: 4px;
+      padding: 16px 20px;
+      color: var(--amber-light);
+      font-size: 0.88rem;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Boozy <span>Estate</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="history.html">History</a></li>
+        <li><a href="valuing.html">Valuing Your Collection</a></li>
+        <li><a href="collection.html">The Collection</a></li>
+        <li><a href="decanters.html">Decanter Database</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="page-header" style="padding-bottom: 20px;">
+    <p class="eyebrow">Get In Touch</p>
+    <h1>Contact <span>Boozy Estate</span></h1>
+    <p>Questions about a decanter, the database, valuation, or the collection? Send a message.</p>
+  </header>
+
+  <div class="contact-wrap">
+
+    <form
+      class="contact-form"
+      action="https://formsubmit.co/ajax/boozyestate@gmail.com"
+      method="POST"
+      id="contactForm"
+    >
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="First and last name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Topic</label>
+        <select id="subject" name="subject">
+          <option value="general">General Question</option>
+          <option value="decanter">Decanter Identification</option>
+          <option value="valuation">Valuation Help</option>
+          <option value="database">Database Correction / Addition</option>
+          <option value="buying">Buying / Selling</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell me what's on your mind…" required></textarea>
+      </div>
+
+      <div class="form-submit">
+        <button type="submit" class="btn btn-primary">Send Message →</button>
+        <span class="form-note">Usually reply within 48 hours.</span>
+      </div>
+
+      <div class="success-msg" id="successMsg">
+        Message sent — thank you. I'll be in touch soon.
+      </div>
+    </form>
+
+    <div class="contact-alt">
+      <div class="contact-method">
+        <span class="contact-method-label">Email Direct</span>
+        <a href="mailto:boozyestate@gmail.com">boozyestate@gmail.com</a>
+      </div>
+      <div class="contact-method">
+        <span class="contact-method-label">Decanter Database</span>
+        <a href="decanters.html">Search 2,248 entries →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-logo">Boozy <span>Estate</span></div>
+    <p class="footer-tagline">American Whiskey Collectibles</p>
+    <ul class="footer-links">
+      <li><a href="history.html">History</a></li>
+      <li><a href="valuing.html">Valuing</a></li>
+      <li><a href="collection.html">Collection</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Boozy Estate. All rights reserved.</p>
+  </footer>
+
+  <script src="nav.js"></script>
+  <script>
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        subject: form.subject.value,
+        message: form.message.value
+      };
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (res.ok) {
+          form.reset();
+          document.getElementById('successMsg').style.display = 'block';
+        } else {
+          window.location.href = 'mailto:boozyestate@gmail.com';
+        }
+      } catch {
+        window.location.href = 'mailto:boozyestate@gmail.com';
+      }
+    });
+  </script>
+</body>
+</html>

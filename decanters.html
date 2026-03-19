@@ -36,6 +36,8 @@
       font-size: 0.88rem;
     }
     .db-search:focus { outline: none; border-color: var(--amber); }
+    a.baxus-link { color: var(--amber); text-decoration: none; }
+    a.baxus-link:hover { text-decoration: underline; }
     .db-search::placeholder { color: var(--text-muted); }
     .db-select {
       background: var(--dark);
@@ -225,6 +227,13 @@
   <div class="db-controls">
     <div class="db-controls-inner">
       <input type="text" class="db-search" id="searchInput" placeholder="Search by name, series, year…" autocomplete="off"/>
+      <select class="db-select" id="brandFilter">
+        <option value="">All Brands</option>
+        <option value="Jim Beam">Jim Beam</option>
+        <option value="Ezra Brooks">Ezra Brooks</option>
+        <option value="Ski Country">Ski Country</option>
+        <option value="JB Go-Withs">JB Go-Withs</option>
+      </select>
       <select class="db-select" id="categoryFilter">
         <option value="">All Categories</option>
         <option value="Automotive">Automotive</option>
@@ -271,6 +280,7 @@
       <thead>
         <tr>
           <th data-sort="name">Name <span class="sort-arrow">↕</span></th>
+          <th data-sort="brand">Brand <span class="sort-arrow">↕</span></th>
           <th data-sort="category">Category <span class="sort-arrow">↕</span></th>
           <th data-sort="series">Series <span class="sort-arrow">↕</span></th>
           <th data-sort="year">Year <span class="sort-arrow">↕</span></th>
@@ -2691,20 +2701,62 @@
   ];
 
   // ─── VAULT COLLECTION MATCHING ───
-  let vaultNames = new Set();
+  let vaultMap = new Map(); // normalized name → baxus_url
   let vaultCount = 0;
+
+  // Normalize: expand year abbreviations ('69 → 1969), strip punctuation
+  function normalizeN(s) {
+    return (s || '').toLowerCase()
+      .replace(/'(\d{2})\b/g, (_, y) => (parseInt(y) >= 50 ? '19' : '20') + y)
+      .replace(/[^a-z0-9]/g, ' ')
+      .trim();
+  }
+
+  // Manual aliases for known name mismatches
+  const ALIASES = [
+    [/\bdemocrat\b/g,   'political donkey'],
+    [/\brepublican\b/g, 'political elephant'],
+    [/\bchevy\b/g,      'chevrolet'],
+    [/\bvw\b/g,         'volkswagen'],
+  ];
+  function applyAliases(s) {
+    for (const [pat, rep] of ALIASES) s = s.replace(pat, rep);
+    return s;
+  }
+
+  // Generic words to ignore in reverse matching
+  const GENERIC = new Set(['beam','month','year','decanter','bottling','bottle','collection','series','mini','half','gallon','liter']);
+
+  function getVaultUrl(d) {
+    if (vaultMap.size === 0) return null;
+    const dbNorm = applyAliases(normalizeN(d.name));
+    const dbWords = dbNorm.split(' ').filter(w => w.length > 3);
+
+    for (const [vn, url] of vaultMap) {
+      const vnNorm = applyAliases(vn);
+
+      // Forward: DB words found in vault name
+      const fwd = dbWords.filter(w => vnNorm.includes(w)).length;
+      if (fwd >= 2 && fwd >= dbWords.length * 0.6) return url || null;
+
+      // Reverse: vault words (non-generic) found in DB name
+      const vnWords = vnNorm.split(' ').filter(w => w.length > 3 && !GENERIC.has(w));
+      const rev = vnWords.filter(w => dbNorm.includes(w)).length;
+      if (rev >= 2 && rev >= vnWords.length * 0.6) return url || null;
+    }
+    return null;
+  }
 
   fetch('manifest.json')
     .then(r => r.json())
     .then(manifest => {
       manifest.forEach(b => {
         if (b.brand && b.brand.toLowerCase().includes('jim beam')) {
-          const n = (b.name || '').toLowerCase().replace(/[^a-z0-9]/g,' ').trim();
-          vaultNames.add(n);
+          const n = normalizeN(b.name || '');
+          vaultMap.set(n, b.baxus_url || '');
         }
       });
-      // Count approx matches
-      vaultCount = DECANTERS.filter(d => isInVault(d)).length;
+      vaultCount = DECANTERS.filter(d => getVaultUrl(d) !== null).length;
       document.getElementById('statCollection').textContent = vaultCount;
       render();
     })
@@ -2713,17 +2765,6 @@
       render();
     });
 
-  function isInVault(d) {
-    if (vaultNames.size === 0) return false;
-    const searchName = d.name.toLowerCase().replace(/[^a-z0-9]/g,' ').trim();
-    const words = searchName.split(' ').filter(w => w.length > 3);
-    for (const vn of vaultNames) {
-      const matchCount = words.filter(w => vn.includes(w)).length;
-      if (matchCount >= 2 && matchCount >= words.length * 0.6) return true;
-    }
-    return false;
-  }
-
   // ─── STATE ───
   let currentSort = {key: 'name', dir: 1};
   let filtered = [...DECANTERS];
@@ -2731,7 +2772,15 @@
   document.getElementById('statTotal').textContent = DECANTERS.length;
 
   // ─── CONTROLS ───
+  function getBrand(d) {
+    if (d.category === 'Ezra Brooks') return 'Ezra Brooks';
+    if (d.category === 'Ski Country') return 'Ski Country';
+    if (d.category === 'JB Go-Withs') return 'JB Go-Withs';
+    return 'Jim Beam';
+  }
+
   document.getElementById('searchInput').addEventListener('input', render);
+  document.getElementById('brandFilter').addEventListener('change', render);
   document.getElementById('categoryFilter').addEventListener('change', render);
   document.getElementById('sortSelect').addEventListener('change', e => {
     const [k, d] = e.target.value.split('_');
@@ -2758,12 +2807,14 @@
   // ─── RENDER ───
   function render() {
     const q = document.getElementById('searchInput').value.toLowerCase();
+    const brand = document.getElementById('brandFilter').value;
     const cat = document.getElementById('categoryFilter').value;
     const collOnly = document.getElementById('collectionOnly').checked;
 
     filtered = DECANTERS.filter(d => {
+      if (brand && getBrand(d) !== brand) return false;
       if (cat && d.category !== cat) return false;
-      if (collOnly && !isInVault(d)) return false;
+      if (collOnly && !getVaultUrl(d)) return false;
       if (q) {
         const hay = `${d.name} ${d.series} ${d.category} ${d.year || ''}`.toLowerCase();
         return q.split(' ').every(w => hay.includes(w));
@@ -2794,9 +2845,11 @@
     noRes.style.display = 'none';
 
     tbody.innerHTML = filtered.map(d => {
-      const inColl = isInVault(d);
+      const baxusUrl = getVaultUrl(d);
+      const inColl = baxusUrl !== null;
+      const brand = getBrand(d);
       const nameHtml = inColl
-        ? `<span class="in-collection-dot" title="In your Baxus vault"></span>${esc(d.name)}`
+        ? `<span class="in-collection-dot" title="In your Baxus vault"></span>${baxusUrl ? `<a href="${baxusUrl}" target="_blank" rel="noopener" class="baxus-link">${esc(d.name)}</a>` : esc(d.name)}`
         : esc(d.name);
       const valueHtml = d.notes === 'RARE'
         ? `<span class="rare-cell">RARE</span>`
@@ -2809,6 +2862,7 @@
 
       return `<tr>
         <td class="name-cell">${nameHtml}</td>
+        <td style="white-space:nowrap;font-size:0.78rem;color:var(--amber-light)">${esc(brand)}</td>
         <td>${esc(d.category)}</td>
         <td><span class="series-badge">${esc(d.series)}</span></td>
         <td>${d.year || '<span style="color:var(--text-muted)">N/A</span>'}</td>
