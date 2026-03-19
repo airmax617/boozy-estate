@@ -7,104 +7,338 @@
   <meta name="description" content="A complete timeline of American whiskey from colonial corn mash to the modern craft boom — distillers, brands, and products for every era."/>
   <link rel="stylesheet" href="style.css"/>
   <style>
-    /* ─── TIMELINE SPINE ─── */
-    .timeline { position: relative; padding-top: 60px; }
-    .timeline::before {
+
+    /* ── GRAIN OVERLAY ── */
+    body::after {
       content: '';
-      position: absolute;
-      left: 50%;
-      top: 0; bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, transparent, var(--border-gold) 5%, var(--border-gold) 95%, transparent);
-      transform: translateX(-50%);
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 128px 128px;
     }
 
-    .era { position: relative; margin-bottom: 64px; }
-    .era::before {
-      content: '';
-      position: absolute;
-      left: 50%; top: 28px;
-      width: 14px; height: 14px;
-      background: var(--amber);
-      border: 3px solid var(--dark);
-      border-radius: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
+    /* ── ERA NAV (scrollspy) ── */
+    .era-nav {
+      position: sticky;
+      top: 64px;
+      z-index: 90;
+      background: rgba(10, 6, 2, 0.95);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .era-nav::-webkit-scrollbar { display: none; }
+
+    .era-nav-inner {
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      height: 48px;
+      gap: 0;
+      min-width: max-content;
     }
 
-    .era-inner {
+    .era-nav a {
+      font-size: 0.64rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0 18px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .era-nav a:hover { color: var(--cream-dim); }
+    .era-nav a.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+    /* ── ERA SECTION ── */
+    .era-section {
+      position: relative;
+      padding: 100px 0 80px;
+      border-bottom: 1px solid rgba(74,48,16,0.4);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .era-section.visible { opacity: 1; transform: translateY(0); }
+
+    /* Huge watermark year */
+    .era-watermark {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(100px, 18vw, 220px);
+      font-weight: 900;
+      color: var(--amber);
+      opacity: 0.04;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+    }
+
+    /* Alternating background tints */
+    .era-section:nth-child(even) { background: rgba(26, 18, 8, 0.6); }
+
+    .era-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0 60px;
+      grid-template-columns: 320px 1fr;
+      gap: 64px;
       align-items: start;
     }
 
-    .era:nth-child(odd)  .era-header { grid-column: 1; text-align: right; padding-right: 30px; }
-    .era:nth-child(odd)  .era-body   { grid-column: 2; padding-left: 30px; }
-    .era:nth-child(even) .era-header { grid-column: 2; text-align: left; padding-left: 0; }
-    .era:nth-child(even) .era-body   { grid-column: 1; grid-row: 1; text-align: right; padding-right: 30px; }
+    /* ── ERA LEFT: date + title ── */
+    .era-left { position: sticky; top: 140px; }
 
-    .era-header { padding-top: 12px; }
-
-    .era-header .date-range {
+    .era-date {
       font-family: 'Playfair Display', serif;
-      font-size: 2.2rem;
-      font-weight: 700;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 900;
       color: var(--amber);
-      display: block;
       line-height: 1;
+      display: block;
+      margin-bottom: 12px;
     }
 
-    .era-header h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--cream);
-      margin-top: 6px;
-      line-height: 1.3;
-    }
-
-    .era-body { padding-top: 12px; }
-    .era-body p { color: var(--cream-dim); font-size: 0.9rem; margin-bottom: 14px; }
-
-    .brands-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
+    .era-pill {
+      display: inline-block;
+      background: rgba(200,132,26,0.12);
+      border: 1px solid var(--amber-dark);
+      border-radius: 2px;
+      padding: 3px 10px;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--amber);
-      margin-bottom: 8px;
+      margin-bottom: 16px;
     }
 
-    .brand-cards { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-    .era:nth-child(even) .brand-cards { justify-content: flex-start; }
-    .era:nth-child(odd)  .brand-cards { justify-content: flex-end; }
+    .era-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
 
-    .brand-card {
-      background: #1e1000;
+    .era-spine {
+      width: 2px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--amber), transparent);
+      margin-top: 24px;
+      opacity: 0.5;
+    }
+
+    /* ── ERA RIGHT: content ── */
+    .era-right {}
+
+    .era-body p {
+      color: var(--cream-dim);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    .era-body strong { color: var(--cream); }
+    .era-body em { color: var(--amber-light); font-style: italic; }
+
+    /* ── BRAND GRID ── */
+    .brands-section {
+      margin-top: 36px;
+    }
+
+    .brands-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brands-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+    }
+
+    .brand-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand-tile {
+      background: #160d02;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.2s, background 0.2s;
+      min-width: 180px;
+      flex: 1;
+    }
+    .brand-tile:hover {
+      border-color: var(--amber-dark);
+      background: #1e1207;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 3px;
+    }
+
+    .brand-logo-text {
+      width: 36px;
+      height: 36px;
+      border-radius: 4px;
+      background: rgba(200,132,26,0.15);
+      border: 1px solid var(--amber-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      font-weight: 900;
+      color: var(--amber);
+    }
+
+    .brand-info {}
+    .brand-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--cream);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .brand-prods {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ── SPOTLIGHT ── */
+    .spotlight {
+      position: relative;
+      background: linear-gradient(135deg, #200f00, #2e1800);
+      border: 1px solid var(--border-gold);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 4px 4px 0;
+      padding: 20px 24px;
+      margin: 28px 0;
+      font-size: 0.88rem;
+      color: var(--cream-dim);
+      line-height: 1.7;
+    }
+    .spotlight strong { color: var(--amber); }
+    .spotlight a { color: var(--amber-light); }
+    .spotlight a:hover { color: var(--amber); }
+
+    /* ── STAT BARS ── */
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .stat-box {
+      background: #160d02;
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 6px 12px;
+      padding: 16px 20px;
+      flex: 1;
+      min-width: 130px;
     }
-    .brand-card .brand-name  { font-size: 0.8rem; font-weight: 600; color: var(--cream); display: block; }
-    .brand-card .brand-prods { font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 2px; }
 
-    @media (max-width: 680px) {
-      .timeline::before { left: 20px; }
-      .era::before { left: 20px; }
-      .era-inner { grid-template-columns: 1fr; padding-left: 44px; }
-      .era:nth-child(odd)  .era-header,
-      .era:nth-child(even) .era-header,
-      .era:nth-child(odd)  .era-body,
-      .era:nth-child(even) .era-body {
-        grid-column: 1; grid-row: auto;
-        text-align: left; padding: 0;
-      }
-      .era:nth-child(odd)  .brand-cards,
-      .era:nth-child(even) .brand-cards { justify-content: flex-start; }
+    .stat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--amber);
+      line-height: 1;
+      display: block;
     }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ── NEXT CTA ── */
+    .next-cta {
+      background: var(--dark-mid);
+      border-top: 1px solid var(--border);
+      padding: 80px 28px;
+      text-align: center;
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--amber);
+      z-index: 200;
+      transition: width 0.1s;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      .era-wrapper { grid-template-columns: 1fr; gap: 24px; }
+      .era-left { position: static; }
+      .era-spine { display: none; }
+      .era-watermark { font-size: 28vw; right: -10px; top: -10px; }
+    }
+    @media (max-width: 560px) {
+      .era-wrapper { padding: 0 20px; }
+      .brand-tile { min-width: 100%; }
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- SCROLL PROGRESS BAR -->
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- NAV -->
   <nav class="site-nav">
@@ -117,262 +351,759 @@
         <li><a href="history.html" class="active">History</a></li>
         <li><a href="valuing.html">Valuing Your Collection</a></li>
         <li><a href="collection.html">The Collection</a></li>
+        <li><a href="decanters.html">Decanter Database</a></li>
       </ul>
     </div>
   </nav>
 
+  <!-- ERA SCROLLSPY NAV -->
+  <nav class="era-nav" id="eraNave">
+    <div class="era-nav-inner">
+      <a href="#era-1620" data-era="era-1620">1620–1790</a>
+      <a href="#era-1791" data-era="era-1791">1791–1819</a>
+      <a href="#era-1820" data-era="era-1820">1820–1860</a>
+      <a href="#era-1861" data-era="era-1861">1861–1896</a>
+      <a href="#era-1897" data-era="era-1897">1897–1919</a>
+      <a href="#era-1920" data-era="era-1920">1920–1933</a>
+      <a href="#era-1933" data-era="era-1933">1933–1954</a>
+      <a href="#era-1955" data-era="era-1955">1955–1969</a>
+      <a href="#era-1970" data-era="era-1970">1970–1989</a>
+      <a href="#era-1990" data-era="era-1990">1990–2009</a>
+      <a href="#era-2010" data-era="era-2010">2010–Now</a>
+    </div>
+  </nav>
+
   <!-- PAGE HEADER -->
-  <header class="page-header">
-    <p class="eyebrow">Bucket Two — Background</p>
+  <header class="page-header" style="padding-bottom: 60px;">
+    <p class="eyebrow">400 Years · 11 Eras</p>
     <h1>History of <span>American Whiskey</span></h1>
-    <p>From colonial corn mash to ceramic collectibles — a complete timeline of the distillers, brands, and products that shaped the American spirit.</p>
+    <p>From colonial corn mash to ceramic collectibles — a complete timeline of the distillers, brands, and cultural moments that shaped the American spirit.</p>
   </header>
 
-  <!-- TIMELINE -->
-  <div class="wrapper" style="padding-top: 20px;">
-    <div class="timeline">
 
-      <!-- 1 -->
-      <div class="era">
-        <div class="era-inner">
-          <div class="era-header">
-            <span class="date-range">1620–1790</span>
-            <h2>The Colonial Era &amp; Birth of American Distilling</h2>
+  <!-- ════════════════════════════════════════ -->
+  <!-- ERA 1: Colonial -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="era-section" id="era-1620">
+    <div class="era-watermark">1620</div>
+    <div class="era-wrapper">
+
+      <div class="era-left">
+        <span class="era-date">1620–1790</span>
+        <span class="era-pill">Era 01</span>
+        <h2 class="era-title">The Colonial Era &amp; Birth of American Distilling</h2>
+        <div class="era-spine"></div>
+      </div>
+
+      <div class="era-right">
+        <div class="era-body">
+          <p>European colonists brought distilling traditions from Ireland and Scotland, but barley proved difficult to grow in the New World. They adapted — rye in the North, corn in the South. <strong>George Thorpe</strong> is credited with the first corn distillate in Virginia around 1620.</p>
+          <p>By the late 1700s, rye whiskey dominated the Mid-Atlantic — Pennsylvania and Maryland — known as <em>Monongahela rye</em>. George Washington operated one of the largest rye distilleries in the country at Mount Vernon, producing 11,000 gallons in 1799 alone.</p>
+
+          <div class="stat-row">
+            <div class="stat-box">
+              <span class="stat-val">1620</span>
+              <span class="stat-label">First corn distillate, Virginia</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val">11K</span>
+              <span class="stat-label">Gallons from Mount Vernon, 1799</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val">~1783</span>
+              <span class="stat-label">Evan Williams begins in Louisville</span>
+            </div>
           </div>
-          <div class="era-body">
-            <p>European colonists brought distilling traditions from Ireland and Scotland, but barley proved difficult to grow. They adapted — rye in the North, corn in the South. George Thorpe is credited with the first corn distillate in Virginia around 1620.</p>
-            <p>By the late 1700s, rye whiskey dominated the Mid-Atlantic — Pennsylvania and Maryland — known as <em>Monongahela rye</em>. George Washington operated one of the largest rye distilleries in the country at Mount Vernon.</p>
-            <div class="brands-label">Key Producers</div>
-            <div class="brand-cards">
-              <div class="brand-card"><span class="brand-name">George Washington / Mount Vernon</span><span class="brand-prods">Rye Whiskey (est. 1797)</span></div>
-              <div class="brand-card"><span class="brand-name">Robert Hare (Philadelphia)</span><span class="brand-prods">Rye Whiskey, Porter</span></div>
-              <div class="brand-card"><span class="brand-name">Evan Williams (Louisville, KY)</span><span class="brand-prods">Corn Whiskey (est. ~1783)</span></div>
+        </div>
+
+        <div class="brands-section">
+          <div class="brands-label">Key Producers</div>
+          <div class="brand-grid">
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/mountvernon.org" alt="Mount Vernon" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">GW</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">George Washington / Mount Vernon</span>
+                <span class="brand-prods">Rye Whiskey (est. 1797)</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/heavenhill.com" alt="Evan Williams" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">EW</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Evan Williams</span>
+                <span class="brand-prods">Corn Whiskey, Louisville KY (est. ~1783)</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo-text">RH</div>
+              <div class="brand-info">
+                <span class="brand-name">Robert Hare, Philadelphia</span>
+                <span class="brand-prods">Rye Whiskey &amp; Porter</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- 2 -->
-      <div class="era">
-        <div class="era-inner">
-          <div class="era-header">
-            <span class="date-range">1791–1819</span>
-            <h2>The Whiskey Rebellion &amp; Westward Migration</h2>
-          </div>
-          <div class="era-body">
-            <p>Hamilton's 1791 excise tax ignited the <strong>Whiskey Rebellion</strong> — farmers in western Pennsylvania refused to pay and took up arms. Washington dispatched 13,000 militia, the first federal use of military force domestically.</p>
-            <p>Many distillers fled south into Kentucky and Tennessee to escape taxation, inadvertently accelerating the rise of bourbon. Jefferson repealed the tax in 1801.</p>
-            <div class="brands-label">Key Producers</div>
-            <div class="brand-cards">
-              <div class="brand-card"><span class="brand-name">Jacob Beam</span><span class="brand-prods">Old Jake Beam Sour Mash (est. 1795)</span></div>
-              <div class="brand-card"><span class="brand-name">Elijah Craig</span><span class="brand-prods">Bourbon Whiskey, Kentucky</span></div>
-              <div class="brand-card"><span class="brand-name">Jasper "Jack" Daniel</span><span class="brand-prods">Tennessee Whiskey (est. 1795 trad.)</span></div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- ERA 2: Whiskey Rebellion -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="era-section" id="era-1791">
+    <div class="era-watermark">1791</div>
+    <div class="era-wrapper">
+
+      <div class="era-left">
+        <span class="era-date">1791–1819</span>
+        <span class="era-pill">Era 02</span>
+        <h2 class="era-title">The Whiskey Rebellion &amp; Westward Migration</h2>
+        <div class="era-spine"></div>
+      </div>
+
+      <div class="era-right">
+        <div class="era-body">
+          <p>Hamilton's 1791 excise tax ignited the <strong>Whiskey Rebellion</strong> — farmers in western Pennsylvania refused to pay and took up arms. Washington dispatched 13,000 militia, the first federal use of military force on domestic soil.</p>
+          <p>Many distillers fled south into Kentucky and Tennessee to escape taxation, inadvertently accelerating the rise of bourbon. Jefferson repealed the tax in 1801, but the migration had already planted the seeds of a new American spirit.</p>
+        </div>
+
+        <div class="spotlight">
+          <strong>The Pivot Point:</strong> The Whiskey Rebellion is why bourbon exists. Pennsylvania rye distillers who fled south brought their expertise to Kentucky — where cheap corn, limestone-filtered water, and charred oak barrels would produce something entirely new.
+        </div>
+
+        <div class="brands-section">
+          <div class="brands-label">Founding Producers</div>
+          <div class="brand-grid">
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/jimbeam.com" alt="Jim Beam" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">JB</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Jacob Beam</span>
+                <span class="brand-prods">Old Jake Beam Sour Mash (est. 1795)</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/jackdaniels.com" alt="Jack Daniel's" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">JD</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Jasper "Jack" Daniel</span>
+                <span class="brand-prods">Tennessee Whiskey (est. 1795 trad.)</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo-text">EC</div>
+              <div class="brand-info">
+                <span class="brand-name">Elijah Craig</span>
+                <span class="brand-prods">Bourbon Whiskey, Kentucky</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- 3 -->
-      <div class="era">
-        <div class="era-inner">
-          <div class="era-header">
-            <span class="date-range">1820–1860</span>
-            <h2>Rise of Bourbon &amp; the Sour Mash Revolution</h2>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- ERA 3: Rise of Bourbon -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="era-section" id="era-1820">
+    <div class="era-watermark">1820</div>
+    <div class="era-wrapper">
+
+      <div class="era-left">
+        <span class="era-date">1820–1860</span>
+        <span class="era-pill">Era 03</span>
+        <h2 class="era-title">Rise of Bourbon &amp; the Sour Mash Revolution</h2>
+        <div class="era-spine"></div>
+      </div>
+
+      <div class="era-right">
+        <div class="era-body">
+          <p>Bourbon barrels shipped down the Ohio and Mississippi rivers were inadvertently aged during transport — drinkers started requesting <em>"that old Bourbon County whiskey"</em> by name. Charred oak and time had done something remarkable.</p>
+          <p>In 1823, Scottish chemist <strong>Dr. James Crow</strong> perfected the sour mash process at what is now Woodford Reserve Distillery, giving bourbon its signature consistency and repeatability. By 1810, Kentucky produced 2.2 million gallons annually.</p>
+
+          <div class="stat-row">
+            <div class="stat-box">
+              <span class="stat-val">2.2M</span>
+              <span class="stat-label">Gallons from Kentucky, 1810</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val">1823</span>
+              <span class="stat-label">Sour mash perfected by Dr. Crow</span>
+            </div>
           </div>
-          <div class="era-body">
-            <p>Bourbon barrels shipped down the Ohio and Mississippi rivers were inadvertently aged during transport — drinkers started requesting "that old Bourbon County whiskey" by name.</p>
-            <p>In 1823, Scottish chemist <strong>Dr. James Crow</strong> perfected the sour mash process at what is now Woodford Reserve Distillery, giving bourbon its signature consistency. By 1810, Kentucky produced 2.2 million gallons annually.</p>
-            <div class="brands-label">Key Producers &amp; Products</div>
-            <div class="brand-cards">
-              <div class="brand-card"><span class="brand-name">Old Crow Distillery</span><span class="brand-prods">Old Crow Bourbon (Dr. Crow's recipe)</span></div>
-              <div class="brand-card"><span class="brand-name">W.L. Weller &amp; Sons</span><span class="brand-prods">Weller Wheated Bourbon (est. 1849)</span></div>
-              <div class="brand-card"><span class="brand-name">Buffalo Trace (Leestown)</span><span class="brand-prods">Various straight bourbons</span></div>
+        </div>
+
+        <div class="brands-section">
+          <div class="brands-label">Key Producers &amp; Products</div>
+          <div class="brand-grid">
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/woodfordreserve.com" alt="Woodford Reserve" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">WR</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Old Crow Distillery</span>
+                <span class="brand-prods">Old Crow Bourbon (Dr. Crow's sour mash)</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/wlweller.com" alt="W.L. Weller" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">WL</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">W.L. Weller &amp; Sons</span>
+                <span class="brand-prods">Wheated Bourbon (est. 1849)</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/buffalotrace.com" alt="Buffalo Trace" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">BT</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Buffalo Trace (Leestown)</span>
+                <span class="brand-prods">Various straight bourbons</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- 4 -->
-      <div class="era">
-        <div class="era-inner">
-          <div class="era-header">
-            <span class="date-range">1861–1896</span>
-            <h2>Civil War, Cocktail Culture &amp; the Gilded Age</h2>
-          </div>
-          <div class="era-body">
-            <p>The Civil War exposed bourbon to soldiers on both sides, expanding its reach nationally. Meanwhile, New York's cocktail culture — Manhattans, Old Fashioneds, Whiskey Sours — was built almost entirely on rye.</p>
-            <p>Old Forester launched in 1870 as the first bourbon sold exclusively in sealed bottles, setting a new standard for consistency. E.H. Taylor Jr. modernized production with scientific rigor.</p>
-            <div class="brands-label">Key Producers &amp; Products</div>
-            <div class="brand-cards">
-              <div class="brand-card"><span class="brand-name">Brown-Forman / George Garvin Brown</span><span class="brand-prods">Old Forester Bourbon (est. 1870)</span></div>
-              <div class="brand-card"><span class="brand-name">E.H. Taylor Jr.</span><span class="brand-prods">Old Taylor Bourbon, Old Crow</span></div>
-              <div class="brand-card"><span class="brand-name">James E. Pepper Distillery</span><span class="brand-prods">James E. Pepper Rye &amp; Bourbon</span></div>
-              <div class="brand-card"><span class="brand-name">George T. Stagg Distillery</span><span class="brand-prods">George T. Stagg Bourbon</span></div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- ERA 4: Civil War -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="era-section" id="era-1861">
+    <div class="era-watermark">1861</div>
+    <div class="era-wrapper">
+
+      <div class="era-left">
+        <span class="era-date">1861–1896</span>
+        <span class="era-pill">Era 04</span>
+        <h2 class="era-title">Civil War, Cocktail Culture &amp; the Gilded Age</h2>
+        <div class="era-spine"></div>
+      </div>
+
+      <div class="era-right">
+        <div class="era-body">
+          <p>The Civil War exposed bourbon to soldiers on both sides, expanding its reach nationally. Meanwhile, New York's cocktail culture — Manhattans, Old Fashioneds, Whiskey Sours — was built almost entirely on rye whiskey.</p>
+          <p><strong>Old Forester</strong> launched in 1870 as the first bourbon sold exclusively in sealed bottles, setting a new standard for consistency and authenticity. <strong>E.H. Taylor Jr.</strong> modernized production with scientific rigor and bonded warehouses.</p>
+        </div>
+
+        <div class="brands-section">
+          <div class="brands-label">Key Producers &amp; Products</div>
+          <div class="brand-grid">
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/oldforester.com" alt="Old Forester" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">OF</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Brown-Forman / George G. Brown</span>
+                <span class="brand-prods">Old Forester Bourbon (est. 1870)</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/coloneltaylor.com" alt="E.H. Taylor" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">EH</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">E.H. Taylor Jr.</span>
+                <span class="brand-prods">Old Taylor Bourbon, Old Crow</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/buffalotrace.com" alt="Buffalo Trace" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">GS</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">George T. Stagg Distillery</span>
+                <span class="brand-prods">George T. Stagg Bourbon</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo-text">JP</div>
+              <div class="brand-info">
+                <span class="brand-name">James E. Pepper Distillery</span>
+                <span class="brand-prods">Pepper Rye &amp; Bourbon</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- 5 -->
-      <div class="era">
-        <div class="era-inner">
-          <div class="era-header">
-            <span class="date-range">1897–1919</span>
-            <h2>Bottled-in-Bond Act &amp; the Last Golden Age</h2>
-          </div>
-          <div class="era-body">
-            <p>Unscrupulous rectifiers were adulterating whiskey with prune juice, iodine, and tobacco. Legitimate distillers lobbied Congress to pass the <strong>Bottled-in-Bond Act of 1897</strong> — the first federal consumer protection law for food and drink.</p>
-            <p>On the eve of Prohibition, Kentucky alone had over 2,000 registered distilleries. Pennsylvania's rye industry was equally massive.</p>
-            <div class="brands-label">Key Producers &amp; Products</div>
-            <div class="brand-cards">
-              <div class="brand-card"><span class="brand-name">A. Ph. Stitzel Distillery</span><span class="brand-prods">Stitzel-Weller Wheated Bourbons</span></div>
-              <div class="brand-card"><span class="brand-name">Jack Daniel's</span><span class="brand-prods">Old No. 7, Lem Motlow products</span></div>
-              <div class="brand-card"><span class="brand-name">Heaven Hill founding families</span><span class="brand-prods">Various KY straight bourbons</span></div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- ERA 5: Bottled-in-Bond -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="era-section" id="era-1897">
+    <div class="era-watermark">1897</div>
+    <div class="era-wrapper">
+
+      <div class="era-left">
+        <span class="era-date">1897–1919</span>
+        <span class="era-pill">Era 05</span>
+        <h2 class="era-title">Bottled-in-Bond Act &amp; the Last Golden Age</h2>
+        <div class="era-spine"></div>
+      </div>
+
+      <div class="era-right">
+        <div class="era-body">
+          <p>Unscrupulous rectifiers were adulterating whiskey with prune juice, iodine, and tobacco. Legitimate distillers lobbied Congress and passed the <strong>Bottled-in-Bond Act of 1897</strong> — the first federal consumer protection law for food and drink in U.S. history.</p>
+          <p>On the eve of Prohibition, Kentucky alone had over 2,000 registered distilleries. Pennsylvania's rye industry was equally massive. This was the industry's last unconstrained golden age.</p>
+        </div>
+
+        <div class="spotlight">
+          <strong>The Bottled-in-Bond Stamp:</strong> To this day, "Bottled in Bond" on a label means the whiskey is from one distillery, one distilling season, aged at least 4 years in a federally bonded warehouse, and bottled at 100 proof. It remains the gold standard of American whiskey authenticity — invented in 1897.
+        </div>
+
+        <div class="brands-section">
+          <div class="brands-label">Key Producers &amp; Products</div>
+          <div class="brand-grid">
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/oldfitzgerald.com" alt="Old Fitzgerald" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">SF</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">A. Ph. Stitzel Distillery</span>
+                <span class="brand-prods">Stitzel-Weller Wheated Bourbons</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/jackdaniels.com" alt="Jack Daniel's" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">JD</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Jack Daniel's</span>
+                <span class="brand-prods">Old No. 7, Lem Motlow products</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/heavenhill.com" alt="Heaven Hill" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">HH</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Heaven Hill Founding Families</span>
+                <span class="brand-prods">Various Kentucky straight bourbons</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- 6 -->
-      <div class="era">
-        <div class="era-inner">
-          <div class="era-header">
-            <span class="date-range">1920–1933</span>
-            <h2>Prohibition &amp; the Collapse of an Industry</h2>
-          </div>
-          <div class="era-body">
-            <p>The 18th Amendment went into effect January 17, 1920. All but a handful of distilleries shuttered. Pennsylvania's 30+ large commercial distilleries were reduced to zero by Repeal. The U.S. government issued just six medicinal whiskey licenses.</p>
-            <p>Canadian rye and Scotch flooded in to replace American whiskey — habits that would reshape the market for decades after Repeal.</p>
-            <div class="brands-label">The Six Medicinal License Holders</div>
-            <div class="brand-cards">
-              <div class="brand-card"><span class="brand-name">Brown-Forman</span><span class="brand-prods">Old Forester (medicinal Rx bottles)</span></div>
-              <div class="brand-card"><span class="brand-name">Frankfort Distilleries</span><span class="brand-prods">Paul Jones Bourbon, Four Roses</span></div>
-              <div class="brand-card"><span class="brand-name">A. Ph. Stitzel Distillery</span><span class="brand-prods">Old Fitzgerald, W.L. Weller</span></div>
-              <div class="brand-card"><span class="brand-name">American Medicinal Spirits Co.</span><span class="brand-prods">Old Grand-Dad, Old Taylor</span></div>
-              <div class="brand-card"><span class="brand-name">Schenley Industries</span><span class="brand-prods">Schenley Rye, Cream of Kentucky</span></div>
-              <div class="brand-card"><span class="brand-name">James Thompson &amp; Brother</span><span class="brand-prods">Glenmore Bourbon, Kentucky Tavern</span></div>
-            </div>
-            <div class="spotlight"><strong>Collector Note:</strong> Prohibition-era "medicinal" bottles with Rx labels and physician's stamps are among the most historically significant — and valuable — American whiskey collectibles today.</div>
-          </div>
-        </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- ERA 6: Prohibition -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="era-section" id="era-1920">
+    <div class="era-watermark">1920</div>
+    <div class="era-wrapper">
+
+      <div class="era-left">
+        <span class="era-date">1920–1933</span>
+        <span class="era-pill">Era 06</span>
+        <h2 class="era-title">Prohibition &amp; the Collapse of an Industry</h2>
+        <div class="era-spine"></div>
       </div>
 
-      <!-- 7 -->
-      <div class="era">
-        <div class="era-inner">
-          <div class="era-header">
-            <span class="date-range">1933–1954</span>
-            <h2>Repeal &amp; the Rise of the Big Four Conglomerates</h2>
-          </div>
-          <div class="era-body">
-            <p>After Repeal, the industry was dominated by the <strong>"Big Four"</strong> — Schenley, Seagram, National Distillers, and Hiram Walker — who had accumulated aged stocks during Prohibition and now controlled most major brands.</p>
-            <p>Heaven Hill was founded in 1935 as one of the few new independent operations. Americans, now accustomed to Scotch and Canadian rye, were slow to return to straight bourbon.</p>
-            <div class="brands-label">The Big Four &amp; Their Brands</div>
-            <div class="brand-cards">
-              <div class="brand-card"><span class="brand-name">Schenley Industries</span><span class="brand-prods">I.W. Harper, Old Quaker, Golden Wedding Rye, James E. Pepper</span></div>
-              <div class="brand-card"><span class="brand-name">National Distillers</span><span class="brand-prods">Old Grand-Dad, Old Crow, Old Taylor, Bourbon de Luxe</span></div>
-              <div class="brand-card"><span class="brand-name">Seagram Company</span><span class="brand-prods">Four Roses, Calvert, Kessler, 7 Crown</span></div>
-              <div class="brand-card"><span class="brand-name">Hiram Walker</span><span class="brand-prods">Gooderham &amp; Worts, Canadian Club</span></div>
-              <div class="brand-card"><span class="brand-name">Heaven Hill (independent)</span><span class="brand-prods">Evan Williams, Elijah Craig (est. 1935)</span></div>
-            </div>
-          </div>
+      <div class="era-right">
+        <div class="era-body">
+          <p>The 18th Amendment went into effect January 17, 1920. All but a handful of distilleries shuttered. Pennsylvania's 30+ large commercial distilleries were reduced to zero by Repeal. The U.S. government issued just <strong>six medicinal whiskey licenses</strong> — the only legal American whiskey production for 13 years.</p>
+          <p>Canadian rye and Scotch flooded in to replace American whiskey — consumer habits that would reshape the entire market for decades after Repeal.</p>
         </div>
-      </div>
 
-      <!-- 8 -->
-      <div class="era">
-        <div class="era-inner">
-          <div class="era-header">
-            <span class="date-range">1955–1969</span>
-            <h2>Bourbon's Golden Peak &amp; the Decanter Era</h2>
-          </div>
-          <div class="era-body">
-            <p>The 1950s and '60s were bourbon's commercial zenith. Post-war prosperity and cocktail culture drove production to historic highs — too high. Warehouses overflowed with barrels aging longer than intended.</p>
-            <p>Jim Beam's response to the glut became iconic: starting in <strong>1955</strong>, they partnered with Illinois ceramics company <strong>Regal China</strong> to release novelty ceramic decanters. Over four decades, more than <strong>1,500 different decanters</strong> were issued. In 1964, Congress officially designated bourbon as <em>America's Native Spirit</em>.</p>
-            <div class="brands-label">Key Producers &amp; Products</div>
-            <div class="brand-cards">
-              <div class="brand-card"><span class="brand-name">Jim Beam (James B. Beam Distilling)</span><span class="brand-prods">White Label, Black Label; Regal China Decanters (1955–1992): State Series, Executive Series, Political Series, Trophy Series, Centennial Series, Club Series, People Series</span></div>
-              <div class="brand-card"><span class="brand-name">Wild Turkey (Austin Nichols)</span><span class="brand-prods">Wild Turkey 101, Wild Turkey 8yr</span></div>
-              <div class="brand-card"><span class="brand-name">Stitzel-Weller Distillery</span><span class="brand-prods">Old Fitzgerald, W.L. Weller, Rebel Yell</span></div>
-              <div class="brand-card"><span class="brand-name">Brown-Forman</span><span class="brand-prods">Old Forester, Early Times</span></div>
-              <div class="brand-card"><span class="brand-name">Heaven Hill</span><span class="brand-prods">Evan Williams, J.W. Dant, Fighting Cock</span></div>
-            </div>
-            <div class="spotlight"><strong>The Decanter Connection:</strong> Jim Beam's Regal China series (1955–1992) is the direct ancestor of the collectible market Boozy Estate covers. Peak collector interest hit in the late 1960s–early 1970s, with the Jim Beam Bottle &amp; Specialty Club reaching over 7,500 paying members.</div>
-          </div>
+        <div class="spotlight">
+          <strong>Collector Note:</strong> Prohibition-era "medicinal" bottles with Rx labels and physician's stamps are among the most historically significant — and valuable — American whiskey collectibles today. A sealed, labeled medicinal bottle from this era is a primary source document of the most disruptive period in American spirits history.
         </div>
-      </div>
 
-      <!-- 9 -->
-      <div class="era">
-        <div class="era-inner">
-          <div class="era-header">
-            <span class="date-range">1970–1989</span>
-            <h2>Bourbon's Dark Decades &amp; the Vodka Revolution</h2>
-          </div>
-          <div class="era-body">
-            <p>The cultural upheaval of the late '60s spilled into bourbon's bottom line. Young consumers rejected their parents' drinks, turning to vodka, tequila, and wine. By the 1980s, every rye whiskey distillery in the Mid-Atlantic had closed permanently.</p>
-            <p>But in the shadows, <strong>Maker's Mark</strong> and the Pappy Van Winkle family were quietly proving there was a market for premium, small-batch bourbon.</p>
-            <div class="brands-label">Surviving &amp; Adapting Brands</div>
-            <div class="brand-cards">
-              <div class="brand-card"><span class="brand-name">Maker's Mark</span><span class="brand-prods">Maker's Mark (red wax, wheated bourbon); first national ad 1980</span></div>
-              <div class="brand-card"><span class="brand-name">Jack Daniel's (Brown-Forman acq. 1956)</span><span class="brand-prods">Old No. 7; grew internationally through '70s–'80s</span></div>
-              <div class="brand-card"><span class="brand-name">Old Rip Van Winkle</span><span class="brand-prods">Pappy Van Winkle's Family Reserve (cult status begins)</span></div>
-              <div class="brand-card"><span class="brand-name">Heaven Hill</span><span class="brand-prods">Elijah Craig 12yr launched 1986</span></div>
+        <div class="brands-section">
+          <div class="brands-label">The Six Medicinal License Holders</div>
+          <div class="brand-grid">
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/oldforester.com" alt="Old Forester" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">BF</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Brown-Forman</span>
+                <span class="brand-prods">Old Forester (medicinal Rx bottles)</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/fourroses.us" alt="Four Roses" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">FR</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Frankfort Distilleries</span>
+                <span class="brand-prods">Paul Jones Bourbon, Four Roses</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/oldfitzgerald.com" alt="Old Fitzgerald" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">SW</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">A. Ph. Stitzel Distillery</span>
+                <span class="brand-prods">Old Fitzgerald, W.L. Weller</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo-text">AM</div>
+              <div class="brand-info">
+                <span class="brand-name">American Medicinal Spirits Co.</span>
+                <span class="brand-prods">Old Grand-Dad, Old Taylor</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo-text">SC</div>
+              <div class="brand-info">
+                <span class="brand-name">Schenley Industries</span>
+                <span class="brand-prods">Schenley Rye, Cream of Kentucky</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo-text">JT</div>
+              <div class="brand-info">
+                <span class="brand-name">James Thompson &amp; Brother</span>
+                <span class="brand-prods">Glenmore Bourbon, Kentucky Tavern</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- 10 -->
-      <div class="era">
-        <div class="era-inner">
-          <div class="era-header">
-            <span class="date-range">1990–2009</span>
-            <h2>The Premium Renaissance &amp; Small Batch Movement</h2>
-          </div>
-          <div class="era-body">
-            <p>Jim Beam's master distiller <strong>Booker Noe</strong> launched the <em>Small Batch Bourbon Collection</em> in 1992 — Knob Creek, Basil Hayden's, Baker's, and Booker's — and changed the industry's trajectory.</p>
-            <p>Buffalo Trace (renamed 1999) began releasing ultra-premium expressions. Woodford Reserve launched in 1996. By 2000, fewer than 50 distilleries operated in the entire U.S.</p>
-            <div class="brands-label">Key Producers &amp; Landmark Products</div>
-            <div class="brand-cards">
-              <div class="brand-card"><span class="brand-name">Jim Beam / Knob Creek (1992)</span><span class="brand-prods">Knob Creek 9yr, Basil Hayden's, Baker's 7yr, Booker's (uncut)</span></div>
-              <div class="brand-card"><span class="brand-name">Buffalo Trace Distillery</span><span class="brand-prods">Buffalo Trace, Blanton's Single Barrel, Eagle Rare</span></div>
-              <div class="brand-card"><span class="brand-name">Brown-Forman / Woodford Reserve</span><span class="brand-prods">Woodford Reserve Distiller's Select (1996)</span></div>
-              <div class="brand-card"><span class="brand-name">Wild Turkey</span><span class="brand-prods">Rare Breed (barrel proof), Russell's Reserve</span></div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- ERA 7: Post-Prohibition -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="era-section" id="era-1933">
+    <div class="era-watermark">1933</div>
+    <div class="era-wrapper">
+
+      <div class="era-left">
+        <span class="era-date">1933–1954</span>
+        <span class="era-pill">Era 07</span>
+        <h2 class="era-title">Repeal &amp; the Rise of the Big Four Conglomerates</h2>
+        <div class="era-spine"></div>
+      </div>
+
+      <div class="era-right">
+        <div class="era-body">
+          <p>After Repeal, the industry was dominated by the <strong>"Big Four"</strong> — Schenley, Seagram, National Distillers, and Hiram Walker — who had accumulated aged stocks during Prohibition and now controlled most major brands.</p>
+          <p>Heaven Hill was founded in 1935 as one of the few new independent operations. Americans, now accustomed to Scotch and Canadian rye, were slow to return to straight bourbon. The industry spent two decades rebuilding its audience.</p>
+        </div>
+
+        <div class="brands-section">
+          <div class="brands-label">The Big Four &amp; Their Brands</div>
+          <div class="brand-grid">
+            <div class="brand-tile">
+              <div class="brand-logo-text">SC</div>
+              <div class="brand-info">
+                <span class="brand-name">Schenley Industries</span>
+                <span class="brand-prods">I.W. Harper, Old Quaker, Golden Wedding Rye</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo-text">ND</div>
+              <div class="brand-info">
+                <span class="brand-name">National Distillers</span>
+                <span class="brand-prods">Old Grand-Dad, Old Crow, Old Taylor</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/fourroses.us" alt="Four Roses" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">SG</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Seagram Company</span>
+                <span class="brand-prods">Four Roses, Calvert, Kessler, 7 Crown</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo-text">HW</div>
+              <div class="brand-info">
+                <span class="brand-name">Hiram Walker</span>
+                <span class="brand-prods">Gooderham &amp; Worts, Canadian Club</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/heavenhill.com" alt="Heaven Hill" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">HH</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Heaven Hill (independent)</span>
+                <span class="brand-prods">Evan Williams, Elijah Craig (est. 1935)</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- 11 -->
-      <div class="era">
-        <div class="era-inner">
-          <div class="era-header">
-            <span class="date-range">2010–Present</span>
-            <h2>The Modern Boom &amp; Craft Explosion</h2>
-          </div>
-          <div class="era-body">
-            <p>From ~200 distilleries in 2010, the U.S. surged to over <strong>3,000 by 2023</strong>. Annual revenue exceeded $5.3 billion. Allocated bottles like Pappy Van Winkle and the Buffalo Trace Antique Collection became objects of near-religious devotion.</p>
-            <p>Secondary market trading and digital provenance tools like <strong>Baxus</strong> transformed how collectors buy, sell, and store bottles. Vintage decanters found new audiences who valued them as tangible pieces of American cultural history.</p>
-            <div class="brands-label">Modern Landscape Highlights</div>
-            <div class="brand-cards">
-              <div class="brand-card"><span class="brand-name">Buffalo Trace / Sazerac</span><span class="brand-prods">Pappy Van Winkle, BTAC, Weller Full Proof</span></div>
-              <div class="brand-card"><span class="brand-name">Beam Suntory</span><span class="brand-prods">Booker's, Knob Creek, Jim Beam Single Barrel</span></div>
-              <div class="brand-card"><span class="brand-name">Craft Pioneers</span><span class="brand-prods">Balcones (TX), High West (UT), WhistlePig (VT rye), Kings County (NY)</span></div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- ERA 8: Golden Peak + Decanters -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="era-section" id="era-1955">
+    <div class="era-watermark">1955</div>
+    <div class="era-wrapper">
+
+      <div class="era-left">
+        <span class="era-date">1955–1969</span>
+        <span class="era-pill">Era 08</span>
+        <h2 class="era-title">Bourbon's Golden Peak &amp; the Decanter Era</h2>
+        <div class="era-spine"></div>
+      </div>
+
+      <div class="era-right">
+        <div class="era-body">
+          <p>The 1950s and '60s were bourbon's commercial zenith. Post-war prosperity and cocktail culture drove production to historic highs — <em>too high</em>. Warehouses overflowed with barrels aging longer than intended, creating a glut the industry struggled to absorb.</p>
+          <p>Jim Beam's response became iconic: starting in <strong>1955</strong>, they partnered with Illinois ceramics company <strong>Regal China</strong> to release novelty ceramic decanters. Over four decades, more than <strong>1,500 different designs</strong> were issued — vehicles, political figures, state themes, animals, and more. In 1964, Congress officially designated bourbon as <em>America's Native Spirit</em>.</p>
+
+          <div class="stat-row">
+            <div class="stat-box">
+              <span class="stat-val">1,500+</span>
+              <span class="stat-label">Regal China decanter designs, 1955–1992</span>
             </div>
-            <div class="spotlight"><strong>Where Collectibles Fit:</strong> The modern collector sees vintage decanters — especially Jim Beam Regal China pieces from 1955–1992 — as artifacts of the era that both defined and rescued American bourbon culture. Attainable, historically rich, and increasingly documented through platforms like <a href="https://baxus.co" target="_blank">Baxus</a>.</div>
+            <div class="stat-box">
+              <span class="stat-val">7,500</span>
+              <span class="stat-label">Jim Beam Bottle Club members at peak</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val">1964</span>
+              <span class="stat-label">Bourbon declared America's Native Spirit</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="spotlight">
+          <strong>The Decanter Connection:</strong> Jim Beam's Regal China series (1955–1992) is the direct ancestor of the collectible market Boozy Estate covers. At peak collector interest in the late 1960s–early 1970s, the Jim Beam Bottle &amp; Specialty Club had over 7,500 paying members and chapters in every state. These pieces were made at the height of American bourbon culture — artifacts of a confident, prosperous America that filled them.
+        </div>
+
+        <div class="brands-section">
+          <div class="brands-label">Key Producers &amp; Products</div>
+          <div class="brand-grid">
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/jimbeam.com" alt="Jim Beam" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">JB</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Jim Beam / Regal China</span>
+                <span class="brand-prods">State, Executive, Political, Trophy, Centennial, Club Series (1955–1992)</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/wildturkey.com" alt="Wild Turkey" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">WT</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Wild Turkey (Austin Nichols)</span>
+                <span class="brand-prods">Wild Turkey 101, Wild Turkey 8yr</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/oldforester.com" alt="Old Forester" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">BF</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Brown-Forman</span>
+                <span class="brand-prods">Old Forester, Early Times</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/heavenhill.com" alt="Heaven Hill" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">HH</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Heaven Hill</span>
+                <span class="brand-prods">Evan Williams, J.W. Dant, Fighting Cock</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-    </div><!-- /timeline -->
-  </div>
 
-  <!-- NEXT PAGE CTA -->
-  <section style="background: var(--dark-mid); border-top: 1px solid var(--border); padding: 60px 28px; text-align: center;">
+  <!-- ════════════════════════════════════════ -->
+  <!-- ERA 9: Dark Decades -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="era-section" id="era-1970">
+    <div class="era-watermark">1970</div>
+    <div class="era-wrapper">
+
+      <div class="era-left">
+        <span class="era-date">1970–1989</span>
+        <span class="era-pill">Era 09</span>
+        <h2 class="era-title">Bourbon's Dark Decades &amp; the Vodka Revolution</h2>
+        <div class="era-spine"></div>
+      </div>
+
+      <div class="era-right">
+        <div class="era-body">
+          <p>The cultural upheaval of the late '60s spilled into bourbon's bottom line. Young consumers rejected their parents' drinks, turning to vodka, tequila, and wine. By the 1980s, every rye whiskey distillery in the Mid-Atlantic had closed permanently — an entire regional tradition, erased.</p>
+          <p>But in the shadows, <strong>Maker's Mark</strong> and the Pappy Van Winkle family were quietly proving there was a market for premium, small-batch bourbon. They were planting seeds that would take another decade to bloom.</p>
+        </div>
+
+        <div class="spotlight">
+          <strong>Why These Decanters Matter Now:</strong> Jim Beam continued producing Regal China decanters through the industry's darkest decade — their vehicle series, phone series, and transportation series were made while every other rye distillery in America was shutting down. That context makes them artifacts of resilience, not just novelty.
+        </div>
+
+        <div class="brands-section">
+          <div class="brands-label">Surviving &amp; Adapting</div>
+          <div class="brand-grid">
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/makersmark.com" alt="Maker's Mark" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">MM</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Maker's Mark</span>
+                <span class="brand-prods">Maker's Mark wheated bourbon; first national ad 1980</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/jackdaniels.com" alt="Jack Daniel's" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">JD</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Jack Daniel's</span>
+                <span class="brand-prods">Old No. 7; grew internationally through '70s–'80s</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/oldripvanwinkle.com" alt="Pappy Van Winkle" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">PV</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Old Rip Van Winkle</span>
+                <span class="brand-prods">Pappy Van Winkle's Family Reserve (cult status begins)</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/heavenhill.com" alt="Heaven Hill" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">HH</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Heaven Hill</span>
+                <span class="brand-prods">Elijah Craig 12yr launched 1986</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- ERA 10: Premium Renaissance -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="era-section" id="era-1990">
+    <div class="era-watermark">1992</div>
+    <div class="era-wrapper">
+
+      <div class="era-left">
+        <span class="era-date">1990–2009</span>
+        <span class="era-pill">Era 10</span>
+        <h2 class="era-title">The Premium Renaissance &amp; Small Batch Movement</h2>
+        <div class="era-spine"></div>
+      </div>
+
+      <div class="era-right">
+        <div class="era-body">
+          <p>Jim Beam's master distiller <strong>Booker Noe</strong> launched the <em>Small Batch Bourbon Collection</em> in 1992 — Knob Creek, Basil Hayden's, Baker's, and Booker's — and single-handedly changed the industry's trajectory. Premium bourbon was back.</p>
+          <p>Buffalo Trace (renamed 1999) began releasing ultra-premium expressions. Woodford Reserve launched in 1996. By 2000, fewer than 50 distilleries operated in the entire U.S. — the industry was lean, premium, and positioned for an explosion it didn't yet know was coming.</p>
+        </div>
+
+        <div class="brands-section">
+          <div class="brands-label">Landmark Products &amp; Producers</div>
+          <div class="brand-grid">
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/knobcreek.com" alt="Knob Creek" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">KC</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Jim Beam / Knob Creek (1992)</span>
+                <span class="brand-prods">Knob Creek 9yr, Basil Hayden's, Baker's 7yr, Booker's</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/blantons.com" alt="Blanton's" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">BL</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Buffalo Trace Distillery</span>
+                <span class="brand-prods">Buffalo Trace, Blanton's Single Barrel, Eagle Rare</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/woodfordreserve.com" alt="Woodford Reserve" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">WR</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Brown-Forman / Woodford Reserve</span>
+                <span class="brand-prods">Woodford Reserve Distiller's Select (1996)</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/wildturkey.com" alt="Wild Turkey" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">WT</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Wild Turkey</span>
+                <span class="brand-prods">Rare Breed (barrel proof), Russell's Reserve</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- ERA 11: Modern Boom -->
+  <!-- ════════════════════════════════════════ -->
+  <section class="era-section" id="era-2010">
+    <div class="era-watermark">2010</div>
+    <div class="era-wrapper">
+
+      <div class="era-left">
+        <span class="era-date">2010–Present</span>
+        <span class="era-pill">Era 11</span>
+        <h2 class="era-title">The Modern Boom &amp; Craft Explosion</h2>
+        <div class="era-spine"></div>
+      </div>
+
+      <div class="era-right">
+        <div class="era-body">
+          <p>From ~200 distilleries in 2010, the U.S. surged to over <strong>3,000 by 2023</strong>. Annual revenue exceeded $5.3 billion. Allocated bottles like Pappy Van Winkle and the Buffalo Trace Antique Collection became objects of near-religious devotion.</p>
+          <p>Secondary market trading and digital provenance tools like <strong>Baxus</strong> transformed how collectors buy, sell, and store bottles. Vintage decanters — especially the Jim Beam Regal China pieces — found new audiences who valued them as tangible pieces of American cultural history.</p>
+
+          <div class="stat-row">
+            <div class="stat-box">
+              <span class="stat-val">3,000+</span>
+              <span class="stat-label">Active U.S. distilleries by 2023</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val">$5.3B</span>
+              <span class="stat-label">Annual U.S. whiskey revenue</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val">319</span>
+              <span class="stat-label">Boozy Estate bottles vaulted on Baxus</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="spotlight">
+          <strong>Where Collectibles Fit Now:</strong> The modern collector sees vintage decanters — especially Jim Beam Regal China pieces from 1955–1992 — as artifacts of the era that both defined and nearly killed American bourbon culture. Attainable, historically rich, and increasingly documented through platforms like <a href="https://baxus.co" target="_blank">Baxus</a>.
+        </div>
+
+        <div class="brands-section">
+          <div class="brands-label">Modern Landscape</div>
+          <div class="brand-grid">
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/buffalotrace.com" alt="Buffalo Trace" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">BT</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Buffalo Trace / Sazerac</span>
+                <span class="brand-prods">Pappy Van Winkle, BTAC, Weller Full Proof</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/jimbeam.com" alt="Jim Beam" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">BS</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Beam Suntory</span>
+                <span class="brand-prods">Booker's, Knob Creek, Jim Beam Single Barrel</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/highwest.com" alt="High West" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">HW</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">High West Distillery</span>
+                <span class="brand-prods">American Prairie, Rendezvous Rye</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/whistlepigwhisky.com" alt="WhistlePig" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">WP</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">WhistlePig</span>
+                <span class="brand-prods">WhistlePig 10yr, Boss Hog, FarmStock</span>
+              </div>
+            </div>
+            <div class="brand-tile">
+              <div class="brand-logo"><img src="https://logo.clearbit.com/baxus.co" alt="Baxus" onerror="this.parentElement.outerHTML='<div class=\\"brand-logo-text\\">BX</div>'"></div>
+              <div class="brand-info">
+                <span class="brand-name">Baxus</span>
+                <span class="brand-prods">Blockchain-verified whiskey custody &amp; trading</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- NEXT CTA -->
+  <section class="next-cta">
     <p class="section-label" style="text-align:center;">Next</p>
-    <h2 style="font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--cream); margin-bottom:16px;">Now That You Know the History —</h2>
-    <p style="color: var(--cream-dim); max-width: 480px; margin: 0 auto 28px; font-size: 0.92rem;">Learn how to value what you find. Primary markets, underground trades, and licensed resellers all price the same bottle very differently.</p>
+    <h2 style="font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--cream); margin-bottom:16px;">Now That You Know the History —</h2>
+    <p style="color: var(--cream-dim); max-width: 500px; margin: 0 auto 28px; font-size: 0.97rem;">Learn how to value what you find. Primary markets, underground trades, and licensed resellers all price the same bottle very differently.</p>
     <a href="valuing.html" class="btn btn-primary">Valuing Your Collection →</a>
   </section>
 
@@ -389,5 +1120,55 @@
   </footer>
 
   <script src="nav.js"></script>
+  <script>
+    // ── Scroll progress bar ──
+    const progress = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = (window.scrollY / total * 100) + '%';
+    }, { passive: true });
+
+    // ── Scroll-triggered section animations ──
+    const sections = document.querySelectorAll('.era-section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.08 });
+    sections.forEach(s => observer.observe(s));
+
+    // ── Scrollspy: highlight active era in nav ──
+    const navLinks = document.querySelectorAll('.era-nav a');
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(a => {
+            a.classList.toggle('active', a.dataset.era === id);
+          });
+          // Scroll active nav item into view
+          const activeLink = document.querySelector(`.era-nav a[data-era="${id}"]`);
+          if (activeLink) {
+            activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '-100px 0px -40% 0px' });
+    sections.forEach(s => spyObserver.observe(s));
+
+    // ── Smooth scroll for era nav links ──
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(link.dataset.era);
+        if (target) {
+          const offset = 120;
+          window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
 </body>
 </html>

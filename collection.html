@@ -4,14 +4,16 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Collection — Boozy Estate</title>
-  <meta name="description" content="A look at what Boozy Estate collects — vintage and collectible American whiskey that represents the depth and history of the category."/>
+  <meta name="description" content="A rotating showcase of 20 bottles from the 319-bottle Boozy Estate collection — vintage American whiskey, rare decanters, and collectible spirits."/>
   <link rel="stylesheet" href="style.css"/>
   <style>
-    .collection-grid {
+
+    /* ── SHOWCASE GRID ── */
+    .showcase-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 20px;
-      margin-top: 36px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
     }
 
     .bottle-card {
@@ -19,9 +21,10 @@
       border: 1px solid var(--border);
       border-radius: 6px;
       overflow: hidden;
-      transition: border-color 0.2s, transform 0.2s;
       display: flex;
       flex-direction: column;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
     .bottle-card:hover {
@@ -37,6 +40,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      position: relative;
     }
 
     .bottle-img-wrap img {
@@ -44,21 +48,24 @@
       height: 100%;
       object-fit: contain;
       padding: 16px;
+      transition: transform 0.3s;
     }
 
-    .bottle-img-wrap .no-img {
-      font-size: 3.5rem;
-      opacity: 0.2;
+    .bottle-card:hover .bottle-img-wrap img { transform: scale(1.04); }
+
+    .no-img-placeholder {
+      font-size: 4rem;
+      opacity: 0.15;
     }
 
     .bottle-body {
-      padding: 16px 18px 18px;
+      padding: 16px 18px 20px;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
 
-    .bottle-category {
+    .bottle-type {
       font-size: 0.62rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -68,109 +75,232 @@
 
     .bottle-name {
       font-family: 'Playfair Display', serif;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--cream);
       line-height: 1.3;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       flex: 1;
     }
 
-    .bottle-desc {
-      font-size: 0.77rem;
+    .bottle-desc-preview {
+      font-size: 0.78rem;
       color: var(--text-muted);
       line-height: 1.55;
-      margin-bottom: 12px;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      margin-bottom: 14px;
     }
 
-    .bottle-meta {
+    .bottle-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding-top: 12px;
       border-top: 1px solid var(--border);
-      font-size: 0.75rem;
-      flex-wrap: wrap;
-      gap: 4px;
     }
 
-    .bottle-specs { color: var(--text-muted); }
-    .bottle-specs span + span::before { content: ' · '; }
-
-
-    /* Filter bar */
-    .filter-bar {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 32px 0 0;
-      align-items: center;
+    .bottle-price {
+      font-size: 0.8rem;
+      color: var(--amber-light);
+      font-weight: 600;
     }
 
-    .filter-btn {
-      font-size: 0.7rem;
+    .bottle-dive-btn {
+      font-size: 0.65rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 7px 14px;
-      border-radius: 3px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--cream-dim);
-      cursor: pointer;
-      transition: all 0.18s;
-      font-family: 'Source Serif 4', serif;
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-      border-color: var(--amber);
       color: var(--amber);
-      background: rgba(200,132,26,0.06);
-    }
-
-    /* Loading state */
-    .loading-msg {
-      text-align: center;
-      color: var(--text-muted);
-      padding: 60px 0;
-      font-size: 0.9rem;
-      letter-spacing: 0.05em;
-    }
-
-    .loading-msg::after {
-      content: '...';
-      animation: dots 1.4s steps(4, end) infinite;
-    }
-
-    @keyframes dots {
-      0%, 20% { content: ''; }
-      40%      { content: '.'; }
-      60%      { content: '..'; }
-      80%, 100%{ content: '...'; }
-    }
-
-    /* Count badge */
-    .count-badge {
-      display: inline-block;
-      background: rgba(200,132,26,0.15);
-      color: var(--amber);
+      border: 1px solid var(--amber-dark);
       border-radius: 2px;
-      font-size: 0.7rem;
-      padding: 1px 6px;
-      margin-left: 6px;
-      vertical-align: middle;
+      padding: 5px 10px;
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Source Serif 4', serif;
+      transition: all 0.18s;
     }
 
-    @media (max-width: 560px) {
-      .collection-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .bottle-dive-btn:hover {
+      border-color: var(--amber);
+      color: var(--amber-light);
     }
+
+    /* ── TOOLBAR ── */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .toolbar-count {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .toolbar-count strong { color: var(--cream); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(5, 3, 1, 0.88);
+      backdrop-filter: blur(6px);
+      overflow-y: auto;
+      padding: 40px 20px;
+    }
+
+    .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+
+    .modal-box {
+      background: #1a1007;
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      max-width: 780px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+      z-index: 10;
+    }
+
+    .modal-close:hover { color: var(--cream); }
+
+    .modal-inner {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+    }
+
+    .modal-img-col {
+      background: linear-gradient(160deg, #1a0e02, #2e1a06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+    }
+
+    .modal-img-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 24px;
+      max-height: 420px;
+    }
+
+    .modal-content-col {
+      padding: 32px 36px 32px 28px;
+      border-left: 1px solid var(--border);
+    }
+
+    .modal-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+
+    .modal-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .spec-pill {
+      background: rgba(200,132,26,0.1);
+      border: 1px solid var(--amber-dark);
+      border-radius: 2px;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      color: var(--cream-dim);
+      letter-spacing: 0.06em;
+    }
+
+    .modal-section-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 8px;
+    }
+
+    .modal-history {
+      font-size: 0.87rem;
+      color: var(--cream-dim);
+      line-height: 1.75;
+      margin-bottom: 22px;
+    }
+
+    .modal-era {
+      background: linear-gradient(135deg, #1e0d00, #2a1600);
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+      padding: 14px 18px;
+      margin-bottom: 22px;
+      font-size: 0.82rem;
+      color: var(--cream-dim);
+      line-height: 1.65;
+    }
+
+    .modal-era strong { color: var(--amber); }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── LOADING ── */
+    .loading-state {
+      text-align: center;
+      padding: 80px 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 680px) {
+      .modal-inner { grid-template-columns: 1fr; }
+      .modal-img-col { min-height: 220px; }
+      .modal-content-col { padding: 24px 20px; border-left: none; border-top: 1px solid var(--border); }
+      .showcase-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    }
+
     @media (max-width: 400px) {
-      .collection-grid { grid-template-columns: 1fr; }
+      .showcase-grid { grid-template-columns: 1fr; }
     }
+
   </style>
 </head>
 <body>
@@ -192,29 +322,22 @@
 
   <!-- PAGE HEADER -->
   <header class="page-header">
-    <p class="eyebrow">What We Collect</p>
+    <p class="eyebrow">319 Bottles · Rotating Showcase</p>
     <h1>The <span>Collection</span></h1>
-    <p>A look at the kinds of bottles that matter to us — vintage American whiskey, rare decanters, and collectible spirits that tell a story. This is the standard we know and collect to.</p>
+    <p>A random draw of 20 bottles from the Boozy Estate vault — vintage decanters, rare single barrels, and historically significant American whiskey. Reshuffle for a new look.</p>
   </header>
 
-  <div class="wrapper--wide" style="padding-top: 20px;">
+  <div class="wrapper--wide" style="padding-top: 0;">
 
-    <!-- INTRO NOTE -->
-    <div class="spotlight" style="display:flex; align-items:flex-start; gap:16px; margin-top:40px;">
-      <div style="font-size:1.6rem; opacity:0.7; flex-shrink:0;">🥃</div>
-      <div>
-        <strong>What we look for.</strong> These are the bottles we seek out — vintage decanters, rare single barrels, and historically significant American whiskey. If you have something like this sitting in a cabinet, a storage unit, or an estate, we'd like to hear from you.
-      </div>
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <p class="toolbar-count">Showing <strong id="showCount">20</strong> of <strong>319</strong> vaulted bottles</p>
+      <button class="btn btn-outline" onclick="reshuffle()">↺ &nbsp;Reshuffle</button>
     </div>
 
-    <!-- FILTER BAR -->
-    <div class="filter-bar" id="filterBar">
-      <button class="filter-btn active" data-filter="all" onclick="filterCollection('all', this)">All</button>
-    </div>
-
-    <!-- COLLECTION GRID -->
-    <div id="collectionGrid">
-      <div class="loading-msg">Loading collection from Baxus</div>
+    <!-- GRID -->
+    <div id="showcaseGrid">
+      <div class="loading-state">Loading collection…</div>
     </div>
 
     <!-- CTA -->
@@ -225,6 +348,17 @@
       <a href="mailto:hello@boozyestate.com" class="btn btn-primary">Get in Touch →</a>
     </div>
 
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
+      <div class="modal-inner">
+        <div class="modal-img-col" id="modalImg"></div>
+        <div class="modal-content-col" id="modalContent"></div>
+      </div>
+    </div>
   </div>
 
   <!-- FOOTER -->
@@ -241,100 +375,172 @@
 
   <script src="nav.js"></script>
   <script>
-    const BAXUS_API = 'https://services.baxus.co/api/search/assets?size=100&from=0&ownerId=5616';
     let allBottles = [];
+    let currentSelection = [];
 
-    // ── Fetch from Baxus API ──
-    async function loadCollection() {
-      try {
-        const res = await fetch(BAXUS_API);
-        const data = await res.json();
+    // ── Historical era context keyed to spirit type + era clues ──
+    const ERA_CONTEXT = {
+      'Jim Beam': {
+        default: 'Jim Beam\'s Regal China decanter program (1955–1992) is the backbone of the American collectible whiskey market. At its peak, the Jim Beam Bottle &amp; Specialty Club had over 7,500 paying members. These pieces were issued during bourbon\'s commercial zenith and its subsequent dark decades — artifacts of an industry that had to reinvent itself.',
+        '1970': 'The 1970s were bourbon\'s dark years. Young consumers fled to vodka and wine. Jim Beam\'s response was to lean harder into collectibles — including vehicle decanters, political figures, and state editions — creating pieces that attracted crossover collectors and kept the brand culturally relevant.',
+        '1980': 'By the 1980s, every major rye whiskey distillery in the Mid-Atlantic had closed. Jim Beam continued producing Regal China decanters through the decade, including their sprawling vehicle and transportation series. These pieces were made at bourbon\'s nadir, just before Booker Noe\'s small-batch revolution would change everything.',
+        '1960': 'The 1960s were bourbon\'s commercial zenith. Production hit historic highs — warehouses overflowed with barrels aging longer than intended. The Regal China decanter program was Jim Beam\'s creative solution to a glut. Congress officially designated bourbon as America\'s Native Spirit in 1964.',
+      },
+      'Blanton\'s': 'Blanton\'s Single Barrel launched in 1984 as the world\'s first commercially marketed single barrel bourbon. It was created by Elmer T. Lee at what is now Buffalo Trace. During a period when bourbon was deeply unfashionable, Blanton\'s quietly invented the premium segment — a category that would define the modern market.',
+      'Eagle Rare': 'Eagle Rare is produced at Buffalo Trace Distillery on the banks of the Kentucky River, on a site that has been in continuous distilling operation since 1787. The 10-year expression is aged in a specific set of warehouses selected for their aging conditions. It\'s a benchmark bottle for the premium bourbon category.',
+      'Penelope': 'Penelope Bourbon is a Pennsylvania-born brand with roots in the Mid-Atlantic whiskey revival. Named after the founder\'s daughter, it sources barrels from established Kentucky distilleries and has built a reputation for accessible premium expressions — including its Rio series and the rare 17-Year American Light Whiskey.',
+      'Fortaleza': 'Fortaleza is produced at La Fortaleza distillery in Tequila, Jalisco — one of the oldest operating distilleries in Mexico. The Sauza family has made tequila on this site for over a century. The distillery still uses a Chilean tahona wheel to crush agave, a technique largely abandoned by industrial producers.',
+      'Russell\'s Reserve': 'Russell\'s Reserve is the premium expression from Wild Turkey, named for master distillers Jimmy Russell and his son Eddie Russell. Jimmy Russell has been distilling at Wild Turkey since 1954 — the longest tenured active master distiller in bourbon history. Russell\'s Reserve 13 Year represents the apex of what the distillery can produce.',
+      'Knob Creek': 'Knob Creek is part of the Small Batch Bourbon Collection launched by Booker Noe in 1992 — the moment that changed bourbon\'s trajectory from declining category to premium darling. Named for the Kentucky creek near Abraham Lincoln\'s boyhood home, it was positioned at 9 years and 100 proof as a return to pre-Prohibition bourbon character.',
+      'Booker\'s': 'Booker\'s is Booker Noe\'s signature expression — uncut, unfiltered, and bottled directly from the barrel at 120–130 proof. Launched in 1992 as part of Jim Beam\'s Small Batch Collection, it was the boldest statement that bourbon could compete with any premium spirit in the world. Each batch is named.',
+      'default': 'This bottle is part of a 319-piece collection documented on the Baxus blockchain platform — one of the most significant private collections of American whiskey currently vaulted for preservation and trade.'
+    };
 
-        // Deduplicate: keep best entry per unique name
-        const seen = new Map();
-        for (const a of data.assets) {
-          const s = a._source;
-          const key = s.name;
-          const br = s.bottle_release || {};
-          const imgs = br.bottle_release_images || [];
-          const img = br.image_url || (imgs[0] && imgs[0].image_url) || null;
+    function getEraContext(bottle) {
+      const name = bottle.name || '';
+      const brand = bottle.brand || '';
 
-          if (!seen.has(key)) {
-            seen.set(key, {
-              name: s.name,
-              abv: br.abv || s.abv || null,
-              volume_ml: br.volume_ml || null,
-              vintage: br.vintage || null,
-              age: br.age_years || null,
-              description: (br.description || '').trim(),
-              image: img,
-            });
-          } else {
-            const ex = seen.get(key);
-            if (!ex.image && img) ex.image = img;
-          }
-        }
-
-        allBottles = Array.from(seen.values());
-        renderCollection(allBottles);
-      } catch (err) {
-        document.getElementById('collectionGrid').innerHTML =
-          '<p style="text-align:center;color:var(--text-muted);padding:60px 0;">Unable to load collection data. Please try again later.</p>';
+      // Jim Beam decade detection
+      if (brand === 'Jim Beam' || name.includes('Beam')) {
+        const ctx = ERA_CONTEXT['Jim Beam'];
+        if (name.includes('1960') || name.includes('196')) return ctx['1960'];
+        if (name.includes('1970') || name.includes('197')) return ctx['1970'];
+        if (name.includes('1980') || name.includes('198')) return ctx['1980'];
+        return ctx.default;
       }
+
+      for (const [key, val] of Object.entries(ERA_CONTEXT)) {
+        if (key === 'default' || key === 'Jim Beam') continue;
+        if (brand.includes(key) || name.includes(key)) return val;
+      }
+      return ERA_CONTEXT.default;
+    }
+
+    // ── Load manifest ──
+    async function loadManifest() {
+      try {
+        const res = await fetch('manifest.json');
+        allBottles = await res.json();
+        reshuffle();
+      } catch (err) {
+        document.getElementById('showcaseGrid').innerHTML =
+          '<p class="loading-state">Unable to load collection data.</p>';
+      }
+    }
+
+    // ── Pick 20 random bottles ──
+    function reshuffle() {
+      const shuffled = [...allBottles].sort(() => Math.random() - 0.5);
+      currentSelection = shuffled.slice(0, 20);
+      renderGrid();
+      window.scrollTo({ top: document.querySelector('.toolbar').offsetTop - 80, behavior: 'smooth' });
     }
 
     // ── Render grid ──
-    function renderCollection(bottles) {
-      const grid = document.getElementById('collectionGrid');
-      if (!bottles.length) {
-        grid.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:60px 0;">No bottles found.</p>';
-        return;
-      }
-
-      grid.innerHTML = `<div class="collection-grid">${bottles.map(b => bottleCard(b)).join('')}</div>`;
+    function renderGrid() {
+      const grid = document.getElementById('showcaseGrid');
+      grid.innerHTML = `<div class="showcase-grid">${currentSelection.map((b, i) => cardHTML(b, i)).join('')}</div>`;
     }
 
-    // ── Card template ──
-    function bottleCard(b) {
-      const imgHtml = b.image
-        ? `<img src="${b.image}" alt="${escHtml(b.name)}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\"no-img\\">🥃</span>'">`
-        : `<span class="no-img">🥃</span>`;
+    function cardHTML(b, idx) {
+      const imgHtml = b.image_url
+        ? `<img src="${esc(b.image_url)}" alt="${esc(b.name)}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\"no-img-placeholder\\">🥃</span>'">`
+        : `<span class="no-img-placeholder">🥃</span>`;
 
-      const specs = [];
-      if (b.abv)       specs.push(`${b.abv}% ABV`);
-      if (b.volume_ml) specs.push(`${b.volume_ml}ml`);
-      if (b.vintage)   specs.push(b.vintage);
-      if (b.age)       specs.push(`${b.age}yr`);
+      const price = b.market_price
+        ? `$${Math.round(b.market_price).toLocaleString()}`
+        : (b.listed_price ? `$${Math.round(b.listed_price).toLocaleString()}` : '');
 
-      const descHtml = b.description
-        ? `<p class="bottle-desc">${escHtml(b.description)}</p>`
-        : '';
-
-      const metaHtml = specs.length
-        ? `<div class="bottle-meta"><div class="bottle-specs">${specs.map(s => `<span>${escHtml(s)}</span>`).join('')}</div></div>`
+      const desc = b.description
+        ? `<p class="bottle-desc-preview">${esc(b.description)}</p>`
         : '';
 
       return `
-        <div class="bottle-card">
+        <div class="bottle-card" onclick="openModal(${idx})">
           <div class="bottle-img-wrap">${imgHtml}</div>
           <div class="bottle-body">
-            <div class="bottle-name">${escHtml(b.name)}</div>
-            ${descHtml}
-            ${metaHtml}
+            <div class="bottle-type">${esc(b.spirit_type || b.brand || 'Whiskey')}</div>
+            <div class="bottle-name">${esc(b.name)}</div>
+            ${desc}
+            <div class="bottle-footer">
+              <span class="bottle-price">${price ? `Est. ${price}` : ''}</span>
+              <button class="bottle-dive-btn" onclick="event.stopPropagation(); openModal(${idx})">Deep Dive →</button>
+            </div>
           </div>
         </div>`;
     }
 
-    function escHtml(str) {
-      return String(str)
+    // ── Modal ──
+    function openModal(idx) {
+      const b = currentSelection[idx];
+      if (!b) return;
+
+      // Image column
+      const imgCol = document.getElementById('modalImg');
+      imgCol.innerHTML = b.image_url
+        ? `<img src="${esc(b.image_url)}" alt="${esc(b.name)}" onerror="this.parentElement.innerHTML='<span style=\\"font-size:5rem;opacity:0.15\\">🥃</span>'">`
+        : `<span style="font-size:5rem;opacity:0.15">🥃</span>`;
+
+      // Specs pills
+      const specs = [];
+      if (b.spirit_type) specs.push(b.spirit_type);
+      if (b.brand)       specs.push(b.brand);
+      if (b.abv)         specs.push(`${b.abv}% ABV`);
+      if (b.volume_ml)   specs.push(`${b.volume_ml}ml`);
+      if (b.region)      specs.push(b.region);
+      if (b.country)     specs.push(b.country);
+
+      const specHTML = specs.map(s => `<span class="spec-pill">${esc(s)}</span>`).join('');
+
+      const priceStr = b.market_price
+        ? `<span class="spec-pill" style="border-color:var(--amber);color:var(--amber-light);">Est. $${Math.round(b.market_price).toLocaleString()}</span>`
+        : (b.listed_price ? `<span class="spec-pill" style="border-color:var(--amber);color:var(--amber-light);">Listed $${Math.round(b.listed_price).toLocaleString()}</span>` : '');
+
+      const eraContext = getEraContext(b);
+
+      const descHTML = b.description
+        ? `<p class="modal-section-label">About This Bottle</p>
+           <p class="modal-history">${esc(b.description)}</p>`
+        : '';
+
+      const baxusLink = b.baxus_url
+        ? `<a href="${esc(b.baxus_url)}" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:0.72rem;padding:9px 18px;">View on Baxus →</a>`
+        : '';
+
+      document.getElementById('modalContent').innerHTML = `
+        <p class="modal-eyebrow">${esc(b.spirit_type || 'American Whiskey')}</p>
+        <h2 class="modal-title">${esc(b.name)}</h2>
+        <div class="modal-specs">${specHTML}${priceStr}</div>
+        ${descHTML}
+        <p class="modal-section-label">Historical Context</p>
+        <div class="modal-era"><strong>The Story Behind It —</strong> ${eraContext}</div>
+        <div class="modal-actions">${baxusLink}</div>
+      `;
+
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOnOverlay(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    function esc(str) {
+      return String(str || '')
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
     }
 
-    // ── Init ──
-    loadCollection();
+    loadManifest();
   </script>
 </body>
 </html>
