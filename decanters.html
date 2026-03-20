@@ -139,6 +139,19 @@
       text-transform: uppercase;
       font-weight: 600;
     }
+    .empty-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #8db0d4;
+      border: 1px solid #4a6f8a;
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin-left: 7px;
+      vertical-align: middle;
+    }
     .series-badge {
       display: inline-block;
       font-size: 0.62rem;
@@ -2772,6 +2785,46 @@
   document.getElementById('statTotal').textContent = DECANTERS.length;
 
   // ─── CONTROLS ───
+  const EMPTIES = new Set([
+    "'55 Corvette Red - District IAJBBSC",
+    "'55 Corvette Black - District IAJBBSC",
+    "'57 Corvette Red (Orange) - Angelo's Liquors",
+    "'57 Corvette Apollo White - Angelo's Liquors",
+    "'57 Corvette Cascade Green - District IAJBBSC",
+    "'57 Corvette Aztec Copper - District IAJBBSC",
+    "'57 Bel Air Convertible Cream - Convention",
+    "'57 Bel Air Convertible Blue - Convention",
+    "'57 Bel Air Turquoise w/White Top",
+    "'57 Bel Air Sierra Gold w/Beige Top - District",
+    "'63 Corvette Rallye Green - IAJBBSC",
+    "'68 Corvette Safari Yellow - Convention",
+    "'68 Corvette Red - Angelo's Liquors",
+    "'68 Corvette British Green - Convention",
+    "'68 Corvette White - Angelo's Liquors",
+    "'59 Black Salesman's Special",
+    "'59 Blue Salesman's Special",
+    "'59 Green Convertible - IAJBBSC",
+    "'59 White Convertible - IAJBBSC",
+    "'70 Dodge Lime Green Hot Rod - IAJBBSC",
+    "'70 Dodge Blue Challenger - IAJBBSC",
+    "'69 Camaro Burgundy Convertible - Convention",
+    "'69 Camaro Fathom Green - IAJBBSC",
+    "'69 Camaro LeMans Blue w/Beige Top",
+    "'69 Camaro Hugger Orange w/White Top",
+    "'69 Camaro Silver Convertible - Convention",
+    "'84 Corvette Black - Western States",
+    "'84 Corvette Bronze - District IAJBBSC",
+    "'84 Corvette Gold - District IAJBBSC",
+    "'84 Corvette Red",
+    "1934 Police Patrol Car - IAJBBSC Yellow",
+    "Duesenberg Maroon & Cream Convertible",
+    "Duesenberg Dark Blue - Indiana Special Edition",
+    "'64 Mustang Black - Florida",
+    "Volkswagen - Red",
+    "'74 Mercedes Benz SL Mocha - District IAJBBSC",
+    "'74 Mercedes Benz SL Champagne Gold - Angelo's",
+  ]);
+
   function getBrand(d) {
     if (d.category === 'Ezra Brooks') return 'Ezra Brooks';
     if (d.category === 'Ski Country') return 'Ski Country';
@@ -2848,9 +2901,10 @@
       const baxusUrl = getVaultUrl(d);
       const inColl = baxusUrl !== null;
       const brand = getBrand(d);
-      const nameHtml = inColl
+      const emptyBadge = EMPTIES.has(d.name) ? `<span class="empty-badge">Unfilled</span>` : '';
+      const nameHtml = (inColl
         ? `<span class="in-collection-dot" title="In your Baxus vault"></span>${baxusUrl ? `<a href="${baxusUrl}" target="_blank" rel="noopener" class="baxus-link">${esc(d.name)}</a>` : esc(d.name)}`
-        : esc(d.name);
+        : esc(d.name)) + emptyBadge;
       const valueHtml = d.notes === 'RARE'
         ? `<span class="rare-cell">RARE</span>`
         : d.value !== null
