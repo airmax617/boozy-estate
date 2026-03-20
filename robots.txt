@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://airmax617.github.io/boozy-estate/sitemap.xml
