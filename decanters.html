@@ -164,18 +164,19 @@
       pointer-events: none;
     }
     .specs-tip:hover::after { display: block; }
-    .empty-badge {
-      display: inline-block;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+    .vault-vaulted {
+      font-size: 0.7rem;
       font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--amber-light);
+    }
+    .vault-unfilled {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: #8db0d4;
-      border: 1px solid #4a6f8a;
-      border-radius: 3px;
-      padding: 1px 5px;
-      margin-left: 7px;
-      vertical-align: middle;
     }
     .series-badge {
       display: inline-block;
@@ -326,6 +327,7 @@
           <th data-sort="year">Year <span class="sort-arrow">↕</span></th>
           <th data-sort="mintage">Mintage <span class="sort-arrow">↕</span></th>
           <th data-sort="value">Value <span class="sort-arrow">↕</span></th>
+          <th>Boozy Vault</th>
         </tr>
       </thead>
       <tbody id="tableBody">
@@ -2983,11 +2985,15 @@
       const baxusUrl = getVaultUrl(d);
       const inColl = baxusUrl !== null;
       const brand = getBrand(d);
-      const emptyBadge = EMPTIES.has(d.name) ? `<span class="empty-badge">Unfilled</span>` : '';
       const specsTip = d.specs ? `<span class="specs-tip" data-specs="${esc(d.specs)}">⚖</span>` : '';
       const nameHtml = (inColl
-        ? `<span class="in-collection-dot" title="In your Baxus vault"></span>${baxusUrl ? `<a href="${baxusUrl}" target="_blank" rel="noopener" class="baxus-link">${esc(d.name)}</a>` : esc(d.name)}`
-        : esc(d.name)) + emptyBadge + specsTip;
+        ? `${baxusUrl ? `<a href="${baxusUrl}" target="_blank" rel="noopener" class="baxus-link">${esc(d.name)}</a>` : esc(d.name)}`
+        : esc(d.name)) + specsTip;
+      const vaultHtml = inColl
+        ? `<span class="vault-vaulted">Vaulted</span>`
+        : EMPTIES.has(d.name)
+          ? `<span class="vault-unfilled">Owned (never filled)</span>`
+          : '<span style="color:var(--text-muted)">—</span>';
       const valueHtml = d.notes === 'RARE'
         ? `<span class="rare-cell">RARE</span>`
         : d.value !== null
@@ -3005,6 +3011,7 @@
         <td>${d.year || '<span style="color:var(--text-muted)">N/A</span>'}</td>
         <td>${mintageHtml}</td>
         <td>${valueHtml}</td>
+        <td style="white-space:nowrap">${vaultHtml}</td>
       </tr>`;
     }).join('');
   }
