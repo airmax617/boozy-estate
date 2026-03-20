@@ -6,6 +6,145 @@
   <title>Boozy Estate — Collectible American Whiskey Decanters</title>
   <meta name="description" content="Exploring the world of attainable collectible American whiskey decanters. History, valuation guides, and a curated personal collection."/>
   <link rel="stylesheet" href="style.css"/>
+  <style>
+    .aw-trigger {
+      cursor: pointer;
+      border-bottom: 1px dashed var(--amber);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .aw-trigger:hover { color: var(--amber-light); border-color: var(--amber-light); }
+
+    .aw-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(8,4,1,0.88);
+      z-index: 1000;
+      overflow-y: auto;
+      padding: 48px 20px 80px;
+    }
+    .aw-overlay.open { display: block; }
+
+    .aw-modal {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #120a02;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 48px 44px;
+      position: relative;
+    }
+    @media (max-width: 600px) { .aw-modal { padding: 32px 24px; } }
+
+    .aw-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .aw-close:hover { color: var(--cream); }
+
+    .aw-modal h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      color: var(--cream);
+      margin-bottom: 6px;
+    }
+    .aw-modal .aw-intro {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .aw-section-title {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .aw-terms {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 18px 32px;
+      margin-bottom: 48px;
+    }
+    .aw-term dt {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+    .aw-term dd {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .aw-rules {
+      margin-bottom: 48px;
+    }
+    .aw-rules ol {
+      padding-left: 20px;
+      margin: 0;
+    }
+    .aw-rules li {
+      font-size: 0.85rem;
+      color: var(--cream-dim);
+      line-height: 1.7;
+      margin-bottom: 4px;
+    }
+    .aw-rules li strong { color: var(--amber-light); }
+
+    .aw-process {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .aw-step {
+      display: flex;
+      gap: 18px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .aw-step:last-child { border-bottom: none; }
+    .aw-step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: rgba(200,132,26,0.12);
+      border: 1px solid var(--amber-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--amber);
+      margin-top: 2px;
+    }
+    .aw-step-body dt {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 3px;
+    }
+    .aw-step-body dd {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
 
@@ -28,7 +167,7 @@
 
   <!-- HERO -->
   <section class="hero">
-    <p class="hero-eyebrow">American Whiskey Collectibles</p>
+    <p class="hero-eyebrow"><span class="aw-trigger" id="awTrigger">American Whiskey</span> Collectibles</p>
     <h1>Where <em>History</em> Meets<br>the Home Bar</h1>
     <p class="hero-sub">Boozy Estate is a guide to attainable collectible American whiskey decanters — what they're worth, where they came from, and why they matter.</p>
     <div class="hero-rule"></div>
@@ -103,6 +242,158 @@
     <p class="footer-copy">© 2025 Boozy Estate. All rights reserved.</p>
   </footer>
 
+  <!-- AMERICAN WHISKEY MODAL -->
+  <div class="aw-overlay" id="awOverlay">
+    <div class="aw-modal">
+      <button class="aw-close" id="awClose" aria-label="Close">✕</button>
+      <h2>American Whiskey</h2>
+      <p class="aw-intro">The essential terms, legal requirements, and production process behind America's native spirit.</p>
+
+      <!-- KEY TERMS -->
+      <p class="aw-section-title">Key Terms</p>
+      <dl class="aw-terms">
+        <div class="aw-term">
+          <dt>Bourbon</dt>
+          <dd>American whiskey made from at least 51% corn, distilled to no more than 160 proof, aged in new charred oak containers, entered at no more than 125 proof, bottled at minimum 80 proof. Must be produced in the USA.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>Straight Bourbon</dt>
+          <dd>Bourbon aged at least 2 years with no added coloring, flavoring, or blending with other spirits. If under 4 years, an age statement is required.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>Mash Bill</dt>
+          <dd>The grain recipe. Bourbon requires 51%+ corn; the balance is rye, wheat, or malted barley. High-rye mashes produce spicier whiskey; wheat substitution yields softer, sweeter profiles.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>Sour Mash</dt>
+          <dd>A portion of spent mash (backset) from a previous distillation is added to the new fermentation, controlling pH and flavor continuity batch to batch. Nearly universal in bourbon production.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>Wheated Bourbon</dt>
+          <dd>Wheat replaces rye as the secondary grain. Produces a softer, sweeter whiskey. Famous examples: Maker's Mark, W.L. Weller, Pappy Van Winkle.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>Bottled-in-Bond</dt>
+          <dd>A 1897 federal standard: straight whiskey from a single distillery, single distillation season, aged minimum 4 years in a federally bonded warehouse, bottled at exactly 100 proof.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>Barrel Proof / Cask Strength</dt>
+          <dd>Bottled at the natural barrel concentration without dilution. Higher proof, more intense flavor. ABV varies barrel to barrel.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>Single Barrel</dt>
+          <dd>Each bottle comes from one individual barrel rather than a blend. Natural variation exists between barrels from the same distillery and year.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>Small Batch</dt>
+          <dd>No legal definition. A marketing term generally indicating a blend of a limited number of select barrels, as opposed to large-scale production blending.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>Angel's Share</dt>
+          <dd>Whiskey lost to evaporation during aging. In Kentucky's climate of hot summers and cold winters, this can reach 3–5% per year — a significant loss on long-aged barrels.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>Tennessee Whiskey</dt>
+          <dd>Meets all bourbon requirements but is additionally filtered through sugar maple charcoal before aging (the Lincoln County Process). Jack Daniel's is the most famous example.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>Rye Whiskey</dt>
+          <dd>Made from at least 51% rye grain. Spicier and drier than bourbon. Historically dominant before Prohibition; now experiencing a major revival.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>Age Statement</dt>
+          <dd>The age on the label reflects the youngest whiskey in the bottle. No age statement (NAS) typically means under 4 years for straight whiskey.</dd>
+        </div>
+        <div class="aw-term">
+          <dt>New Charred Oak</dt>
+          <dd>Bourbon must age in new, charred oak containers. The char layer acts as a carbon filter and caramelizes wood sugars that impart vanilla, caramel, and spice notes.</dd>
+        </div>
+      </dl>
+
+      <!-- RULES OF BOURBON -->
+      <p class="aw-section-title">Rules of Bourbon</p>
+      <div class="aw-rules">
+        <ol>
+          <li><strong>Made in the United States</strong> — bourbon is a uniquely American product by federal law.</li>
+          <li><strong>Mash bill at least 51% corn</strong> — the majority grain must be corn.</li>
+          <li><strong>Distilled to no more than 160 proof</strong> (80% ABV) — preserves grain character.</li>
+          <li><strong>Entered into new, charred oak containers at no more than 125 proof</strong> (62.5% ABV).</li>
+          <li><strong>Bottled at no less than 80 proof</strong> (40% ABV).</li>
+          <li><strong>No added coloring, flavoring, or other spirits</strong> — bourbon must be unadulterated.</li>
+        </ol>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:14px;line-height:1.6"><strong style="color:var(--cream-dim)">Straight Bourbon</strong> adds: minimum 2 years aging, no blending of other spirits. &nbsp;·&nbsp; <strong style="color:var(--cream-dim)">Kentucky Straight Bourbon</strong> adds: distilled and aged in Kentucky.</p>
+      </div>
+
+      <!-- PRODUCTION PROCESS -->
+      <p class="aw-section-title">How Bourbon Is Made</p>
+      <dl class="aw-process">
+        <div class="aw-step">
+          <div class="aw-step-num">1</div>
+          <div class="aw-step-body">
+            <dt>Grain Selection & Milling</dt>
+            <dd>Corn, rye or wheat, and malted barley are selected per the distillery's mash bill recipe, then ground into a coarse meal.</dd>
+          </div>
+        </div>
+        <div class="aw-step">
+          <div class="aw-step-num">2</div>
+          <div class="aw-step-body">
+            <dt>Cooking & Mashing</dt>
+            <dd>Grains are cooked with water at different temperatures to convert starches into fermentable sugars. Sour mash backset is added to control pH and ensure consistency.</dd>
+          </div>
+        </div>
+        <div class="aw-step">
+          <div class="aw-step-num">3</div>
+          <div class="aw-step-body">
+            <dt>Fermentation</dt>
+            <dd>Yeast is added to the cooled mash and ferments for 3–7 days, producing a low-alcohol liquid called distiller's beer at roughly 8–10% ABV.</dd>
+          </div>
+        </div>
+        <div class="aw-step">
+          <div class="aw-step-num">4</div>
+          <div class="aw-step-body">
+            <dt>Distillation</dt>
+            <dd>The beer is run through a column still (beer still), stripping alcohol to ~65% ABV. A doubler or thumper then refines it further — to a maximum of 160 proof by law.</dd>
+          </div>
+        </div>
+        <div class="aw-step">
+          <div class="aw-step-num">5</div>
+          <div class="aw-step-body">
+            <dt>Barreling</dt>
+            <dd>New charred white oak barrels (typically 53 gallons) are filled at no more than 125 proof and moved into multi-story rickhouses for aging.</dd>
+          </div>
+        </div>
+        <div class="aw-step">
+          <div class="aw-step-num">6</div>
+          <div class="aw-step-body">
+            <dt>Aging</dt>
+            <dd>Kentucky's climate does the work — summer heat drives whiskey deep into the wood; winter cold pulls it back. Each cycle extracts color, flavor, and the char's natural filtering. Minimum 2 years for Straight Bourbon.</dd>
+          </div>
+        </div>
+        <div class="aw-step">
+          <div class="aw-step-num">7</div>
+          <div class="aw-step-body">
+            <dt>Bottling</dt>
+            <dd>The master distiller selects and blends barrels, proofs down to bottling strength with pure water, and the whiskey is filtered, bottled, and labeled.</dd>
+          </div>
+        </div>
+      </dl>
+    </div>
+  </div>
+
   <script src="nav.js"></script>
+  <script>
+    const overlay = document.getElementById('awOverlay');
+    document.getElementById('awTrigger').addEventListener('click', () => {
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('awClose').addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
 </body>
 </html>
