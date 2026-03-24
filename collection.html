@@ -335,14 +335,14 @@
   <header class="page-header">
     <p class="eyebrow">Jim Beam · Hoffman · Pre-1990 · Rotating Showcase</p>
     <h1>The <span>Collection</span></h1>
-    <p>A rotating draw of 10 bottles from the Boozy Estate vault — Jim Beam Regal China decanters, Hoffman pieces, and vintage spirits bottled before 1990. Reshuffle for a new look.</p>
+    <p>A rotating draw of 12 bottles from the Boozy Estate vault — Jim Beam Regal China decanters, Hoffman pieces, and vintage spirits bottled before 1990. Reshuffle for a new look.</p>
   </header>
 
   <div class="wrapper--wide" style="padding-top: 0;">
 
     <!-- TOOLBAR -->
     <div class="toolbar">
-      <p class="toolbar-count">Showing <strong id="showCount">10</strong> of <strong id="poolCount">—</strong> featured bottles</p>
+      <p class="toolbar-count">Showing <strong id="showCount">12</strong> of <strong id="poolCount">—</strong> featured bottles</p>
       <button class="btn btn-outline" onclick="reshuffle()">↺ &nbsp;Reshuffle</button>
     </div>
 
@@ -459,10 +459,10 @@
       }
     }
 
-    // ── Pick 10 random bottles ──
+    // ── Pick 12 random bottles ──
     function reshuffle() {
       const shuffled = [...allBottles].sort(() => Math.random() - 0.5);
-      currentSelection = shuffled.slice(0, 10);
+      currentSelection = shuffled.slice(0, 12);
       renderGrid();
       window.scrollTo({ top: document.querySelector('.toolbar').offsetTop - 80, behavior: 'smooth' });
     }
