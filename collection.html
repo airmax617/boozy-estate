@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Boozy Estate Whiskey Decanter Collection — Rare & Vintage Bottles</title>
   <meta name="description" content="A rotating showcase of 20 bottles from the 319-bottle Boozy Estate collection — vintage American whiskey, rare decanters, and collectible spirits."/>
-  <link rel="canonical" href="https://airmax617.github.io/boozy-estate/collection.html"/>
+  <link rel="canonical" href="https://boozyestate.com/collection.html"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://airmax617.github.io/boozy-estate/collection.html"/>
+  <meta property="og:url" content="https://boozyestate.com/collection.html"/>
   <meta property="og:title" content="The Boozy Estate Whiskey Decanter Collection — Rare & Vintage Bottles"/>
   <meta property="og:description" content="A rotating showcase of 20 bottles from the 319-bottle Boozy Estate collection — vintage American whiskey, rare decanters, and collectible spirits."/>
   <meta property="og:site_name" content="Boozy Estate"/>
@@ -325,22 +325,24 @@
         <li><a href="history.html">History</a></li>
         <li><a href="valuing.html">Valuing Your Collection</a></li>
         <li><a href="collection.html" class="active">The Collection</a></li>
+        <li><a href="decanters.html">Decanter Database</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
   </nav>
 
   <!-- PAGE HEADER -->
   <header class="page-header">
-    <p class="eyebrow">319 Bottles · Rotating Showcase</p>
+    <p class="eyebrow">Jim Beam · Hoffman · Pre-1990 · Rotating Showcase</p>
     <h1>The <span>Collection</span></h1>
-    <p>A random draw of 20 bottles from the Boozy Estate vault — vintage decanters, rare single barrels, and historically significant American whiskey. Reshuffle for a new look.</p>
+    <p>A rotating draw of 10 bottles from the Boozy Estate vault — Jim Beam Regal China decanters, Hoffman pieces, and vintage spirits bottled before 1990. Reshuffle for a new look.</p>
   </header>
 
   <div class="wrapper--wide" style="padding-top: 0;">
 
     <!-- TOOLBAR -->
     <div class="toolbar">
-      <p class="toolbar-count">Showing <strong id="showCount">20</strong> of <strong>319</strong> vaulted bottles</p>
+      <p class="toolbar-count">Showing <strong id="showCount">10</strong> of <strong id="poolCount">—</strong> featured bottles</p>
       <button class="btn btn-outline" onclick="reshuffle()">↺ &nbsp;Reshuffle</button>
     </div>
 
@@ -373,11 +375,13 @@
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-logo">Boozy <span>Estate</span></div>
-    <p class="footer-tagline">American Whiskey Collectibles</p>
+    <p class="footer-tagline">Vintage Liquor · Information Hub</p>
     <ul class="footer-links">
       <li><a href="history.html">History</a></li>
       <li><a href="valuing.html">Valuing</a></li>
       <li><a href="collection.html">Collection</a></li>
+      <li><a href="decanters.html">Database</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
     <p class="footer-copy">© 2025 Boozy Estate. All rights reserved.</p>
   </footer>
@@ -425,11 +429,29 @@
       return ERA_CONTEXT.default;
     }
 
+    // ── Filter: Jim Beam, Hoffman, or pre-1990 only ──
+    function extractYear(name) {
+      const m = (name || '').match(/\b(19\d{2}|20\d{2})\b/);
+      return m ? parseInt(m[1], 10) : null;
+    }
+
+    function isHighlight(bottle) {
+      const brand = bottle.brand || '';
+      const name  = bottle.name  || '';
+      if (brand === 'Jim Beam') return true;
+      if (/hoffman/i.test(brand) || /hoffman/i.test(name)) return true;
+      const yr = extractYear(name);
+      if (yr && yr < 1990) return true;
+      return false;
+    }
+
     // ── Load manifest ──
     async function loadManifest() {
       try {
         const res = await fetch('manifest.json');
-        allBottles = await res.json();
+        allBottles = (await res.json()).filter(isHighlight);
+        const poolEl = document.getElementById('poolCount');
+        if (poolEl) poolEl.textContent = allBottles.length;
         reshuffle();
       } catch (err) {
         document.getElementById('showcaseGrid').innerHTML =
@@ -437,10 +459,10 @@
       }
     }
 
-    // ── Pick 20 random bottles ──
+    // ── Pick 10 random bottles ──
     function reshuffle() {
       const shuffled = [...allBottles].sort(() => Math.random() - 0.5);
-      currentSelection = shuffled.slice(0, 20);
+      currentSelection = shuffled.slice(0, 10);
       renderGrid();
       window.scrollTo({ top: document.querySelector('.toolbar').offsetTop - 80, behavior: 'smooth' });
     }
@@ -448,6 +470,8 @@
     // ── Render grid ──
     function renderGrid() {
       const grid = document.getElementById('showcaseGrid');
+      const showEl = document.getElementById('showCount');
+      if (showEl) showEl.textContent = currentSelection.length;
       grid.innerHTML = `<div class="showcase-grid">${currentSelection.map((b, i) => cardHTML(b, i)).join('')}</div>`;
     }
 

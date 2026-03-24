@@ -4,16 +4,16 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jim Beam & Whiskey Decanter Database — Values, Mintage & Year — Boozy Estate</title>
-  <meta name="description" content="Searchable database of 2,297 Jim Beam, Ezra Brooks, Ski Country, and Wild Turkey decanters with year, mintage, and value data from the Bottle Collectors Price Guide."/>
-  <link rel="canonical" href="https://airmax617.github.io/boozy-estate/decanters.html"/>
+  <meta name="description" content="Searchable database of 2,289 Jim Beam, Ezra Brooks, Ski Country, and Wild Turkey decanters with year, mintage, and value data from the Bottle Collectors Price Guide."/>
+  <link rel="canonical" href="https://boozyestate.com/decanters.html"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://airmax617.github.io/boozy-estate/decanters.html"/>
+  <meta property="og:url" content="https://boozyestate.com/decanters.html"/>
   <meta property="og:title" content="Jim Beam & Whiskey Decanter Database — Values, Mintage & Year"/>
-  <meta property="og:description" content="Searchable database of 2,297 Jim Beam, Ezra Brooks, Ski Country, and Wild Turkey decanters with year, mintage, and value data from the Bottle Collectors Price Guide."/>
+  <meta property="og:description" content="Searchable database of 2,289 Jim Beam, Ezra Brooks, Ski Country, and Wild Turkey decanters with year, mintage, and value data from the Bottle Collectors Price Guide."/>
   <meta property="og:site_name" content="Boozy Estate"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Jim Beam & Whiskey Decanter Database — Values, Mintage & Year"/>
-  <meta name="twitter:description" content="Searchable database of 2,297 Jim Beam, Ezra Brooks, Ski Country, and Wild Turkey decanters with year, mintage, and value data from the Bottle Collectors Price Guide."/>
+  <meta name="twitter:description" content="Searchable database of 2,289 Jim Beam, Ezra Brooks, Ski Country, and Wild Turkey decanters with year, mintage, and value data from the Bottle Collectors Price Guide."/>
   <link rel="stylesheet" href="style.css"/>
   <style>
     /* ── DATABASE PAGE STYLES ── */
@@ -236,6 +236,7 @@
         <li><a href="valuing.html">Valuing Your Collection</a></li>
         <li><a href="collection.html">The Collection</a></li>
         <li><a href="decanters.html" class="active">Decanter Database</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
   </nav>
@@ -244,7 +245,7 @@
   <header class="page-header">
     <p class="eyebrow">Jim Beam Regal China</p>
     <h1>Decanter <span>Database</span></h1>
-    <p>Searchable price guide data for Jim Beam collectible decanters — year issued, mintage, and estimated dealer value. Source: Tom Dunn's Bottle Collectors Pocket Price Guide (2016 ed.).</p>
+    <p>Searchable reference data for Jim Beam collectible decanters — year issued, mintage, and estimated dealer value. All values are sourced from Tom Dunn's Bottle Collectors Pocket Price Guide (2016 ed.) and reflect dealer estimates from that period. They are provided for historical reference only and should not be treated as current market prices.</p>
   </header>
 
   <!-- STAT STRIP -->
@@ -254,7 +255,7 @@
       <div class="stat-label">Decanters Listed</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num" id="statCategories">12</div>
+      <div class="stat-num" id="statCategories">—</div>
       <div class="stat-label">Categories</div>
     </div>
     <div class="stat-item">
@@ -351,12 +352,13 @@
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-logo">Boozy <span>Estate</span></div>
-    <p class="footer-tagline">American Whiskey Collectibles</p>
+    <p class="footer-tagline">Vintage Liquor · Information Hub</p>
     <ul class="footer-links">
       <li><a href="history.html">History</a></li>
       <li><a href="valuing.html">Valuing</a></li>
       <li><a href="collection.html">Collection</a></li>
       <li><a href="decanters.html">Database</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
     <p class="footer-copy">Price data: Tom Dunn's Bottle Collectors Pocket Price Guide © 2016. For educational reference only.</p>
     <p class="footer-copy" style="margin-top:6px;">© 2025 Boozy Estate. All rights reserved.</p>
@@ -2875,6 +2877,7 @@
   let filtered = [...DECANTERS];
 
   document.getElementById('statTotal').textContent = DECANTERS.length;
+  document.getElementById('statCategories').textContent = new Set(DECANTERS.map(d => d.category)).size;
 
   // ─── CONTROLS ───
   const EMPTIES = new Set([
