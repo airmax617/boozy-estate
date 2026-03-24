@@ -477,8 +477,8 @@
 
     function cardHTML(b, idx) {
       const imgHtml = b.image_url
-        ? `<img src="${esc(b.image_url)}" alt="${esc(b.name)}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\"no-img-placeholder\\">🥃</span>'">`
-        : `<span class="no-img-placeholder">🥃</span>`;
+        ? `<img src="${esc(b.image_url)}" alt="${esc(b.name)}" loading="lazy" onerror="this.parentElement.innerHTML=''">`
+        : ``;
 
       const price = b.market_price
         ? `$${Math.round(b.market_price).toLocaleString()}`
@@ -511,8 +511,8 @@
       // Image column
       const imgCol = document.getElementById('modalImg');
       imgCol.innerHTML = b.image_url
-        ? `<img src="${esc(b.image_url)}" alt="${esc(b.name)}" onerror="this.parentElement.innerHTML='<span style=\\"font-size:5rem;opacity:0.15\\">🥃</span>'">`
-        : `<span style="font-size:5rem;opacity:0.15">🥃</span>`;
+        ? `<img src="${esc(b.image_url)}" alt="${esc(b.name)}" onerror="this.parentElement.innerHTML=''">`
+        : ``;
 
       // Specs pills
       const specs = [];
