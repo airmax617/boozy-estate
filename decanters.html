@@ -264,7 +264,7 @@
   <header class="page-header">
     <p class="eyebrow">Jim Beam · Ezra Brooks · Ski Country · Wild Turkey</p>
     <h1>Decanter <span>Database</span></h1>
-    <p>Searchable reference data for Jim Beam collectible decanters — year issued, mintage, and estimated dealer value. All values are sourced from Tom Dunn's Bottle Collectors Pocket Price Guide (2016 ed.) and reflect dealer estimates from that period. They are provided for historical reference only and should not be treated as current market prices.</p>
+    <p>Searchable reference data for Jim Beam, Ezra Brooks, Ski Country, and Wild Turkey collectible decanters — year issued, mintage, and estimated dealer value. All values are sourced from Tom Dunn's Bottle Collectors Pocket Price Guide (2016 ed.) and reflect dealer estimates from that period. They are provided for historical reference only and should not be treated as current market prices.</p>
   </header>
 
   <!-- STAT STRIP -->
@@ -373,7 +373,7 @@
         <li><a href="contact.html">Contact</a></li>
     </ul>
     <p class="footer-copy">Price data: Tom Dunn's Bottle Collectors Pocket Price Guide © 2016. For educational reference only.</p>
-    <p class="footer-copy" style="margin-top:6px;">© 2025 Boozy Estate. All rights reserved.</p>
+    <p class="footer-copy" style="margin-top:6px;">© 2026 Boozy Estate. All rights reserved.</p>
   </footer>
 
   <script src="nav.js"></script>
@@ -415,7 +415,7 @@
     {name:"'69 Camaro Silver Convertible - Convention",year:1989,mintage:985,value:140,category:"Automotive",series:"Camaros"},
     {name:"'69 Camaro Yellow w/Black Top - Pennsylvania",year:1988,mintage:1200,value:90,category:"Automotive",series:"Camaros"},
     // ── CORVETTES ──
-    {name:"'53 Corvette White",year:1989,mintage:null,value:175,category:"Automotive",series:"Corvettes"},
+    {name:"'53 Corvette White",year:1989,mintage:"Unknown",value:175,category:"Automotive",series:"Corvettes"},
     {name:"'54 Corvette Blue",year:1989,mintage:5000,value:125,category:"Automotive",series:"Corvettes"},
     {name:"'55 Corvette Copper-Bronze",year:1989,mintage:5000,value:125,category:"Automotive",series:"Corvettes"},
     {name:"'55 Corvette Black - District IAJBBSC",year:1990,mintage:1200,value:145,category:"Automotive",series:"Corvettes"},
@@ -3025,7 +3025,7 @@
           ? `<span class="value-cell">$${d.value}</span>`
           : '<span style="color:var(--text-muted)">—</span>';
       const mintageHtml = d.mintage !== null
-        ? d.mintage.toLocaleString()
+        ? (typeof d.mintage === 'string' ? `<span style="color:var(--text-muted);font-style:italic">${esc(d.mintage)}</span>` : d.mintage.toLocaleString())
         : '<span style="color:var(--text-muted)">—</span>';
 
       return `<tr>
@@ -3036,7 +3036,7 @@
         <td>${d.year || '<span style="color:var(--text-muted)">N/A</span>'}</td>
         <td>${mintageHtml}</td>
         <td>${valueHtml}</td>
-        <td style="white-space:nowrap">${vaultHtml}</td>
+        <td>${vaultHtml}</td>
       </tr>`;
     }).join('');
   }
