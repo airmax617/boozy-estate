@@ -173,6 +173,24 @@
       pointer-events: none;
     }
     .specs-tip:hover::after { display: block; }
+    .wt-thumb {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 8px;
+      vertical-align: middle;
+      cursor: pointer;
+      opacity: 0.85;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+    }
+    .wt-thumb:hover { opacity: 1; }
+    .name-cell { display: flex; align-items: center; }
+    /* lightbox */
+    #wt-lb { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1000; align-items:center; justify-content:center; cursor:zoom-out; }
+    #wt-lb.open { display:flex; }
+    #wt-lb img { max-width:90vw; max-height:90vh; border-radius:8px; box-shadow:0 8px 40px rgba(0,0,0,0.7); }
     .vault-vaulted {
       font-size: 0.7rem;
       font-weight: 600;
@@ -2756,50 +2774,50 @@
 
     // ── Wild Turkey ──
     // Original Ceramic Series (750ml, glazed)
-    {name:"Wild Turkey No. 1 - The Standing Turkey",year:1971,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 12.3oz | Yield: 700ml | Empty: 2lb 6.9oz"},
-    {name:"Wild Turkey No. 2 - Turkey On A Log",year:1972,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 13.0oz | Yield: 640ml | Empty: 2lb 8.0oz"},
-    {name:"Wild Turkey No. 3 - The Flying Turkey",year:1973,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 13.3oz | Yield: 600ml | Empty: 2lb 10.5oz"},
-    {name:"Wild Turkey No. 4 - Turkey and Poult",year:1974,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 15.1oz | Yield: 700ml | Empty: 2lb 8.1oz"},
-    {name:"Wild Turkey No. 5 - Spirit of '76 Bicentennial",year:1975,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 12oz | Yield: 675ml | Empty: 2lb 6.0oz"},
-    {name:"Wild Turkey No. 6 - The Striding Turkey",year:1976,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 10.9oz | Yield: 740ml | Empty: 2lb 3.1oz"},
-    {name:"Wild Turkey No. 7 - Turkey Taking Off",year:1977,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 5.8oz | Yield: 700ml | Empty: 1lb 15.5oz"},
-    {name:"Wild Turkey No. 8 - The Strutting Turkey",year:1978,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 4lb 12.5oz | Yield: 700ml | Empty: 3lb 6.2oz"},
+    {name:"Wild Turkey No. 1 - The Standing Turkey",year:1971,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 12.3oz | Yield: 700ml | Empty: 2lb 6.9oz",image:"ttt_1_and_2.jpg"},
+    {name:"Wild Turkey No. 2 - Turkey On A Log",year:1972,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 13.0oz | Yield: 640ml | Empty: 2lb 8.0oz",image:"ttt_1_and_2.jpg"},
+    {name:"Wild Turkey No. 3 - The Flying Turkey",year:1973,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 13.3oz | Yield: 600ml | Empty: 2lb 10.5oz",image:"ttt_3_and_4.jpg"},
+    {name:"Wild Turkey No. 4 - Turkey and Poult",year:1974,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 15.1oz | Yield: 700ml | Empty: 2lb 8.1oz",image:"ttt_3_and_4.jpg"},
+    {name:"Wild Turkey No. 5 - Spirit of '76 Bicentennial",year:1975,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 12oz | Yield: 675ml | Empty: 2lb 6.0oz",image:"ttt_5_and_6.jpg"},
+    {name:"Wild Turkey No. 6 - The Striding Turkey",year:1976,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 10.9oz | Yield: 740ml | Empty: 2lb 3.1oz",image:"ttt_5_and_6.jpg"},
+    {name:"Wild Turkey No. 7 - Turkey Taking Off",year:1977,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 3lb 5.8oz | Yield: 700ml | Empty: 1lb 15.5oz",image:"ttt_7_and_8.jpg"},
+    {name:"Wild Turkey No. 8 - The Strutting Turkey",year:1978,mintage:null,value:null,category:"Wild Turkey",series:"Original Series",specs:"Full: 4lb 12.5oz | Yield: 700ml | Empty: 3lb 6.2oz",image:"ttt_7_and_8.jpg"},
 
     // Original Ceramic Series Miniatures (50ml, glazed)
-    {name:"Wild Turkey Miniature No. 1",year:1981,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures"},
-    {name:"Wild Turkey Miniature No. 2",year:1981,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures"},
-    {name:"Wild Turkey Miniature No. 3",year:1982,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures"},
-    {name:"Wild Turkey Miniature No. 4",year:1982,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures"},
-    {name:"Wild Turkey Miniature No. 5",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures"},
-    {name:"Wild Turkey Miniature No. 6",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures"},
-    {name:"Wild Turkey Miniature No. 7",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures"},
-    {name:"Wild Turkey Miniature No. 8",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures"},
+    {name:"Wild Turkey Miniature No. 1",year:1981,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures",image:"ttt_mini_turkeys_1_and_2.jpg"},
+    {name:"Wild Turkey Miniature No. 2",year:1981,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures",image:"ttt_mini_turkeys_1_and_2.jpg"},
+    {name:"Wild Turkey Miniature No. 3",year:1982,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures",image:"ttt_mini_turkeys_3_and_4.jpg"},
+    {name:"Wild Turkey Miniature No. 4",year:1982,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures",image:"ttt_mini_turkeys_3_and_4.jpg"},
+    {name:"Wild Turkey Miniature No. 5",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures",image:"ttt_mini_turkeys_5_and_6.jpg"},
+    {name:"Wild Turkey Miniature No. 6",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures",image:"ttt_mini_turkeys_5_and_6.jpg"},
+    {name:"Wild Turkey Miniature No. 7",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures",image:"ttt_mini_turkeys_7_and_8.jpg"},
+    {name:"Wild Turkey Miniature No. 8",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"Original Miniatures",image:"ttt_mini_turkeys_7_and_8.jpg"},
 
     // Lore Series (750ml, bisque)
-    {name:"Wild Turkey Lore No. 1 - First of the Lore",year:1979,mintage:null,value:null,category:"Wild Turkey",series:"Lore Series",specs:"Full: 4lb 2.9oz | Yield: 300ml | Empty: 3lb 10.9oz"},
-    {name:"Wild Turkey Lore No. 2 - Wild Turkey of the Winter Forest",year:1980,mintage:null,value:null,category:"Wild Turkey",series:"Lore Series",specs:"Full: 4lb 2.8oz | Yield: 750ml | Empty: 2lb 10.4oz"},
-    {name:"Wild Turkey Lore No. 3 - Keenness of Sight",year:1981,mintage:null,value:null,category:"Wild Turkey",series:"Lore Series",specs:"Full: 4lb 9.4oz | Yield: 700ml | Empty: 3lb 1.9oz"},
-    {name:"Wild Turkey Lore No. 4 - Ready to Fight",year:1982,mintage:null,value:null,category:"Wild Turkey",series:"Lore Series",specs:"Full: 4lb 7.4oz | Yield: 650ml | Empty: 3lb 1.8oz"},
+    {name:"Wild Turkey Lore No. 1 - First of the Lore",year:1979,mintage:null,value:null,category:"Wild Turkey",series:"Lore Series",specs:"Full: 4lb 2.9oz | Yield: 300ml | Empty: 3lb 10.9oz",image:"ttt_panorama.jpg"},
+    {name:"Wild Turkey Lore No. 2 - Wild Turkey of the Winter Forest",year:1980,mintage:null,value:null,category:"Wild Turkey",series:"Lore Series",specs:"Full: 4lb 2.8oz | Yield: 750ml | Empty: 2lb 10.4oz",image:"ttt_panorama.jpg"},
+    {name:"Wild Turkey Lore No. 3 - Keenness of Sight",year:1981,mintage:null,value:null,category:"Wild Turkey",series:"Lore Series",specs:"Full: 4lb 9.4oz | Yield: 700ml | Empty: 3lb 1.9oz",image:"ttt_panorama.jpg"},
+    {name:"Wild Turkey Lore No. 4 - Ready to Fight",year:1982,mintage:null,value:null,category:"Wild Turkey",series:"Lore Series",specs:"Full: 4lb 7.4oz | Yield: 650ml | Empty: 3lb 1.8oz",image:"ttt_panorama.jpg"},
 
     // New Direction / Action Series (750ml, bisque porcelain)
-    {name:"Wild Turkey Action No. 1 - Turkey in Flight",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 7.1oz | Yield: 650ml | Empty: 3lb 1.8oz"},
-    {name:"Wild Turkey Action No. 2 - Turkey and Bobcat",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 8oz | Yield: 700ml | Empty: 3lb 1.7oz"},
-    {name:"Wild Turkey Action No. 3 - Two Fighting Turkeys",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 14.3oz | Yield: 800ml | Empty: 3lb 4.9oz"},
-    {name:"Wild Turkey Action No. 4 - Turkey and Eagle",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 4.2oz | Yield: 740ml | Empty: 2lb 12.5oz"},
-    {name:"Wild Turkey Action No. 5 - Turkey and Raccoon",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 7.7oz | Yield: 700ml | Empty: 3lb 0.3oz"},
-    {name:"Wild Turkey Action No. 6 - Turkey with Poults",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 6oz | Yield: 700ml | Empty: 2lb 15.0oz"},
-    {name:"Wild Turkey Action No. 7 - Fox",year:1985,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 9.5oz | Yield: 700ml | Empty: 3lb 3.3oz"},
-    {name:"Wild Turkey Action No. 8 - Owl",year:1985,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 5lb 3.7oz | Yield: 725ml | Empty: 3lb 12.1oz"},
-    {name:"Wild Turkey Action No. 9 - Bears",year:1985,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 2oz | Yield: 625ml | Empty: 2lb 13.5oz"},
-    {name:"Wild Turkey Action No. 10 - Coyote",year:1986,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 12.8oz | Yield: 750ml | Empty: 3lb 4.1oz"},
-    {name:"Wild Turkey Action No. 11 - Falcon",year:1986,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 14.9oz | Yield: 650ml | Empty: 3lb 9.6oz"},
-    {name:"Wild Turkey Action No. 12 - Skunks",year:1986,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 7.6oz | Yield: 600ml | Empty: 3lb 4.7oz"},
+    {name:"Wild Turkey Action No. 1 - Turkey in Flight",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 7.1oz | Yield: 650ml | Empty: 3lb 1.8oz",image:"ttt-turkey-decanters-dark-main.jpg"},
+    {name:"Wild Turkey Action No. 2 - Turkey and Bobcat",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 8oz | Yield: 700ml | Empty: 3lb 1.7oz",image:"ttt-turkey-decanters-dark-main.jpg"},
+    {name:"Wild Turkey Action No. 3 - Two Fighting Turkeys",year:1983,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 14.3oz | Yield: 800ml | Empty: 3lb 4.9oz",image:"ttt-turkey-decanters-dark-main.jpg"},
+    {name:"Wild Turkey Action No. 4 - Turkey and Eagle",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 4.2oz | Yield: 740ml | Empty: 2lb 12.5oz",image:"ttt-turkey-decanters-dark-main.jpg"},
+    {name:"Wild Turkey Action No. 5 - Turkey and Raccoon",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 7.7oz | Yield: 700ml | Empty: 3lb 0.3oz",image:"ttt-turkey-decanters-dark-main.jpg"},
+    {name:"Wild Turkey Action No. 6 - Turkey with Poults",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 6oz | Yield: 700ml | Empty: 2lb 15.0oz",image:"ttt-turkey-decanters-dark-main.jpg"},
+    {name:"Wild Turkey Action No. 7 - Fox",year:1985,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 9.5oz | Yield: 700ml | Empty: 3lb 3.3oz",image:"ttt-turkey-decanters-dark-main.jpg"},
+    {name:"Wild Turkey Action No. 8 - Owl",year:1985,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 5lb 3.7oz | Yield: 725ml | Empty: 3lb 12.1oz",image:"ttt-turkey-decanters-dark-main.jpg"},
+    {name:"Wild Turkey Action No. 9 - Bears",year:1985,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 2oz | Yield: 625ml | Empty: 2lb 13.5oz",image:"ttt-turkey-decanters-dark-main.jpg"},
+    {name:"Wild Turkey Action No. 10 - Coyote",year:1986,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 12.8oz | Yield: 750ml | Empty: 3lb 4.1oz",image:"ttt-turkey-decanters-dark-main.jpg"},
+    {name:"Wild Turkey Action No. 11 - Falcon",year:1986,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 14.9oz | Yield: 650ml | Empty: 3lb 9.6oz",image:"ttt-turkey-decanters-dark-main.jpg"},
+    {name:"Wild Turkey Action No. 12 - Skunks",year:1986,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Series",specs:"Full: 4lb 7.6oz | Yield: 600ml | Empty: 3lb 4.7oz",image:"ttt-turkey-decanters-dark-main.jpg"},
 
     // New Direction Miniatures (50ml, bisque porcelain)
-    {name:"Wild Turkey New Direction Miniature No. 1",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Miniatures"},
-    {name:"Wild Turkey New Direction Miniature No. 2",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Miniatures"},
-    {name:"Wild Turkey New Direction Miniature No. 3",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Miniatures"},
-    {name:"Wild Turkey New Direction Miniature No. 4",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Miniatures"},
+    {name:"Wild Turkey New Direction Miniature No. 1",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Miniatures",image:"ttt-2-mini-turkeys-main.jpg"},
+    {name:"Wild Turkey New Direction Miniature No. 2",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Miniatures",image:"ttt-2-mini-turkeys-main.jpg"},
+    {name:"Wild Turkey New Direction Miniature No. 3",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Miniatures",image:"ttt-2-mini-turkeys-main.jpg"},
+    {name:"Wild Turkey New Direction Miniature No. 4",year:1984,mintage:null,value:null,category:"Wild Turkey",series:"New Direction Miniatures",image:"ttt-2-mini-turkeys-main.jpg"},
 
     // Special Decanters
     {name:"Wild Turkey Crystal Anniversary",year:1953,mintage:null,value:null,category:"Wild Turkey",series:"Special Decanters"},
@@ -3000,7 +3018,8 @@
       const inColl = baxusUrl !== null;
       const brand = getBrand(d);
       const specsTip = d.specs ? `<span class="specs-tip" data-specs="${esc(d.specs)}">⚖</span>` : '';
-      const nameHtml = (inColl
+      const thumbHtml = d.image ? `<img class="wt-thumb" src="images/wild-turkey/${esc(d.image)}" alt="" onclick="openLb('images/wild-turkey/${esc(d.image)}')">` : '';
+      const nameHtml = thumbHtml + (inColl
         ? `${baxusUrl ? `<a href="${baxusUrl}" target="_blank" rel="noopener" class="baxus-link">${esc(d.name)}</a>` : esc(d.name)}`
         : esc(d.name)) + specsTip;
       const vaultHtml = inColl
@@ -3035,6 +3054,21 @@
   }
 
   render();
+
+  function openLb(src) {
+    const lb = document.getElementById('wt-lb');
+    lb.querySelector('img').src = src;
+    lb.classList.add('open');
+  }
+  document.addEventListener('click', e => {
+    if (e.target.id === 'wt-lb' || e.target.closest('#wt-lb') === document.getElementById('wt-lb') && e.target.tagName !== 'IMG') {
+      document.getElementById('wt-lb').classList.remove('open');
+    }
+    if (e.target.id === 'wt-lb') document.getElementById('wt-lb').classList.remove('open');
+  });
+  document.addEventListener('keydown', e => { if(e.key==='Escape') document.getElementById('wt-lb').classList.remove('open'); });
   </script>
+
+<div id="wt-lb" onclick="this.classList.remove('open')"><img src="" alt="Wild Turkey decanter" onclick="event.stopPropagation()"></div>
 </body>
 </html>
