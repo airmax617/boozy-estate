@@ -616,6 +616,139 @@
     .closer p:last-child { margin-bottom: 0; }
 
     /* ══════════════════════════════
+       DEEP-DIVE SECTIONS (new)
+    ══════════════════════════════ */
+    .deep-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .deep-section:nth-child(odd) { background: var(--dark-mid); }
+    .deep-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .deep-card {
+      background: rgba(10,6,2,0.7);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px 24px;
+    }
+    .deep-card-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 10px;
+    }
+    .deep-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+    .deep-card p {
+      font-size: 0.85rem;
+      color: var(--cream-dim);
+      line-height: 1.75;
+    }
+    .deep-card strong { color: var(--cream); }
+    /* Reference tables */
+    .ref-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 28px;
+      font-size: 0.84rem;
+    }
+    .ref-table th {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      padding: 10px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-gold);
+      background: rgba(200,132,26,0.06);
+    }
+    .ref-table td {
+      padding: 10px 16px;
+      color: var(--cream-dim);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .ref-table tr:last-child td { border-bottom: none; }
+    .ref-table tr:hover td { background: rgba(200,132,26,0.04); }
+    .ref-table td:first-child { color: var(--cream); font-weight: 500; }
+    /* Quick reference — first col is what you see */
+    .ref-table.qr td:first-child { color: var(--cream-dim); font-weight: 400; font-style: italic; }
+    .ref-table.qr td:last-child { color: var(--amber-light); }
+    /* Multi-table grid */
+    .table-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .table-group h4 {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 2px;
+    }
+    /* Tasting profile */
+    .tasting-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .tasting-card {
+      border-left: 2px solid var(--amber-dark);
+      padding: 4px 0 4px 20px;
+    }
+    .tasting-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 12px;
+    }
+    .tasting-card p {
+      font-size: 0.84rem;
+      color: var(--cream-dim);
+      line-height: 1.7;
+    }
+    /* Masters table */
+    .masters-table { margin-top: 28px; }
+    /* Limited editions */
+    .editions-table { margin-top: 0; }
+    /* Market note */
+    .market-note {
+      background: rgba(200,132,26,0.06);
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+      padding: 16px 20px;
+      margin-top: 20px;
+      font-size: 0.84rem;
+      color: var(--cream-dim);
+      line-height: 1.7;
+    }
+    .market-note strong { color: var(--amber-light); }
+    @media (max-width: 900px) {
+      .card-grid-3, .tasting-grid { grid-template-columns: 1fr; }
+      .table-grid { grid-template-columns: 1fr; gap: 28px; }
+    }
+
+    /* ══════════════════════════════
        SITE FOOTER
     ══════════════════════════════ */
     .site-footer {
@@ -718,6 +851,68 @@
       <p><strong>Source:</strong> Research by Michael at <strong>Vieux Cognacs</strong> (vieuxcognacs.com), October 2013. Dates are approximate; some conclusions remain disputed. Use as a reference, not a final authority — bottle photography and original research available at the source.</p>
     </div>
   </div>
+
+  <!-- ══ ORIGINS & HISTORY ══ -->
+  <section class="deep-section">
+    <div class="deep-inner">
+      <p class="section-label">Origins</p>
+      <h2 class="section-title">History of the House</h2>
+      <p class="section-desc">Louis XIII is the flagship expression of Rémy Martin — and the decanter is inseparable from the cognac inside it.</p>
+      <div class="card-grid-3">
+        <div class="deep-card">
+          <p class="deep-card-label">1874</p>
+          <h3>The First Blend</h3>
+          <p><strong>Paul-Émile Rémy Martin</strong>, great-grandson of the family founder, drew from tierçons quietly aging in the Rémy Martin cellars and assembled what he called <em>Grande Champagne, Très Vieille, Age Inconnu</em> — very old, of unknown age, from the best terroir. He named it after <strong>King Louis XIII of France</strong>, who reigned when the Rémy Martin family first settled in the Cognac region in the 1620s and was the first French monarch to formally recognize cognac as a spirit. The blend came to international attention at the 1900 Universal Exhibition in Paris.</p>
+        </div>
+        <div class="deep-card">
+          <p class="deep-card-label">1569</p>
+          <h3>The Decanter's Origin</h3>
+          <p>The iconic decanter shape is not a modern design exercise. Paul-Émile modeled it on a <strong>16th-century metal flask</strong> that had belonged to a French chevalier who carried it on the battlefield of Jarnac in 1569. Lost on the frontlines, it was unearthed centuries later and became the mold for the decanter we know today. The form — rounded body, fluted fins, fleur-de-lys medallions, ornate neck — has remained fundamentally unchanged for over 150 years, though crystal manufacturers, stopper designs, and finishing details have evolved considerably. <em>All Louis XIII decanters you encounter today trace their shape to that battlefield flask.</em></p>
+        </div>
+        <div class="deep-card">
+          <p class="deep-card-label">Cellar Masters</p>
+          <h3>The Unbroken Chain</h3>
+          <p>Each cellar master selects eaux-de-vie they will <strong>never taste in their finished form</strong> — the blend they choose will only be bottled decades after they retire.</p>
+          <table class="ref-table masters-table" style="margin-top:16px;">
+            <thead><tr><th>Master</th><th>Tenure</th></tr></thead>
+            <tbody>
+              <tr><td>André Renaud</td><td>1924–1960</td></tr>
+              <tr><td>André Giraud</td><td>1960–1990</td></tr>
+              <tr><td>Georges Clot</td><td>1990–2003</td></tr>
+              <tr><td>Pierrette Trichet</td><td>2003–2014</td></tr>
+              <tr><td>Baptiste Loiseau</td><td>2014–present</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ THE LIQUID ══ -->
+  <section class="deep-section">
+    <div class="deep-inner">
+      <p class="section-label">Production</p>
+      <h2 class="section-title">How Louis XIII Is Made</h2>
+      <p class="section-desc">From vine to decanter spans up to a century and four generations of cellar masters. Less than 5% of eaux-de-vie evaluated each year are selected.</p>
+      <div class="card-grid-3">
+        <div class="deep-card">
+          <p class="deep-card-label">The Terroir</p>
+          <h3>Grande Champagne Only</h3>
+          <p>Louis XIII uses exclusively <strong>Grande Champagne</strong> grapes — the innermost and most prized of Cognac's six crus, representing just 4% of the appellation's vineyards. The chalk-rich soils produce wines with concentrated acidity and aromatic finesse uniquely suited to century-long aging. Rémy Martin's other expressions blend Grande and Petit Champagne; Louis XIII is 100% Grande Champagne. The Ugni Blanc grape is harvested in November, then double-distilled in copper pot stills smaller than conventional cognac stills to produce a concentrated, fruity eau-de-vie.</p>
+        </div>
+        <div class="deep-card">
+          <p class="deep-card-label">The Tierçons</p>
+          <h3>Barrels Older Than the Republic</h3>
+          <p>Louis XIII is aged in <strong>tierçons</strong> — traditional Limousin oak barrels, larger than standard casks, handmade from wide-grain oak air-dried a minimum of three years. Unlike conventional barrels, tierçons are used repeatedly over decades. <strong>Some in the Rémy Martin cellars date to 1744.</strong> When new, a tierçon first receives young eaux-de-vie; beyond 50 years, it receives older material destined for the final blend. Since 2017, approximately 15 new tierçons are made each year — not to expand production, but to gradually replace vessels too worn to repair. Four in-house coopers are trained specifically in the art of restoring old tierçons.</p>
+        </div>
+        <div class="deep-card">
+          <p class="deep-card-label">The Blend</p>
+          <h3>Up to 1,200 Eaux-de-Vie</h3>
+          <p>The final blend assembles <strong>up to 1,200 individual eaux-de-vie</strong>, ranging from 40 to 100 years of age. Only five experts are involved in the final blending process. The cellar master compares each new blend against previous years to maintain consistency — a remarkable challenge given that no two years' raw materials are identical. Once assembled, the blend spends an <strong>additional four years in a tierçon</strong> before being transferred to the Baccarat crystal decanter. The full journey from selection to decanter can span an entire century.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ══ SIX IDENTIFIERS ══ -->
   <section class="identifier-section" id="identifier">
@@ -1421,6 +1616,184 @@
       </dl>
       <div class="era-notes">
         <p>The Rendez-Vous 2000 is a gold-top bottle with <strong>special Baccarat engraving and a unique presentation case</strong>. It marks the end of this guide's scope — over 125 years from the first irregular hand-blown glass to a numbered millennium commission.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ QUICK REFERENCE ══ -->
+  <section class="deep-section" id="quick-ref">
+    <div class="deep-inner">
+      <p class="section-label">Collector's Reference</p>
+      <h2 class="section-title">What to Look For</h2>
+      <p class="section-desc">No single feature is definitive — use several in combination. Sets are sometimes reassembled from mismatched parts; verify that bottle, stopper, box, and card are consistent with each other.</p>
+      <table class="ref-table qr">
+        <thead><tr><th>What you see</th><th>What it tells you</th></tr></thead>
+        <tbody>
+          <tr><td>White capsule top</td><td>Bottled before 1981</td></tr>
+          <tr><td>Gold capsule top</td><td>Bottled 1979 or later</td></tr>
+          <tr><td>Both white and gold tops possible</td><td>1979–1981 overlap window</td></tr>
+          <tr><td>No Baccarat logo on base</td><td>Pre-1950 <em>or</em> 1946–1950 postwar — not necessarily pre-WWII</td></tr>
+          <tr><td>"Saint-Louis" on base</td><td>After 1969; Asian market production; 10-fin profile, all-crystal stopper</td></tr>
+          <tr><td>Slim Centaur, spear pointing at "Y" of Rémy</td><td>Pre-1963</td></tr>
+          <tr><td>Centaur spear pointing up at "R" of Martin</td><td>1963–1968</td></tr>
+          <tr><td>Fat Centaur (old style) on a newer-looking bottle</td><td>1969–1978 — the octagonal box era paradoxically reverted to old Centaur</td></tr>
+          <tr><td>"Age Inconnu" label</td><td>European market; pre-1963</td></tr>
+          <tr><td>"Rarest Reserve" label (bean-shaped)</td><td>US market; used throughout most of the 20th century</td></tr>
+          <tr><td>Serial number (letters + 4 digits)</td><td>1979 or later</td></tr>
+          <tr><td>No serial number</td><td>Pre-1937 <em>or</em> 1964–1968 (that generation was unnumbered)</td></tr>
+          <tr><td>Solid "Fleur-de-Lys" stopper (not hollow)</td><td>1979 or later</td></tr>
+          <tr><td>Green velvet box</td><td>1946–1958 US market</td></tr>
+          <tr><td>Red velvet box</td><td>1959–1961 US market</td></tr>
+          <tr><td>Red oval split box</td><td>1964–1968; US market; unnumbered generation</td></tr>
+          <tr><td>Octagonal red "silk" box</td><td>1969–1978</td></tr>
+          <tr><td>Red square box</td><td>1979–2002</td></tr>
+          <tr><td>Rattan basket</td><td>European market; 1946–1962</td></tr>
+          <tr><td>Royal Banquet Card</td><td>1938–1968 US market</td></tr>
+          <tr><td>Battle of Jarnac card</td><td>1969 onward</td></tr>
+          <tr><td>4/5 Quart volume</td><td>Pre-metric; US market before 1981</td></tr>
+          <tr><td>0.7L or 0.75L volume</td><td>Post-1962 Europe / post-1981 US</td></tr>
+          <tr><td>"2000A" on base engraving</td><td>Rendez-Vous 2000; limited to exactly 2,000 bottles</td></tr>
+          <tr><td>NFC chip in cork stopper</td><td>Modern Classic Decanter; enables authentication via LOUIS XIII Society app</td></tr>
+        </tbody>
+      </table>
+
+      <div class="table-grid" style="margin-top:56px;">
+        <div class="table-group">
+          <h4>US Tax Strip Dating</h4>
+          <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:4px;">Applies to US-market bottles only. One of the most reliable dating tools for pre-1985 bottles.</p>
+          <table class="ref-table">
+            <thead><tr><th>Tax Strip</th><th>Date Range</th></tr></thead>
+            <tbody>
+              <tr><td>No "Series" near eagle</td><td>1934–1944</td></tr>
+              <tr><td>"Series 111" below eagle</td><td>1944–1960</td></tr>
+              <tr><td>"Series 112" below eagle</td><td>1961–1982</td></tr>
+              <tr><td>References "Dept. of Revenue"</td><td>1961–1977</td></tr>
+              <tr><td>References "Bureau of ATF"</td><td>1977–1985</td></tr>
+              <tr><td>Tax strips discontinued</td><td>After 1985</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-group">
+          <h4>US Importer Timeline</h4>
+          <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:4px;">The back-label importer is a quick dating shortcut for US-market bottles.</p>
+          <table class="ref-table">
+            <thead><tr><th>Importer</th><th>Period</th></tr></thead>
+            <tbody>
+              <tr><td>Joseph H. Reinfeld Inc. / Browne Vintners</td><td>1933–1940</td></tr>
+              <tr><td>Renfield Importers Ltd. (Union, NJ)</td><td>1940s–1990s</td></tr>
+              <tr><td>Remy Amerique Inc. / Remy-Cointreau</td><td>~1999–present</td></tr>
+            </tbody>
+          </table>
+          <div class="market-note" style="margin-top:16px;">
+            <strong>Common Myth Corrected:</strong> Many collectors assume that the absence of a Baccarat logo on the base indicates a pre-WWII bottle. This is incorrect — many post-WWII bottles (1946–1950) also lack the engraved logo. The logo only became standard after 1950.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ DECANTER FORMATS ══ -->
+  <section class="deep-section">
+    <div class="deep-inner">
+      <p class="section-label">The Lineup</p>
+      <h2 class="section-title">Decanter Formats & Sizes</h2>
+      <p class="section-desc">From a single-serve personal vessel to a monumental 9-liter sculpture. Historical US-market sizes used pre-metric designations; the shift to metric became mandatory in the US from 1981.</p>
+      <table class="ref-table" style="margin-top:28px;">
+        <thead><tr><th>Format</th><th>Volume</th><th>Notable Details</th></tr></thead>
+        <tbody>
+          <tr><td>The Drop</td><td>1cl</td><td>Personal experience format; designed for mixing and travel</td></tr>
+          <tr><td>Miniature</td><td>5cl</td><td>Hand-blown Baccarat crystal; same defining features as full-size</td></tr>
+          <tr><td>Classic</td><td>70cl / 75cl</td><td>Signature size; modern version includes NFC chip in cork stopper for LOUIS XIII Society authentication</td></tr>
+          <tr><td>Magnum</td><td>1.75L</td><td>—</td></tr>
+          <tr><td>Jeroboam</td><td>3L</td><td>Includes four glasses, Cellar Master letter, and LOUIS XIII Spear</td></tr>
+          <tr><td>Mathusalem</td><td>6L</td><td>Only 50 produced per year; presented in display chest with eight glasses</td></tr>
+          <tr><td>Le Salmanazar</td><td>9L</td><td>One-of-a-kind; created by 20 master sculptors at Baccarat; weighs over 15kg without cognac</td></tr>
+          <tr><td>4/5 Quart (historical)</td><td>~757ml</td><td>Standard US size through the 1970s; replaced by 75cl after 1981</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ TASTING PROFILE ══ -->
+  <section class="deep-section">
+    <div class="deep-inner">
+      <p class="section-label">The Liquid</p>
+      <h2 class="section-title">Tasting Profile</h2>
+      <p class="section-desc">Consistently 40% ABV. Classified Hors d'Age — beyond age designation — with a minimum component age of 40 years and a maximum of 100. Deep amber with warm mahogany and copper reflections; occasional flaming red tones suggesting great age.</p>
+      <div class="tasting-grid">
+        <div class="tasting-card">
+          <p class="tasting-label">Nose</p>
+          <p>Honeysuckle, leather, cigar box, figs, dried roses, plum, passion fruit, myrrh, honey, candied fruits, toasted oak, vanilla. Also: almond, allspice, orange peel, clementine, medjool date, baked pear, cocoa, dried chamomile, jasmine.</p>
+        </div>
+        <div class="tasting-card">
+          <p class="tasting-label">Palate</p>
+          <p>Candied figs, raisins, nuts, cinnamon, ginger, clove, oak, rancio, grape skins, slight salt, orange. Pairs well with caviar or wafer-thin bellota ham. The <em>rancio</em> — a nutty, cheesy oxidative note found only in very old cognacs — is among the most distinctive characteristics.</p>
+        </div>
+        <div class="tasting-card">
+          <p class="tasting-label">Finish</p>
+          <p>Exceptionally long. Sweet oak, cherry, and rancio persist, with baking spices and pepper. Widely regarded as having one of the longest finishes of any cognac. The house describes it as "a magical firework of flavors and aromas" — theatrical, but not inaccurate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SPECIAL RELEASES ══ -->
+  <section class="deep-section">
+    <div class="deep-inner">
+      <p class="section-label">Limited Editions</p>
+      <h2 class="section-title">Notable Special Releases</h2>
+      <p class="section-desc">Beyond the Classic decanter, Rémy Martin has produced a series of limited editions tied to specific cellar selections, anniversaries, and collaborations. The Black Pearl series is the most collectible.</p>
+      <table class="ref-table editions-table">
+        <thead><tr><th>Edition</th><th>Year</th><th>Details</th><th>Release Price</th></tr></thead>
+        <tbody>
+          <tr><td>Rendez-Vous 2000</td><td>1999</td><td>Exactly 2,000 bottles; millennium edition; red square box with gold scrolling; stopper not numbered</td><td>—</td></tr>
+          <tr><td>Black Pearl AHD</td><td>Various</td><td>Multiple versions produced using private reserves of former chairman Heriard Dubreuil; also includes Anniversary Edition and a single bottle for the 2011 Montreal Grand Prix</td><td>—</td></tr>
+          <tr><td>Black Pearl Rare Cask 42.6</td><td>2013</td><td>738 Baccarat decanters; single tierçon selected by Pierrette Trichet in 2009; 42.6% ABV; most collectible of the Black Pearl series</td><td>~$23,000 USD</td></tr>
+          <tr><td>The Origin — 1874</td><td>2017</td><td>Tribute to the 1874 original; Saint-Louis crystal; woven metal case</td><td>~$7,200 USD</td></tr>
+          <tr><td>Louis XIII Legacy</td><td>n/d</td><td>500 created; signed by four of the five cellar masters; Italian calfskin leather box; numbered plaque</td><td>~$12,000 USD</td></tr>
+          <tr><td>Rare Cask 43.8</td><td>Current</td><td>Latest single-cask release</td><td>~$20,000+ USD</td></tr>
+        </tbody>
+      </table>
+      <div class="market-note">
+        <strong>The "100 Years" Project:</strong> In 2017, Pharrell Williams and Louis XIII collaborated on a climate change initiative in which Pharrell recorded a song entitled <em>100 Years</em> that will be locked away until 2117. The recording is stored on a clay disc in a safe that will self-destruct if submerged in water — a characteristically theatrical expression of the brand's centurial philosophy.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ COLLECTOR MARKET ══ -->
+  <section class="deep-section">
+    <div class="deep-inner">
+      <p class="section-label">The Market</p>
+      <h2 class="section-title">Pricing, Resale & Authentication</h2>
+      <div class="card-grid-3" style="margin-top:28px;">
+        <div class="deep-card">
+          <p class="deep-card-label">Current Retail</p>
+          <h3>New Release Pricing</h3>
+          <table class="ref-table" style="margin-top:12px;">
+            <thead><tr><th>Format</th><th>Retail</th></tr></thead>
+            <tbody>
+              <tr><td>Classic (70cl/75cl)</td><td>$3,000–$4,100</td></tr>
+              <tr><td>Miniature (5cl)</td><td>~$762</td></tr>
+              <tr><td>Black Pearl Rare Cask</td><td>~$23,000</td></tr>
+              <tr><td>Louis XIII Legacy</td><td>~$12,000</td></tr>
+              <tr><td>The Origin — 1874</td><td>~$7,200</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="deep-card">
+          <p class="deep-card-label">Vintage Resale</p>
+          <h3>Older Decanter Market</h3>
+          <p>White-top bottles from before 1981 generally sell for around the same as a new decanter, sometimes slightly more, given that early Baccarat production was exclusively hand-blown. Condition, completeness (original box, card, stopper matching bottle number), and documented provenance drive premium pricing.</p>
+          <p style="margin-top:12px;">A rare Louis XIII Black Pearl discovered on a Mediterranean cruise ship — estimated by Bonhams at £5,000–£7,000 — ultimately sold for <strong>£10,350</strong>, nearly twice the high estimate.</p>
+        </div>
+        <div class="deep-card">
+          <p class="deep-card-label">Authentication & Notes</p>
+          <h3>Verifying Your Bottle</h3>
+          <p><strong>Before 1981:</strong> the bottling date can be read directly from the decanter.</p>
+          <p style="margin-top:10px;"><strong>After 1981:</strong> provide the engraved serial number to Rémy Martin; they can retrieve the bottling date.</p>
+          <p style="margin-top:10px;"><strong>Modern Classic:</strong> NFC chip in the cork stopper enables digital authentication via the LOUIS XIII Society app.</p>
+          <p style="margin-top:10px;"><strong>Lead crystal:</strong> Pre-1969 Baccarat decanters were made with lead crystal. Any spirit stored in confirmed lead crystal for extended periods should be tested before consumption.</p>
+        </div>
       </div>
     </div>
   </section>
