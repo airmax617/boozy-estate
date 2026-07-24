@@ -47,6 +47,8 @@
     .db-search:focus { outline: none; border-color: var(--amber); }
     a.baxus-link { color: var(--amber); text-decoration: none; }
     a.baxus-link:hover { text-decoration: underline; }
+    a.dp-detail-link { color: var(--cream); text-decoration: none; }
+    a.dp-detail-link:hover { color: var(--amber-light); text-decoration: underline; }
     .db-search::placeholder { color: var(--text-muted); }
     .db-select {
       background: var(--dark);
@@ -2884,6 +2886,24 @@
       render();
     });
 
+  // ─── STATIC PAGE SLUGS (mirrors generate_decanter_pages.py) ───
+  (function() {
+    function slugify(name, year) {
+      let s = (name || '').toLowerCase()
+        .replace(/['''‘’`]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+      return `${s}-${year}`;
+    }
+    const slugCount = {};
+    DECANTERS.forEach(d => {
+      const base = slugify(d.name, d.year);
+      const n = slugCount[base] || 0;
+      slugCount[base] = n + 1;
+      d._slug = n === 0 ? base : `${base}-${n + 1}`;
+    });
+  })();
+
   // ─── STATE ───
   let currentSort = {key: 'name', dir: 1};
   let filtered = [...DECANTERS];
@@ -3011,9 +3031,13 @@
       const brand = getBrand(d);
       const specsTip = d.specs ? `<span class="specs-tip" data-specs="${esc(d.specs)}">⚖</span>` : '';
       const thumbHtml = d.image ? `<img class="wt-thumb" src="images/wild-turkey/${esc(d.image)}" alt="" onclick="openLb('images/wild-turkey/${esc(d.image)}')">` : '';
-      const nameHtml = thumbHtml + (inColl
-        ? `${baxusUrl ? `<a href="${baxusUrl}" target="_blank" rel="noopener" class="baxus-link">${esc(d.name)}</a>` : esc(d.name)}`
-        : esc(d.name)) + specsTip;
+      const staticLink = d._slug ? `/decanters/${d._slug}/` : null;
+      const baxusIcon = inColl && baxusUrl
+        ? ` <a href="${baxusUrl}" target="_blank" rel="noopener" class="baxus-link" title="View on Baxus" style="font-size:0.7em">↗</a>`
+        : '';
+      const nameHtml = thumbHtml + (staticLink
+        ? `<a href="${staticLink}" class="dp-detail-link">${esc(d.name)}</a>`
+        : esc(d.name)) + baxusIcon + specsTip;
       const vaultHtml = inColl
         ? `<span class="vault-vaulted">Vaulted</span>`
         : EMPTIES.has(d.name)
