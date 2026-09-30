@@ -2946,7 +2946,7 @@
 
   function openLb(src) {
     const lb = document.getElementById('wt-lb');
-    lb.querySelector('img').src = src;
+    lb.replaceChildren(Object.assign(new Image(), { src, alt: 'Wild Turkey decanter' }));
     lb.classList.add('open');
   }
   document.addEventListener('click', e => {
@@ -2958,6 +2958,6 @@
   document.addEventListener('keydown', e => { if(e.key==='Escape') document.getElementById('wt-lb').classList.remove('open'); });
   </script>
 
-<div class="lightbox" id="wt-lb" onclick="this.classList.remove('open')"><img alt="Wild Turkey decanter"></div>
+<div class="lightbox" id="wt-lb" onclick="this.classList.remove('open')"></div>
 </body>
 </html>
