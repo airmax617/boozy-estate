@@ -14,357 +14,106 @@
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="The Boozy Estate Whiskey Decanter Collection — Rare & Vintage Bottles"/>
   <meta name="twitter:description" content="A rotating showcase of 20 bottles from the 319-bottle Boozy Estate collection — vintage American whiskey, rare decanters, and collectible spirits."/>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site.css"/>
   <style>
-
-    /* ── SHOWCASE GRID ── */
-    .showcase-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 24px;
-      margin-top: 40px;
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+    .toolbar p { color: var(--muted); font-size: 0.92rem; }
+    .toolbar strong { color: var(--cream); }
+    .showcase-grid { display: grid; gap: 16px; grid-template-columns: repeat(4, 1fr); }
+    .bottle {
+      display: flex; flex-direction: column; text-align: left; cursor: pointer; color: inherit;
+      background: var(--tile); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+      padding: 0; transition: border-color .2s, transform .2s;
     }
+    .bottle:hover { border-color: rgba(208,138,30,0.5); transform: translateY(-3px); }
+    .bottle-photo { background: #fff; aspect-ratio: 1 / 1; overflow: hidden; }
+    /* White panel so Baxus product shots (white backdrops) blend into the card */
+    .bottle-photo img { width: 100%; height: 100%; object-fit: contain; transition: transform .35s; }
+    .bottle:hover .bottle-photo img { transform: scale(1.04); }
+    .bottle:focus { outline: none; }
+    .bottle:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+    .bottle-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .bottle-body .chip { align-self: flex-start; font-size: 0.72rem; }
+    .bottle-body h3 { font-size: 1.02rem; line-height: 1.3; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .bottle-foot { margin-top: auto; padding-top: 8px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 0.9rem; }
+    .bottle-price { color: var(--cream); font-weight: 600; }
+    .bottle-more { color: var(--amber); font-size: 0.85rem; font-weight: 500; }
+    .loading-state { color: var(--muted); padding: 48px 0; text-align: center; }
 
-    .bottle-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .bottle-card:hover {
-      border-color: var(--amber-dark);
-      transform: translateY(-3px);
-    }
-
-    .bottle-img-wrap {
-      width: 100%;
-      aspect-ratio: 3/4;
-      background: linear-gradient(160deg, #1a0e02, #2e1a06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .bottle-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 16px;
-      transition: transform 0.3s;
-    }
-
-    .bottle-card:hover .bottle-img-wrap img { transform: scale(1.04); }
-
-    .no-img-placeholder {
-      font-size: 4rem;
-      opacity: 0.15;
-    }
-
-    .bottle-body {
-      padding: 16px 18px 20px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .bottle-type {
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 6px;
-    }
-
-    .bottle-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--cream);
-      line-height: 1.3;
-      margin-bottom: 10px;
-      flex: 1;
-    }
-
-    .bottle-desc-preview {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      line-height: 1.55;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      margin-bottom: 14px;
-    }
-
-    .bottle-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-    }
-
-    .bottle-price {
-      font-size: 0.8rem;
-      color: var(--amber-light);
-      font-weight: 600;
-    }
-
-    .bottle-dive-btn {
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--amber);
-      border: 1px solid var(--amber-dark);
-      border-radius: 2px;
-      padding: 5px 10px;
-      background: transparent;
-      cursor: pointer;
-      font-family: 'Source Serif 4', serif;
-      transition: all 0.18s;
-    }
-
-    .bottle-dive-btn:hover {
-      border-color: var(--amber);
-      color: var(--amber-light);
-    }
-
-    /* ── TOOLBAR ── */
-    .toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 48px;
-    }
-
-    .toolbar-count {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      letter-spacing: 0.06em;
-    }
-
-    .toolbar-count strong { color: var(--cream); }
-
-    /* ── MODAL ── */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 500;
-      background: rgba(5, 3, 1, 0.88);
-      backdrop-filter: blur(6px);
-      overflow-y: auto;
-      padding: 40px 20px;
-    }
-
+    .modal-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(8,5,2,0.88); overflow-y: auto; padding: 48px 20px; }
     .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+    .modal-box { position: relative; width: 100%; max-width: 900px; background: var(--tile); border: 1px solid var(--line-strong); border-radius: 22px; overflow: hidden; margin: auto 0; }
+    .modal-close { position: absolute; top: 14px; right: 16px; z-index: 2; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(14,10,4,0.7); color: var(--cream); font-size: 1.4rem; cursor: pointer; line-height: 1; }
+    .modal-close:hover { background: var(--amber); color: #1a1004; }
+    .modal-inner { display: grid; grid-template-columns: 1fr 1.15fr; }
+    .modal-img-col { background: #fff; display: flex; align-items: center; justify-content: center; padding: 32px; min-height: 360px; }
+    .modal-img-col img { max-height: 440px; width: 100%; object-fit: contain; }
+    .modal-content-col { padding: 36px 32px; display: flex; flex-direction: column; gap: 16px; }
+    .modal-title { font-size: 1.7rem; padding-right: 32px; }
+    .modal-specs { display: flex; flex-wrap: wrap; gap: 6px; }
+    .modal-history { font-size: 0.95rem; }
+    .modal-actions:empty { display: none; }
 
-    .modal-box {
-      background: #1a1007;
-      border: 1px solid var(--border-gold);
-      border-radius: 8px;
-      max-width: 780px;
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 18px;
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.5rem;
-      cursor: pointer;
-      line-height: 1;
-      transition: color 0.2s;
-      z-index: 10;
-    }
-
-    .modal-close:hover { color: var(--cream); }
-
-    .modal-inner {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-    }
-
-    .modal-img-col {
-      background: linear-gradient(160deg, #1a0e02, #2e1a06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 360px;
-    }
-
-    .modal-img-col img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 24px;
-      max-height: 420px;
-    }
-
-    .modal-content-col {
-      padding: 32px 36px 32px 28px;
-      border-left: 1px solid var(--border);
-    }
-
-    .modal-eyebrow {
-      font-size: 0.65rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 10px;
-    }
-
-    .modal-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--cream);
-      line-height: 1.25;
-      margin-bottom: 20px;
-    }
-
-    .modal-specs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 22px;
-    }
-
-    .spec-pill {
-      background: rgba(200,132,26,0.1);
-      border: 1px solid var(--amber-dark);
-      border-radius: 2px;
-      padding: 4px 10px;
-      font-size: 0.72rem;
-      color: var(--cream-dim);
-      letter-spacing: 0.06em;
-    }
-
-    .modal-section-label {
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 8px;
-    }
-
-    .modal-history {
-      font-size: 0.87rem;
-      color: var(--cream-dim);
-      line-height: 1.75;
-      margin-bottom: 22px;
-    }
-
-    .modal-era {
-      background: linear-gradient(135deg, #1e0d00, #2a1600);
-      border: 1px solid var(--border-gold);
-      border-radius: 4px;
-      padding: 14px 18px;
-      margin-bottom: 22px;
-      font-size: 0.82rem;
-      color: var(--cream-dim);
-      line-height: 1.65;
-    }
-
-    .modal-era strong { color: var(--amber); }
-
-    .modal-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-    }
-
-    /* ── LOADING ── */
-    .loading-state {
-      text-align: center;
-      padding: 80px 0;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
-    }
-
-    @media (max-width: 680px) {
-      .modal-inner { grid-template-columns: 1fr; }
-      .modal-img-col { min-height: 220px; }
-      .modal-content-col { padding: 24px 20px; border-left: none; border-top: 1px solid var(--border); }
-      .showcase-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-    }
-
-    @media (max-width: 400px) {
-      .showcase-grid { grid-template-columns: 1fr; }
-    }
-
+    @media (max-width: 1000px) { .showcase-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 760px) { .showcase-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } .modal-inner { grid-template-columns: 1fr; } .modal-img-col { min-height: 240px; padding: 24px; } .modal-content-col { padding: 24px 20px; } }
+    @media (max-width: 420px) { .bottle-body { padding: 12px 12px 14px; } .bottle-body h3 { font-size: 0.92rem; } .bottle-foot { flex-direction: column; gap: 2px; } }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="site-nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">Boozy <span>Estate</span></a>
-      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a href="index.html" class="logo">Boozy <span>Estate</span></a>
       <ul class="nav-links">
         <li><a href="history.html">History</a></li>
-        <li><a href="valuing.html">Valuing Your Collection</a></li>
-        <li><a href="collection.html" class="active">The Collection</a></li>
-        <li><a href="decanters.html">Decanter Database</a></li>
+        <li><a href="valuing.html">Values</a></li>
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="decanters.html">Database</a></li>
         <li><a href="louis-xiii.html">Louis XIII</a></li>
-        <li><a href="contact.html">Contact</a></li>
       </ul>
+      <a href="contact.html" class="btn btn-solid">Get in touch</a>
+      <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
     </div>
   </nav>
 
-  <!-- PAGE HEADER -->
-  <header class="page-header">
-    <p class="eyebrow">Jim Beam · Hoffman · Regal China Era · Rotating Showcase</p>
-    <h1>The <span>Collection</span></h1>
-    <p>A rotating draw of 12 bottles from the Boozy Estate vault — Jim Beam Regal China decanters, Hoffman pieces, and vintage spirits from the Regal China era (1955–1992). Reshuffle for a new look.</p>
+  <header class="page-hero">
+    <div class="wrap">
+      <span class="chip">From our vault</span>
+      <h1>The <em>Collection</em></h1>
+      <p class="lede">Twelve bottles at a time from the Boozy Estate vault: Jim Beam, Hoffman and Regal China–era pieces.</p>
+    </div>
   </header>
 
-  <div class="wrapper--wide" style="padding-top: 0;">
-
-    <!-- TOOLBAR -->
-    <div class="toolbar">
-      <p class="toolbar-count">Showing <strong id="showCount">12</strong> of <strong id="poolCount">—</strong> featured bottles</p>
-      <button class="btn btn-outline" onclick="reshuffle()">↺ &nbsp;Reshuffle</button>
+  <main class="section-tight" style="padding-top: 8px;">
+    <div class="wrap">
+      <div class="toolbar">
+        <p>Showing <strong id="showCount">12</strong> of <strong id="poolCount">—</strong> bottles</p>
+        <button class="btn btn-ghost" type="button" onclick="reshuffle()">↻ Reshuffle</button>
+      </div>
+      <div id="showcaseGrid">
+        <div class="loading-state">Loading collection…</div>
+      </div>
     </div>
+  </main>
 
-    <!-- GRID -->
-    <div id="showcaseGrid">
-      <div class="loading-state">Loading collection…</div>
+  <section class="section-tight" style="padding-bottom: 96px;">
+    <div class="wrap">
+      <div class="cta-card">
+        <div>
+          <h2>Have something like this?</h2>
+          <p>Inherited a collection or found something at an estate sale? We'll help you work out what it is and what it's worth.</p>
+          <a class="btn btn-solid" href="contact.html">Get in touch →</a>
+        </div>
+        <img class="art" src="images/home/woodie.webp" alt="">
+      </div>
     </div>
+  </section>
 
-    <!-- CTA -->
-    <div style="text-align:center; margin-top: 64px; padding: 56px 24px; border: 1px solid var(--border); border-radius: 6px; background: var(--card-bg);">
-      <p class="section-label" style="text-align:center;">Have Something Like This?</p>
-      <h2 style="font-family:'Playfair Display',serif; font-size:1.7rem; color:var(--cream); margin-bottom:16px; line-height:1.2;">We Help With Your Collection.</h2>
-      <p style="color:var(--cream-dim); max-width:480px; margin:0 auto 28px; font-size:0.92rem;">Whether you've inherited a collection, built one over decades, or found something interesting at an estate sale — we can help you understand what you have, what it's worth, and where it fits in the history of American whiskey collecting.</p>
-      <a href="mailto:boozyestate@gmail.com" class="btn btn-primary">Get in Touch →</a>
-    </div>
-
-  </div>
-
-  <!-- MODAL -->
   <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
-    <div class="modal-box" id="modalBox">
+    <div class="modal-box" id="modalBox" role="dialog" aria-modal="true">
       <button class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
       <div class="modal-inner">
         <div class="modal-img-col" id="modalImg"></div>
@@ -373,19 +122,19 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-logo">Boozy <span>Estate</span></div>
-    <p class="footer-tagline">Vintage Liquor · Information Hub</p>
-    <ul class="footer-links">
-      <li><a href="history.html">History</a></li>
-      <li><a href="valuing.html">Valuing</a></li>
-      <li><a href="collection.html">Collection</a></li>
-      <li><a href="decanters.html">Database</a></li>
-      <li><a href="louis-xiii.html">Louis XIII</a></li>
+  <footer class="site-foot">
+    <div class="wrap">
+      <a href="index.html" class="logo">Boozy <span>Estate</span></a>
+      <span>© 2026</span>
+      <ul>
+        <li><a href="history.html">History</a></li>
+        <li><a href="valuing.html">Values</a></li>
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="decanters.html">Database</a></li>
+        <li><a href="louis-xiii.html">Louis XIII</a></li>
         <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <p class="footer-copy">© 2026 Boozy Estate. All rights reserved.</p>
+      </ul>
+    </div>
   </footer>
 
   <script src="nav.js"></script>
@@ -469,7 +218,7 @@
         .filter(b => !seen.has(b.name) && seen.add(b.name))
         .slice(0, 12);
       renderGrid();
-      if (scroll) window.scrollTo({ top: document.querySelector('.toolbar').offsetTop - 80, behavior: 'smooth' });
+      if (scroll) window.scrollTo({ top: document.querySelector('.toolbar').offsetTop - 84, behavior: 'smooth' });
     }
 
     // ── Render grid ──
@@ -482,30 +231,23 @@
 
     function cardHTML(b, idx) {
       const imgHtml = b.image_url
-        ? `<img src="${esc(b.image_url)}" alt="${esc(b.name)}" loading="lazy" onerror="this.parentElement.innerHTML=''">`
+        ? `<img src="${esc(b.image_url)}" alt="${esc(b.name)}" loading="lazy" onerror="this.remove()">`
         : ``;
-
       const price = b.market_price
         ? `$${Math.round(b.market_price).toLocaleString()}`
         : (b.listed_price ? `$${Math.round(b.listed_price).toLocaleString()}` : '');
-
-      const desc = b.description
-        ? `<p class="bottle-desc-preview">${esc(b.description)}</p>`
-        : '';
-
       return `
-        <div class="bottle-card" onclick="openModal(${idx})">
-          <div class="bottle-img-wrap">${imgHtml}</div>
+        <button class="bottle" type="button" onclick="openModal(${idx})">
+          <div class="bottle-photo">${imgHtml}</div>
           <div class="bottle-body">
-            <div class="bottle-type">${esc(b.spirit_type || b.brand || 'Whiskey')}</div>
-            <div class="bottle-name">${esc(b.name)}</div>
-            ${desc}
-            <div class="bottle-footer">
+            <span class="chip chip-plain">${esc(b.spirit_type || b.brand || 'Whiskey')}</span>
+            <h3>${esc(b.name)}</h3>
+            <div class="bottle-foot">
               <span class="bottle-price">${price ? `Est. ${price}` : ''}</span>
-              <button class="bottle-dive-btn" onclick="event.stopPropagation(); openModal(${idx})">Deep Dive →</button>
+              <span class="bottle-more">Deep dive →</span>
             </div>
           </div>
-        </div>`;
+        </button>`;
     }
 
     // ── Modal ──
@@ -528,30 +270,27 @@
       if (b.region)      specs.push(b.region);
       if (b.country)     specs.push(b.country);
 
-      const specHTML = specs.map(s => `<span class="spec-pill">${esc(s)}</span>`).join('');
+      const specHTML = specs.map(s => `<span class="chip chip-plain">${esc(s)}</span>`).join('');
 
       const priceStr = b.market_price
-        ? `<span class="spec-pill" style="border-color:var(--amber);color:var(--amber-light);">Est. $${Math.round(b.market_price).toLocaleString()}</span>`
-        : (b.listed_price ? `<span class="spec-pill" style="border-color:var(--amber);color:var(--amber-light);">Listed $${Math.round(b.listed_price).toLocaleString()}</span>` : '');
+        ? `<span class="chip">Est. $${Math.round(b.market_price).toLocaleString()}</span>`
+        : (b.listed_price ? `<span class="chip">Listed $${Math.round(b.listed_price).toLocaleString()}</span>` : '');
 
       const eraContext = getEraContext(b);
 
       const descHTML = b.description
-        ? `<p class="modal-section-label">About This Bottle</p>
-           <p class="modal-history">${esc(b.description)}</p>`
+        ? `<p class="modal-history">${esc(b.description)}</p>`
         : '';
 
       const baxusLink = b.baxus_url
-        ? `<a href="${esc(b.baxus_url)}" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:0.72rem;padding:9px 18px;">View on Baxus →</a>`
+        ? `<a href="${esc(b.baxus_url)}" target="_blank" rel="noopener" class="btn btn-solid">View on Baxus →</a>`
         : '';
 
       document.getElementById('modalContent').innerHTML = `
-        <p class="modal-eyebrow">${esc(b.spirit_type || 'American Whiskey')}</p>
         <h2 class="modal-title">${esc(b.name)}</h2>
-        <div class="modal-specs">${specHTML}${priceStr}</div>
+        <div class="modal-specs">${priceStr}${specHTML}</div>
         ${descHTML}
-        <p class="modal-section-label">Historical Context</p>
-        <div class="modal-era"><strong>The Story Behind It —</strong> ${eraContext}</div>
+        <details class="more"><summary>The story behind it</summary><div class="more-body"><p>${eraContext}</p></div></details>
         <div class="modal-actions">${baxusLink}</div>
       `;
 
@@ -580,5 +319,6 @@
 
     loadManifest();
   </script>
+
 </body>
 </html>
