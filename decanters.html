@@ -2893,7 +2893,7 @@
         .replace(/['''‘’`]/g, '')
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-+|-+$/g, '');
-      return `${s}-${year}`;
+      return `${s}-${year ?? 'None'}`;  // matches generate_decanter_pages.py (Python prints None)
     }
     const slugCount = {};
     DECANTERS.forEach(d => {

@@ -396,7 +396,7 @@
   <script src="nav.js"></script>
   <script>
     const overlay = document.getElementById('awOverlay');
-    document.getElementById('awTrigger').addEventListener('click', () => {
+    document.getElementById('awTrigger')?.addEventListener('click', () => {
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
     });

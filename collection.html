@@ -454,7 +454,7 @@
         allBottles = (await res.json()).filter(isHighlight);
         const poolEl = document.getElementById('poolCount');
         if (poolEl) poolEl.textContent = allBottles.length;
-        reshuffle();
+        reshuffle(false);
       } catch (err) {
         document.getElementById('showcaseGrid').innerHTML =
           '<p class="loading-state">Unable to load collection data.</p>';
@@ -462,11 +462,14 @@
     }
 
     // ── Pick 12 random bottles ──
-    function reshuffle() {
-      const shuffled = [...allBottles].sort(() => Math.random() - 0.5);
-      currentSelection = shuffled.slice(0, 12);
+    function reshuffle(scroll = true) {
+      // Vault has multiple copies of some bottles — show each name once per draw
+      const seen = new Set();
+      currentSelection = [...allBottles].sort(() => Math.random() - 0.5)
+        .filter(b => !seen.has(b.name) && seen.add(b.name))
+        .slice(0, 12);
       renderGrid();
-      window.scrollTo({ top: document.querySelector('.toolbar').offsetTop - 80, behavior: 'smooth' });
+      if (scroll) window.scrollTo({ top: document.querySelector('.toolbar').offsetTop - 80, behavior: 'smooth' });
     }
 
     // ── Render grid ──

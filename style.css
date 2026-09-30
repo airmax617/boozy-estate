@@ -459,8 +459,9 @@ img { max-width: 100%; display: block; }
 
 .footer-links {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 24px;
+  gap: 12px 24px;
   list-style: none;
   margin-bottom: 28px;
 }
