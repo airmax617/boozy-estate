@@ -22,23 +22,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ── Lightbox: any <img data-zoom> (optionally data-zoom="full-size-url") ──
-  const zoomables = document.querySelectorAll('img[data-zoom]');
-  if (zoomables.length) {
-    const lb = document.createElement('div');
-    lb.className = 'lightbox';
-    lb.innerHTML = '<img alt="">';
-    document.body.appendChild(lb);
-    const big = lb.querySelector('img');
-    const close = () => lb.classList.remove('open');
-    zoomables.forEach(img => {
-      img.style.cursor = 'zoom-in';
-      img.addEventListener('click', () => {
-        big.src = img.dataset.zoom || img.currentSrc || img.src;
-        big.alt = img.alt;
-        lb.classList.add('open');
-      });
-    });
-    lb.addEventListener('click', close);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-  }
+  // Built on first use so there's no empty <img> in the page until someone zooms.
+  let lb = null;
+  const openZoom = (img) => {
+    if (!lb) {
+      lb = document.createElement('div');
+      lb.className = 'lightbox';
+      lb.addEventListener('click', () => lb.classList.remove('open'));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+      document.body.appendChild(lb);
+    }
+    const big = new Image();
+    big.src = img.dataset.zoom || img.currentSrc || img.src;
+    big.alt = img.alt;
+    lb.replaceChildren(big);
+    lb.classList.add('open');
+  };
+  document.querySelectorAll('img[data-zoom]').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => openZoom(img));
+  });
 });
