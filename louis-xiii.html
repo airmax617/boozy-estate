@@ -10,1847 +10,851 @@
   <meta property="og:url" content="https://boozyestate.com/louis-xiii.html"/>
   <meta property="og:title" content="Rémy Martin Louis XIII — Decanter Identification Guide — Boozy Estate"/>
   <meta property="og:site_name" content="Boozy Estate"/>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site.css"/>
   <style>
-
-    /* ── GRAIN OVERLAY ── */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 128px 128px;
-    }
-
-    /* ══════════════════════════════
-       HERO
-    ══════════════════════════════ */
-    .hero-full {
-      position: relative;
-      height: 100vh;
-      min-height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('images/louis-xiii/1985-B.jpg');
-      background-size: cover;
-      background-position: center 30%;
-      filter: brightness(0.28) saturate(1.4);
-    }
-
-    .hero-vignette {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, transparent 30%, rgba(10,6,2,0.7) 100%);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 0 28px;
-      max-width: 820px;
-    }
-
-    .hero-eyebrow {
-      font-size: 0.62rem;
-      letter-spacing: 0.36em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-    }
-
-    .hero-eyebrow::before,
-    .hero-eyebrow::after {
-      content: '';
-      width: 40px;
-      height: 1px;
-      background: var(--amber-dark);
-    }
-
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      font-weight: 900;
-      color: var(--cream);
-      line-height: 1.05;
-      margin-bottom: 28px;
-      letter-spacing: -0.01em;
-    }
-
-    .hero-title em {
-      color: var(--amber);
-      font-style: italic;
-    }
-
-    .hero-sub {
-      font-size: 1rem;
-      color: var(--cream-dim);
-      line-height: 1.75;
-      margin-bottom: 48px;
-      max-width: 580px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .hero-scroll {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      cursor: pointer;
-      animation: bounce 2.2s ease-in-out infinite;
-    }
-
-    .hero-scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--amber), transparent);
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); opacity: 0.6; }
-      50% { transform: translateY(6px); opacity: 1; }
-    }
-
-    /* ══════════════════════════════
-       ATTRIBUTION
-    ══════════════════════════════ */
-    .attribution {
-      background: rgba(16,10,2,0.9);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 20px 0;
-    }
-
-    .attribution-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 40px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .attribution-icon {
-      font-size: 1rem;
-      opacity: 0.5;
-      flex-shrink: 0;
-    }
-
-    .attribution p {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    .attribution strong { color: var(--cream-dim); }
-
-    /* ══════════════════════════════
-       IDENTIFIER SECTION
-    ══════════════════════════════ */
-    .identifier-section {
-      padding: 80px 0;
-      background: var(--dark-mid);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .identifier-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-
-    .section-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 700;
-      color: var(--cream);
-      margin-bottom: 12px;
-    }
-
-    .section-desc {
-      font-size: 0.92rem;
-      color: var(--cream-dim);
-      line-height: 1.75;
-      max-width: 640px;
-      margin-bottom: 48px;
-    }
-
-    .id-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .id-card {
-      background: var(--dark);
-      padding: 28px 20px;
-      text-align: center;
-      transition: background 0.2s;
-    }
-
-    .id-card:hover { background: var(--dark-mid); }
-
-    .id-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--amber);
-      opacity: 0.3;
-      line-height: 1;
-      margin-bottom: 12px;
-    }
-
-    .id-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 10px;
-    }
-
-    .id-desc {
-      font-size: 0.8rem;
-      color: var(--cream-dim);
-      line-height: 1.55;
-    }
-
-    /* ══════════════════════════════
-       ERA NAV
-    ══════════════════════════════ */
-    .era-nav {
-      position: sticky;
-      top: 64px;
-      z-index: 90;
-      background: rgba(8, 4, 1, 0.97);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(12px);
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .era-nav::-webkit-scrollbar { display: none; }
-
-    .era-nav-inner {
-      display: flex;
-      align-items: stretch;
-      min-width: max-content;
-    }
-
-    .era-nav a {
-      font-size: 0.58rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      padding: 0 22px;
-      height: 46px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      border-bottom: 2px solid transparent;
-      transition: all 0.2s;
-      white-space: nowrap;
-      text-decoration: none;
-      border-right: 1px solid rgba(74,48,16,0.3);
-    }
-
-    .era-nav a:last-child { border-right: none; }
-
-    .era-nav-year {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: inherit;
-      line-height: 1;
-    }
-
-    .era-nav a:hover { color: var(--cream-dim); background: rgba(200,132,26,0.04); }
-    .era-nav a.active {
-      color: var(--amber);
-      border-bottom-color: var(--amber);
-      background: rgba(200,132,26,0.05);
-    }
-    .era-nav a.active .era-nav-year { color: var(--amber); }
-
-    /* ══════════════════════════════
-       ERA SECTION — SPLIT LAYOUT
-    ══════════════════════════════ */
-    .era-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 100vh;
-      border-bottom: 1px solid var(--border);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .era-section.visible { opacity: 1; transform: translateY(0); }
-
-    /* Alternating layout */
-    .era-section:nth-child(even) .era-img-col { order: 2; }
-    .era-section:nth-child(even) .era-info-col { order: 1; }
-
-    /* Image column */
-    .era-img-col {
-      position: relative;
-      background: #0a0602;
-      overflow: hidden;
-    }
-
-    .era-img-sticky {
-      position: sticky;
-      top: 110px;
-      height: calc(100vh - 110px);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .era-img-main {
-      flex: 1;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .era-img-main img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
-      display: block;
-      transition: transform 0.6s ease;
-    }
-
-    .era-section:hover .era-img-main img {
-      transform: scale(1.03);
-    }
-
-    /* Gradient overlay on image edge facing the text */
-    .era-img-col::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .era-section:nth-child(odd) .era-img-col::after {
-      background: linear-gradient(to right, transparent 60%, rgba(16,12,4,0.8) 100%);
-    }
-
-    .era-section:nth-child(even) .era-img-col::after {
-      background: linear-gradient(to left, transparent 60%, rgba(16,12,4,0.8) 100%);
-    }
-
-    /* Thumbnail strip */
-    .era-thumbs {
-      display: flex;
-      gap: 4px;
-      padding: 8px;
-      background: rgba(0,0,0,0.5);
-      flex-shrink: 0;
-      overflow-x: auto;
-      scrollbar-width: none;
-      z-index: 3;
-      position: relative;
-    }
-
-    .era-thumbs::-webkit-scrollbar { display: none; }
-
-    .era-thumb {
-      width: 60px;
-      height: 60px;
-      flex-shrink: 0;
-      border-radius: 3px;
-      overflow: hidden;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: border-color 0.2s, opacity 0.2s;
-      opacity: 0.6;
-    }
-
-    .era-thumb:hover, .era-thumb.active { border-color: var(--amber); opacity: 1; }
-
-    .era-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Info column */
-    .era-info-col {
-      padding: 72px 56px 72px 56px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: var(--dark);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .era-section:nth-child(even) .era-info-col {
-      background: rgba(20, 14, 4, 0.98);
-    }
-
-    /* Watermark date */
-    .era-watermark {
-      position: absolute;
-      bottom: -20px;
-      right: -10px;
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(80px, 14vw, 180px);
-      font-weight: 900;
-      color: var(--amber);
-      opacity: 0.04;
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
-      letter-spacing: -0.04em;
-    }
-
-    .era-date-display {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 4.5vw, 4rem);
-      font-weight: 900;
-      color: var(--amber);
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-
-    .market-pills {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-    }
-
-    .market-pill {
-      font-size: 0.56rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      padding: 3px 9px;
-      border-radius: 2px;
-      border: 1px solid;
-    }
-
-    .market-pill.usa    { color: #7ab4e8; border-color: rgba(122,180,232,0.35); background: rgba(122,180,232,0.07); }
-    .market-pill.europe { color: #8ec48e; border-color: rgba(142,196,142,0.35); background: rgba(142,196,142,0.07); }
-    .market-pill.asia   { color: #d4a85b; border-color: rgba(212,168,91,0.35);  background: rgba(212,168,91,0.07);  }
-    .market-pill.global { color: var(--amber); border-color: rgba(200,132,26,0.4); background: rgba(200,132,26,0.08); }
-
-    .era-pill {
-      display: inline-flex;
-      align-items: center;
-      background: rgba(200,132,26,0.1);
-      border: 1px solid var(--amber-dark);
-      border-radius: 2px;
-      padding: 3px 10px;
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 16px;
-    }
-
-    .era-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.2rem, 2vw, 1.6rem);
-      font-weight: 700;
-      color: var(--cream);
-      line-height: 1.3;
-      margin-bottom: 32px;
-    }
-
-    /* Spec table */
-    .spec-table {
-      margin-bottom: 32px;
-      border-top: 1px solid rgba(74,48,16,0.5);
-    }
-
-    .spec-row {
-      display: grid;
-      grid-template-columns: 130px 1fr;
-      gap: 16px;
-      padding: 13px 0;
-      border-bottom: 1px solid rgba(74,48,16,0.3);
-      align-items: baseline;
-    }
-
-    .spec-row dt {
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--amber);
-      line-height: 1.6;
-      font-weight: 400;
-    }
-
-    .spec-row dd {
-      font-size: 0.88rem;
-      color: var(--cream-dim);
-      line-height: 1.65;
-      margin: 0;
-    }
-
-    .spec-row dd strong { color: var(--cream); }
-    .spec-row dd em { color: var(--amber-light); font-style: italic; }
-
-    /* Notes block */
-    .era-notes {
-      background: rgba(200,132,26,0.04);
-      border-left: 2px solid var(--amber-dark);
-      padding: 16px 20px;
-      border-radius: 0 3px 3px 0;
-    }
-
-    .era-notes p {
-      font-size: 0.85rem;
-      color: var(--cream-dim);
-      line-height: 1.8;
-      margin-bottom: 10px;
-    }
-
-    .era-notes p:last-child { margin-bottom: 0; }
-    .era-notes strong { color: var(--cream); }
-    .era-notes em { color: var(--amber-light); font-style: italic; }
-
-    /* ══════════════════════════════
-       WW2 SECTION (no image)
-    ══════════════════════════════ */
-    .era-section-full {
-      display: block;
-      min-height: auto;
-      padding: 80px 0;
-      border-bottom: 1px solid var(--border);
-      background: rgba(8,4,1,0.8);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .era-section-full.visible { opacity: 1; transform: translateY(0); }
-
-    .era-full-inner {
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 0 40px;
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 48px;
-      align-items: start;
-    }
-
-    /* ══════════════════════════════
-       CLOSER SECTION
-    ══════════════════════════════ */
-    .closer {
-      padding: 96px 0;
-      background: var(--dark-mid);
-      border-top: 1px solid var(--border);
-      text-align: center;
-    }
-
-    .closer-inner {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-
-    .closer-rule {
-      width: 48px;
-      height: 1px;
-      background: var(--amber-dark);
-      margin: 0 auto 40px;
-    }
-
-    .closer h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--cream);
-      margin-bottom: 20px;
-    }
-
-    .closer p {
-      font-size: 0.9rem;
-      color: var(--cream-dim);
-      line-height: 1.85;
-      margin-bottom: 16px;
-    }
-
-    .closer p:last-child { margin-bottom: 0; }
-
-    /* ══════════════════════════════
-       DEEP-DIVE SECTIONS (new)
-    ══════════════════════════════ */
-    .deep-section {
-      padding: 80px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .deep-section:nth-child(odd) { background: var(--dark-mid); }
-    .deep-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-    .card-grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 40px;
-    }
-    .deep-card {
-      background: rgba(10,6,2,0.7);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 28px 24px;
-    }
-    .deep-card-label {
-      font-size: 0.58rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 10px;
-    }
-    .deep-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--cream);
-      margin-bottom: 14px;
-      line-height: 1.3;
-    }
-    .deep-card p {
-      font-size: 0.85rem;
-      color: var(--cream-dim);
-      line-height: 1.75;
+    /* ── Louis XIII page ── */
+    .l13-hero { padding-bottom: 64px; }
+    .l13-hero::after {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: linear-gradient(180deg, rgba(14,10,4,0.55), var(--bg) 92%), url('images/louis-xiii/1985-B.jpg') center 30% / cover no-repeat;
+      opacity: 0.55;
+    }
+    .l13-hero .wrap-narrow { z-index: 1; }
+    .l13-hero .credit { margin: 26px auto 0; max-width: 520px; font-size: 0.85rem; color: var(--muted); }
+
+    /* era picker */
+    .picker { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+    .pick { padding: 14px 14px 18px; display: flex; flex-direction: column; }
+    .pick-media { aspect-ratio: 1 / 1; border-radius: var(--radius-sm); overflow: hidden; background: var(--tile-2); margin-bottom: 14px; }
+    .pick-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s; }
+    .pick:hover .pick-media img { transform: scale(1.05); }
+    .pick-empty { display: grid; place-items: center; color: var(--muted); font-size: 0.85rem; border: 1px dashed var(--line-strong); background: none; }
+    .pick-years { font-size: 0.82rem; font-weight: 600; color: var(--amber); }
+    .pick h3 { font-size: 1.15rem; margin: 2px 0 4px; }
+    .pick p { font-size: 0.88rem; color: var(--text); line-height: 1.45; }
+
+    /* six identifiers */
+    .id-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    .id { padding: 20px 22px; }
+    .id-num { font-family: var(--serif); color: var(--amber); font-size: 1.1rem; font-weight: 700; }
+    .id h3 { font-size: 1.15rem; margin: 2px 0 6px; }
+    .id p { font-size: 0.92rem; line-height: 1.5; }
+    .callout { margin-top: 20px; padding: 16px 20px; border-radius: var(--radius-sm); background: var(--amber-soft); border: 1px solid rgba(208,138,30,0.3); font-size: 0.95rem; }
+
+    /* era sections */
+    .era { padding: 72px 0; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
+    .era-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 48px; align-items: start; }
+    .era-noimg .era-grid { grid-template-columns: minmax(0, 760px); }
+    .era-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .era-num { font-size: 0.82rem; font-weight: 600; color: var(--muted); margin-right: 4px; }
+    .era-years { font-family: var(--serif); font-size: clamp(2.2rem, 4.4vw, 3.2rem); font-weight: 700; color: var(--amber); line-height: 1; }
+    .era h2 { margin-top: 6px; }
+    .era-sub { color: var(--muted); margin-top: 6px; font-size: 0.98rem; }
+    .tells { list-style: none; margin: 22px 0 24px; display: grid; gap: 10px; }
+    .tells li { position: relative; padding-left: 22px; font-size: 1rem; line-height: 1.5; }
+    .tells li::before { content: ""; position: absolute; left: 2px; top: 0.55em; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); }
+    table.spec th { width: 34%; color: var(--cream); font-size: 0.88rem; font-weight: 600; white-space: normal; background: none; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .notes { margin-top: 16px; font-size: 0.95rem; }
+    .notes p + p { margin-top: 0.8em; }
+
+    .gallery { display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); position: sticky; top: 88px; }
+    .gallery img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--radius-sm); background: var(--tile-2); transition: opacity .2s, transform .2s; }
+    .gallery img:hover { opacity: 0.88; transform: translateY(-2px); }
+    .gallery-lead img:first-child { grid-column: span 2; grid-row: span 2; }
+
+    /* reference */
+    .fine { font-size: 0.88rem; color: var(--muted); margin: 12px 0; }
+    .ref-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin-top: 14px; }
+    .ref-block { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 18px; }
+    .ref-block h4 { font-size: 1.1rem; margin-bottom: 8px; }
+    .ref-block p { font-size: 0.93rem; }
+    .ref-block p + p { margin-top: 0.7em; }
+    .ref-block .table-wrap { margin-top: 12px; }
+    .ref-kicker { display: block; font-size: 0.78rem; font-weight: 600; color: var(--amber); margin-bottom: 4px; }
+    .more-body > p:first-child { margin-bottom: 4px; }
+    .more-body .table-wrap { margin-top: 10px; }
+
+    .photo-art { border-radius: var(--radius); aspect-ratio: 4 / 3; object-fit: cover; }
+    .source-line { margin-top: 18px; text-align: center; font-size: 0.85rem; color: var(--muted); }
+
+    @media (max-width: 900px) {
+      .era-grid { grid-template-columns: 1fr; gap: 28px; }
+      .gallery { position: static; }
     }
-    .deep-card strong { color: var(--cream); }
-    /* Reference tables */
     @media (max-width: 680px) {
-      .ref-table { display: block; overflow-x: auto; }
+      .era { padding: 52px 0; }
+      .picker { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .pick { padding: 10px 10px 14px; }
+      .pick h3 { font-size: 1.02rem; }
+      .pick p { font-size: 0.82rem; }
+      .id-grid { grid-template-columns: 1fr; }
+      table.spec th { width: 38%; }
     }
-    .ref-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 28px;
-      font-size: 0.84rem;
-    }
-    .ref-table th {
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--amber);
-      padding: 10px 16px;
-      text-align: left;
-      border-bottom: 1px solid var(--border-gold);
-      background: rgba(200,132,26,0.06);
-    }
-    .ref-table td {
-      padding: 10px 16px;
-      color: var(--cream-dim);
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-    }
-    .ref-table tr:last-child td { border-bottom: none; }
-    .ref-table tr:hover td { background: rgba(200,132,26,0.04); }
-    .ref-table td:first-child { color: var(--cream); font-weight: 500; }
-    /* Quick reference — first col is what you see */
-    .ref-table.qr td:first-child { color: var(--cream-dim); font-weight: 400; font-style: italic; }
-    .ref-table.qr td:last-child { color: var(--amber-light); }
-    /* Multi-table grid */
-    .table-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin-top: 40px;
-    }
-    .table-group h4 {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 2px;
-    }
-    /* Tasting profile */
-    .tasting-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 40px;
-    }
-    .tasting-card {
-      border-left: 2px solid var(--amber-dark);
-      padding: 4px 0 4px 20px;
-    }
-    .tasting-label {
-      font-size: 0.58rem;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 12px;
-    }
-    .tasting-card p {
-      font-size: 0.84rem;
-      color: var(--cream-dim);
-      line-height: 1.7;
-    }
-    /* Masters table */
-    .masters-table { margin-top: 28px; }
-    /* Limited editions */
-    .editions-table { margin-top: 0; }
-    /* Market note */
-    .market-note {
-      background: rgba(200,132,26,0.06);
-      border: 1px solid var(--border-gold);
-      border-radius: 4px;
-      padding: 16px 20px;
-      margin-top: 20px;
-      font-size: 0.84rem;
-      color: var(--cream-dim);
-      line-height: 1.7;
-    }
-    .market-note strong { color: var(--amber-light); }
-    @media (max-width: 900px) {
-      .card-grid-3, .tasting-grid { grid-template-columns: 1fr; }
-      .table-grid { grid-template-columns: 1fr; gap: 28px; }
-    }
-
-    /* ══════════════════════════════
-       SITE FOOTER
-    ══════════════════════════════ */
-    .site-footer {
-      text-align: center;
-      padding: 40px 28px;
-      border-top: 1px solid var(--border);
-      font-size: 0.76rem;
-      color: var(--text-muted);
-    }
-
-    .site-footer a { color: var(--amber); }
-
-    /* ══════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════ */
-    @media (max-width: 900px) {
-      .era-section {
-        grid-template-columns: 1fr;
-        min-height: auto;
-      }
-
-      .era-section:nth-child(even) .era-img-col { order: 0; }
-      .era-section:nth-child(even) .era-info-col { order: 0; }
-
-      .era-img-col {
-        height: 55vw;
-        min-height: 280px;
-      }
-
-      .era-img-sticky {
-        position: static;
-        height: 100%;
-      }
-
-      .era-img-main { flex: 1; }
-
-      .era-info-col {
-        padding: 48px 28px;
-      }
-
-      .spec-row { grid-template-columns: 110px 1fr; }
-
-      .id-grid { grid-template-columns: repeat(2, 1fr); }
-
-      .era-full-inner { grid-template-columns: 1fr; gap: 24px; }
-
-      .era-section:nth-child(odd) .era-img-col::after,
-      .era-section:nth-child(even) .era-img-col::after {
-        background: linear-gradient(to bottom, transparent 70%, rgba(16,12,4,0.9) 100%);
-      }
-
-      .attribution-inner { flex-direction: column; gap: 8px; }
-    }
-
-    @media (max-width: 600px) {
-      .id-grid { grid-template-columns: 1fr 1fr; }
-      .hero-title { font-size: 2.6rem; }
-    }
-
   </style>
 </head>
 <body>
 
-  <nav class="site-nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">Boozy <span>Estate</span></a>
-      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a href="index.html" class="logo">Boozy <span>Estate</span></a>
       <ul class="nav-links">
         <li><a href="history.html">History</a></li>
-        <li><a href="valuing.html">Valuing Your Collection</a></li>
-        <li><a href="collection.html">The Collection</a></li>
-        <li><a href="decanters.html">Decanter Database</a></li>
-        <li><a href="louis-xiii.html" class="active">Louis XIII</a></li>
+        <li><a href="valuing.html">Values</a></li>
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="decanters.html">Database</a></li>
+        <li><a href="louis-xiii.html">Louis XIII</a></li>
+      </ul>
+      <a href="contact.html" class="btn btn-solid">Get in touch</a>
+      <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </nav>
+
+  <header class="page-hero l13-hero">
+    <div class="wrap-narrow">
+      <span class="chip">Rémy Martin · Identification guide</span>
+      <h1>Louis XIII, <em>era by era</em></h1>
+      <p class="lede">Date any Louis XIII decanter from its fins, base, stopper, label and case, from 1870s hand-blown glass to the gold-top era.</p>
+      <div class="actions">
+        <a class="btn btn-solid" href="#eras">Find your era</a>
+        <a class="btn btn-ghost" href="#quick-ref">Dating cheat sheet</a>
+      </div>
+      <p class="credit">Research by Michael at <strong>Vieux Cognacs</strong> (vieuxcognacs.com), October 2013. Dates are approximate and some conclusions remain disputed.</p>
+    </div>
+  </header>
+
+  <section class="section-tight" id="eras">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Which era is my decanter?</h2>
+        <p>Nine eras, one key sign each. Tap one to jump to its details.</p>
+      </div>
+      <div class="picker">
+        <a class="pick card" href="#pre-baccarat">
+          <div class="pick-media"><img src="images/louis-xiii/1870-B.jpg" alt="Pre-Baccarat hand-blown glass Louis XIII bottle, c.1870s" loading="lazy"/></div>
+          <span class="pick-years">1870–1936</span>
+          <h3>Pre-Baccarat</h3>
+          <p>Hand-blown glass, irregular fins</p>
+        </a>
+        <a class="pick card" href="#first-baccarat">
+          <div class="pick-media"><img src="images/louis-xiii/1937-B1.jpg" alt="First Baccarat Louis XIII decanter, 1937–1940" loading="lazy"/></div>
+          <span class="pick-years">1937–1940</span>
+          <h3>First Baccarat</h3>
+          <p>Numbered crystal, no Baccarat logo</p>
+        </a>
+        <a class="pick card" href="#wwii">
+          <div class="pick-media pick-empty"><span>No production</span></div>
+          <span class="pick-years">1941–1945</span>
+          <h3>World War II</h3>
+          <p>No bottles made. Beware “WW2” sets</p>
+        </a>
+        <a class="pick card" href="#post-war">
+          <div class="pick-media"><img src="images/louis-xiii/1946-B.jpg" alt="Post-war Louis XIII &#x27;Louis XIII Brand&#x27; Rarest Reserve, 1946–1950" loading="lazy"/></div>
+          <span class="pick-years">1946–1961</span>
+          <h3>Post-War</h3>
+          <p>Green velvet (US) or rattan basket (Europe)</p>
+        </a>
+        <a class="pick card" href="#transition">
+          <div class="pick-media"><img src="images/louis-xiii/1963-B.jpg" alt="Louis XIII transition era bottle, 1962–1963" loading="lazy"/></div>
+          <span class="pick-years">1962–1968</span>
+          <h3>Transition</h3>
+          <p>Spear points up at the “R”; red oval box</p>
+        </a>
+        <a class="pick card" href="#classic">
+          <div class="pick-media"><img src="images/louis-xiii/1970-B.jpg" alt="Classic era Louis XIII in octagonal red box, 1969–1978" loading="lazy"/></div>
+          <span class="pick-years">1969–1978</span>
+          <h3>Classic</h3>
+          <p>Octagonal box, Battle of Jarnac tag</p>
+        </a>
+        <a class="pick card" href="#asia">
+          <div class="pick-media"><img src="images/louis-xiii/1981-B.jpg" alt="Louis XIII Asian market Saint Louis crystal bottle, 1969–1981" loading="lazy"/></div>
+          <span class="pick-years">1969–1981</span>
+          <h3>Asian Market</h3>
+          <p>“Saint Louis” and “Co. SA” on the base</p>
+        </a>
+        <a class="pick card" href="#gold-top">
+          <div class="pick-media"><img src="images/louis-xiii/1985-B.jpg" alt="Gold-top era Louis XIII Baccarat decanter, 1979–2002" loading="lazy"/></div>
+          <span class="pick-years">1979–2002</span>
+          <h3>Gold-Top</h3>
+          <p>Gold capsule, solid Fleur-de-Lys stopper</p>
+        </a>
+        <a class="pick card" href="#special">
+          <div class="pick-media"><img src="images/louis-xiii/1999-B.jpg" alt="Louis XIII Rendez-Vous 2000 special edition, 1999" loading="lazy"/></div>
+          <span class="pick-years">1999</span>
+          <h3>Rendez-Vous 2000</h3>
+          <p>“2000A” engraved on the base</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-alt" id="identifier">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Six things to check</h2>
+        <p>No single feature is definitive. Use all six, and make sure bottle, stopper, box and card all match.</p>
+      </div>
+      <div class="id-grid">
+        <div class="card id">
+          <span class="id-num">01</span>
+          <h3>Fins</h3>
+          <p>Count the vertical fins on each side. Early bottles range wildly (8–17). Post-1950 Baccarat standardized at 10, very regular.</p>
+        </div>
+        <div class="card id">
+          <span class="id-num">02</span>
+          <h3>Base Engraving</h3>
+          <p>Pre-WW2 Baccarat = name only, no logo. Baccarat logo appears after ~1950. Machine engraving replaces hand engraving later still.</p>
+        </div>
+        <div class="card id">
+          <span class="id-num">03</span>
+          <h3>Stopper</h3>
+          <p>Early: numbered to match the decanter. Later: hollow crystal. 1979 onward: solid "Fleur-de-Lys" core stopper — the clearest modern indicator.</p>
+        </div>
+        <div class="card id">
+          <span class="id-num">04</span>
+          <h3>Label</h3>
+          <p>"Age Inconnu" (rectangular) predates "Louis XIII Brand" (bean-shaped). US bottles switched first; Europe retained Age Inconnu until 1962.</p>
+        </div>
+        <div class="card id">
+          <span class="id-num">05</span>
+          <h3>Card</h3>
+          <p>1938 Royal Banquet card used for decades. Replaced by the 1957 card, then by the "Battle of Jarnac" card from ~1969 onward.</p>
+        </div>
+        <div class="card id">
+          <span class="id-num">06</span>
+          <h3>Packaging</h3>
+          <p>Rattan basket → velvet box → cardboard → oval silk → octagonal silk → square red pyramid-lid box. Each era has a signature case.</p>
+        </div>
+      </div>
+      <p class="callout"><strong>Common myth:</strong> no Baccarat logo on the base does <em>not</em> mean pre-war. Many 1946–50 bottles lack it too; the logo became standard only after 1950.</p>
+    </div>
+  </section>
+
+  <section class="era" id="pre-baccarat">
+    <div class="wrap era-grid">
+      <div class="era-text">
+        <div class="era-top"><span class="era-num">01</span><span class="chip chip-plain">Global</span></div>
+        <p class="era-years">1870–1936</p>
+        <h2>Pre-Baccarat</h2>
+        <p class="era-sub">Hand-Blown Glass &amp; Early Commercial Bottles</p>
+        <ul class="tells">
+            <li>Hand-blown glass with visible bubbles, almost certainly not Baccarat</li>
+            <li>Irregular fins: 8 to 17 per side on early types, 9 on 1900–36 commercial bottles</li>
+            <li>Base blank, or <strong>DEPOSE</strong> cast faintly into the glass</li>
+            <li>Rectangular <em>“Age Inconnu”</em> label</li>
+        </ul>
+        <details class="more">
+          <summary>Full spec sheet &amp; notes</summary>
+          <div class="more-body">
+            <div class="table-wrap">
+              <table class="clean spec">
+                <tbody>
+                <tr><th scope="row">Manufacturer</th><td>Unknown. Almost certainly not Baccarat. Hand-blown glass with visible bubbles and foreign matter.</td></tr>
+                <tr><th scope="row">Name on Label</th><td><em>"Age Inconnu"</em> — used on all bottles 1874–1937 per Rémy Martin records.</td></tr>
+                <tr><th scope="row">Base Engraving</th><td>None; or the word <strong>DEPOSE</strong> cast into the glass (barely visible). Some show only a cast number (e.g. No.10).</td></tr>
+                <tr><th scope="row">Fins</th><td>Highly irregular. Known examples: 8 &amp; 9 fins (Type 1), 11 fins (Type 2), 17 &amp; 16 fins (Type 3). Post-1900 commercial: 9 fins per side.</td></tr>
+                <tr><th scope="row">Stopper</th><td>Very coarse design. Irregular hand-ground insert. Rough cut-off under the insert.</td></tr>
+                <tr><th scope="row">Fleur-de-Lys</th><td>Gold-plated medallions with random orientation on early types. Later commercial bottles more consistent but still irregular.</td></tr>
+                <tr><th scope="row">Packaging</th><td>Unknown for 1870s–1900s. Rattan baskets appear on European "Age Inconnu" bottles in the 1930s–1940s.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="notes">
+              <p><strong>No confirmed full bottle has ever been found</strong> from before 1938. All date estimates for the three earliest known bottle types are speculative. The three types share the same basic silhouette but differ dramatically in fin count and manufacturing precision — clear evidence of hand production without controlled molds.</p>
+              <p>The 1900–1936 commercial bottle (9 fins, acid-etched markings, cylindrical neck with offset opening) is probably what was sold through prohibition-era gray markets before Baccarat crystal arrived.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+          <div class="gallery gallery-lead">
+            <img src="images/louis-xiii/1870-B.jpg" alt="Pre-Baccarat hand-blown glass Louis XIII bottle, c.1870s" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1871-B.jpg" alt="Pre-Baccarat era Louis XIII decanter, photo 2" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1872-B.jpg" alt="Pre-Baccarat era Louis XIII decanter, photo 3" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1900-B.jpg" alt="Pre-Baccarat era Louis XIII decanter, photo 4" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1901-B.jpg" alt="Pre-Baccarat era Louis XIII decanter, photo 5" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1910-B.jpg" alt="Pre-Baccarat era Louis XIII decanter, photo 6" loading="lazy" data-zoom/>
+          </div>
+    </div>
+  </section>
+  <section class="era" id="first-baccarat">
+    <div class="wrap era-grid">
+      <div class="era-text">
+        <div class="era-top"><span class="era-num">02</span><span class="chip chip-plain">Europe</span><span class="chip chip-plain">USA</span></div>
+        <p class="era-years">1937–1940</p>
+        <h2>First Baccarat</h2>
+        <p class="era-sub">Early Crystal Decanters — No Engraved Logo</p>
+        <ul class="tells">
+            <li>Baccarat crystal, but <strong>no engraved logo</strong> (paper label only, often missing)</li>
+            <li>Base engraved “E. Rémy Martin &amp; Cie”, individually numbered</li>
+            <li>Stopper numbered to match the decanter</li>
+            <li>Slim Centaur seal, spear pointing at the “Y” of Rémy</li>
+        </ul>
+        <details class="more">
+          <summary>Full spec sheet &amp; notes</summary>
+          <div class="more-body">
+            <div class="table-wrap">
+              <table class="clean spec">
+                <tbody>
+                <tr><th scope="row">Manufacturer</th><td>Baccarat crystal — but <strong>no engraved logo or name.</strong> Identification relied solely on a paper Baccarat label (registered trademark since 1860, now frequently missing).</td></tr>
+                <tr><th scope="row">Base Engraving</th><td>E. Rémy Martin &amp; Cie, Cognac France. Decanters individually numbered (e.g. No.2, 6, 10, 12, 39, 40, 42, 59).</td></tr>
+                <tr><th scope="row">Stopper</th><td>Numbered to match the decanter. Stamped glass Fleur-de-Lys medallion on top. Interior occasionally "contaminated" with white specks from fabrication.</td></tr>
+                <tr><th scope="row">Seal / Cork</th><td>Slim Centaur with spear handle pointing at the <em>"Y" of Rémy</em> (old-style logo).</td></tr>
+                <tr><th scope="row">US Label</th><td>Bean-shaped <strong>"Louis XIII Brand — Rarest Reserve."</strong> Appears 12–15 years before Rémy Martin claims to have introduced the name in America.</td></tr>
+                <tr><th scope="row">European Label</th><td>Rectangular <em>"Age Inconnu."</em></td></tr>
+                <tr><th scope="row">Card</th><td>1938 Royal Banquet Card — some blank on one side, others bilingual French/English.</td></tr>
+                <tr><th scope="row">Packaging</th><td>Two types: plain cardboard shipping box, or Red Velvet presentation case similar to the 1946 green cases.</td></tr>
+                <tr><th scope="row">US Importer</th><td>Joseph H. Reinfeld Inc. / Browne Vintners (1938–1940). Any bottle with a Browne Vintners label dates to <strong>1933–1940.</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="notes">
+              <p>The critical authentication point: <strong>no Baccarat logo does not mean pre-WW2.</strong> Many post-war bottles (1946–1950) also lack the engraved logo. A logo on the base confirms post-1950; its absence is inconclusive either way.</p>
+              <p>Note the Fleur-de-Lys medallion size and position varies on these early bottles compared to post-WW2 Baccarat — a secondary dating clue when bottle numbers are missing.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+          <div class="gallery gallery-lead">
+            <img src="images/louis-xiii/1937-B1.jpg" alt="First Baccarat Louis XIII decanter, 1937–1940" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1937-B2.jpg" alt="First Baccarat era Louis XIII decanter, photo 2" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1939-B.jpg" alt="First Baccarat era Louis XIII decanter, photo 3" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1937-T.jpg" alt="First Baccarat era Louis XIII decanter, photo 4" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1935-S1.jpg" alt="First Baccarat era Louis XIII decanter, photo 5" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1939-T.jpg" alt="First Baccarat era Louis XIII decanter, photo 6" loading="lazy" data-zoom/>
+          </div>
+    </div>
+  </section>
+  <section class="era era-noimg" id="wwii">
+    <div class="wrap era-grid">
+      <div class="era-text">
+        <div class="era-top"><span class="era-num">03</span><span class="chip chip-plain">Global</span></div>
+        <p class="era-years">1941–1945</p>
+        <h2>World War II</h2>
+        <p class="era-sub">World War II — No Production</p>
+        <ul class="tells">
+            <li>Production fully suspended from 1941 to 1945</li>
+            <li>A “WW2-era” set is almost always mismatched parts. Check every component</li>
+        </ul>
+        <details class="more">
+          <summary>Full spec sheet &amp; notes</summary>
+          <div class="more-body">
+            <div class="table-wrap">
+              <table class="clean spec">
+                <tbody>
+                <tr><th scope="row">Status</th><td>Louis XIII production was completely suspended. No bottles were produced from 1941 through 1945.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="notes">
+              <p>Any set presented as a "WW2-era" Louis XIII should be viewed with extreme skepticism. Authentic 1938–1940 bottles are sometimes incorrectly combined with post-war cases, stoppers, or cards. <strong>Always verify all components of a set match the same era.</strong></p>
+            </div>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+  <section class="era" id="post-war">
+    <div class="wrap era-grid">
+      <div class="era-text">
+        <div class="era-top"><span class="era-num">04</span><span class="chip chip-plain">Europe</span><span class="chip chip-plain">USA</span></div>
+        <p class="era-years">1946–1961</p>
+        <h2>Post-War</h2>
+        <p class="era-sub">Two Markets, Two Names — The Split Identity Era</p>
+        <ul class="tells">
+            <li>Baccarat logo on the base only after about 1950. Earlier bottles have the name only</li>
+            <li>US: bean-shaped <em>“Louis XIII Brand, Rarest Reserve”</em>. Europe: <em>“Age Inconnu”</em></li>
+            <li>US cases: green velvet (1946–58), then red cardboard with gold Centaur (1959–61)</li>
+            <li>Europe: rattan basket</li>
+        </ul>
+        <details class="more">
+          <summary>Full spec sheet &amp; notes</summary>
+          <div class="more-body">
+            <div class="table-wrap">
+              <table class="clean spec">
+                <tbody>
+                <tr><th scope="row">Manufacturer</th><td>Baccarat. No engraved logo until after ~1950 — logo added to base after that alongside the name.</td></tr>
+                <tr><th scope="row">Base (1946–50)</th><td>"Made in France by Baccarat" — no logo. Individually engraved numbers: 26, 28, 29, 32, 42, 55, 56, 103, 114.</td></tr>
+                <tr><th scope="row">Base (1951–61)</th><td>Baccarat logo added under base in addition to the name. Some bottles numbered, most not.</td></tr>
+                <tr><th scope="row">European Label</th><td>Rectangular <em>"Age Inconnu"</em> continues through the 1950s. Rattan basket packaging.</td></tr>
+                <tr><th scope="row">US Label</th><td>Bean-shaped <strong>"Louis XIII Brand — Rarest Reserve."</strong> Renfield Importers Ltd. listed on back label from 1946 onward.</td></tr>
+                <tr><th scope="row">US Packaging</th><td><strong>1946–56:</strong> Green velvet presentation cases with gold tassel; some had a mirror inside the lid.<br/>
+<strong>1957–58:</strong> Plain green velvet, no gold accents. First 1957 Royal Visit Card.<br/>
+<strong>1959–61:</strong> Red cardboard with silk liner, gold Centaur on lid. First origin drawing included.</td></tr>
+                <tr><th scope="row">Card</th><td>1938 Royal Banquet Card through the 1950s. 1957 Royal Visit Card for newer sets. Both types coexist.</td></tr>
+                <tr><th scope="row">US Importer</th><td>Renfield Importers Ltd. (formed 1936, took over from Browne Vintners in 1940).</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="notes">
+              <p><strong>US buyers knew it as "Louis XIII" while the rest of the world still bought "Age Inconnu."</strong> For roughly 30 years the two names coexisted in parallel — which is why sets with different labels are found on either side of the Atlantic.</p>
+              <p>Low serial numbers in the 1946–1950 range reflect small yearly production restarting after the war. The rule that "no logo = pre-WW2" is <strong>wrong</strong> — many 1946–1950 bottles also lack the engraved logo.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+          <div class="gallery gallery-lead">
+            <img src="images/louis-xiii/1946-B.jpg" alt="Post-war Louis XIII &#x27;Louis XIII Brand&#x27; Rarest Reserve, 1946–1950" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1946-B1.jpg" alt="Post-War era Louis XIII decanter, photo 2" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1945-B.jpg" alt="Post-War era Louis XIII decanter, photo 3" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1946-P1.jpg" alt="Post-War era Louis XIII decanter, photo 4" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1946-P3.jpg" alt="Post-War era Louis XIII decanter, photo 5" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1951-B.jpg" alt="Post-War era Louis XIII decanter, photo 6" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1953-B.jpg" alt="Post-War era Louis XIII decanter, photo 7" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1957-B.jpg" alt="Post-War era Louis XIII decanter, photo 8" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1959-B.jpg" alt="Post-War era Louis XIII decanter, photo 9" loading="lazy" data-zoom/>
+          </div>
+    </div>
+  </section>
+  <section class="era" id="transition">
+    <div class="wrap era-grid">
+      <div class="era-text">
+        <div class="era-top"><span class="era-num">05</span><span class="chip chip-plain">Global</span><span class="chip chip-plain">USA</span></div>
+        <p class="era-years">1962–1968</p>
+        <h2>Transition</h2>
+        <p class="era-sub">Last "Age Inconnu" — New Centaur, One World Name</p>
+        <ul class="tells">
+            <li>1962 is the last “Age Inconnu” year. From 1963, “Louis XIII” everywhere</li>
+            <li>New Centaur: spear points <em>up</em> at the “R” of Martin</li>
+            <li>1964–68 bottles are <strong>unnumbered</strong></li>
+            <li>Red oval split “silk” box (1964–68), almost only in North America</li>
+        </ul>
+        <details class="more">
+          <summary>Full spec sheet &amp; notes</summary>
+          <div class="more-body">
+            <div class="table-wrap">
+              <table class="clean spec">
+                <tbody>
+                <tr><th scope="row">1962 — Key Year</th><td>Last bottles with the "Age Inconnu" label. From 1963 onward, <strong>all markets worldwide</strong> use the "Louis XIII" name. Multiple confirmed matching-serial sets make 1962 one of the best-documented transition years.</td></tr>
+                <tr><th scope="row">New Centaur Logo</th><td>Spear now points <em>up</em> at the "R" of Martin — replacing the old logo where the spear handle pointed at the "Y" of Rémy.</td></tr>
+                <tr><th scope="row">Numbering</th><td><strong>1962–63:</strong> Some numbered (e.g. 80, 316, 832). <strong>1964–68:</strong> Not numbered — the first era with no serial numbers at all.</td></tr>
+                <tr><th scope="row">Label</th><td>Bean-shaped <em>"Tres Vieille"</em> or <em>"Rarest Reserve."</em> Volume (0.7L) indicated on European bottles for the first time.</td></tr>
+                <tr><th scope="row">Packaging 1962–63</th><td>Plain white/cream cardboard with silk liner and gold trim. Lid features old or new Centaur depending on production date.</td></tr>
+                <tr><th scope="row">Packaging 1964–68</th><td>Red oval split "silk" box with Fleur-de-Lys and gold diagonal on lid. Almost exclusively a North American product — very rare to find in Europe or Asia.</td></tr>
+                <tr><th scope="row">Card</th><td>1938 and 1957 Royal Banquet Cards continue through 1968.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="notes">
+              <p>The 1964–1968 red oval box is the <strong>rarest packaging type in Louis XIII history</strong> outside North America. If one appears in Europe or Asia, examine it closely — it almost certainly did not originate there.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+          <div class="gallery gallery-lead">
+            <img src="images/louis-xiii/1963-B.jpg" alt="Louis XIII transition era bottle, 1962–1963" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1962-B1.jpg" alt="Transition era Louis XIII decanter, photo 2" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1962-B2.jpg" alt="Transition era Louis XIII decanter, photo 3" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1962-P2.jpg" alt="Transition era Louis XIII decanter, photo 4" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1963-P.jpg" alt="Transition era Louis XIII decanter, photo 5" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1965-A.jpg" alt="Transition era Louis XIII decanter, photo 6" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1965-P.jpg" alt="Transition era Louis XIII decanter, photo 7" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1968-A.jpg" alt="Transition era Louis XIII decanter, photo 8" loading="lazy" data-zoom/>
+          </div>
+    </div>
+  </section>
+  <section class="era" id="classic">
+    <div class="wrap era-grid">
+      <div class="era-text">
+        <div class="era-top"><span class="era-num">06</span><span class="chip chip-plain">Europe</span><span class="chip chip-plain">USA</span></div>
+        <p class="era-years">1969–1978</p>
+        <h2>Classic</h2>
+        <p class="era-sub">Octagonal Box — Return of the Old Centaur</p>
+        <ul class="tells">
+            <li>Octagonal red “silk” box</li>
+            <li>“Battle of Jarnac” hanging tag replaces the Royal Banquet card</li>
+            <li>Old fat Centaur returns on the seal</li>
+            <li>Unnumbered, logo centered on the base. Later bottles show painted markings and mold lines</li>
+        </ul>
+        <details class="more">
+          <summary>Full spec sheet &amp; notes</summary>
+          <div class="more-body">
+            <div class="table-wrap">
+              <table class="clean spec">
+                <tbody>
+                <tr><th scope="row">Bottle</th><td>Not numbered. Visible quality control decline. Later examples show painted markings instead of etched lettering; some have mold ring marks — evidence of machine rather than hand production.</td></tr>
+                <tr><th scope="row">Base Engraving</th><td>New layout: Baccarat logo centered. No individual serial numbers.</td></tr>
+                <tr><th scope="row">Seal / Cork</th><td>Return of the <strong>old-style fat Centaur</strong> (spear handle at "Y" of Rémy) — after nearly a decade of the new logo. An unexplained design reversal.</td></tr>
+                <tr><th scope="row">Label</th><td>Bean-shaped with <em>"Tres Vieille," "Very Old,"</em> or <em>"Rarest Reserve"</em> designation.</td></tr>
+                <tr><th scope="row">Card</th><td>New <strong>"Battle of Jarnac"</strong> hanging tag replaces the Royal Banquet Cards that had been used since 1938.</td></tr>
+                <tr><th scope="row">Packaging</th><td>Octagonal red "silk" box. Around 1971 a new label, card, and cork seal revive the aesthetic of 1930s bottle design.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="notes">
+              <p>The octagonal box and Battle of Jarnac card are the clearest markers for this era. The return of the old Centaur logo (after a decade of the new version) remains unexplained — a useful dating indicator when the case has been separated from the bottle.</p>
+              <p>The quality decline across this period is visible: compare a 1970 bottle (still sharp, hand-etched lettering) to a 1977 or 1978 example (painted markings, visible mold lines).</p>
+            </div>
+          </div>
+        </details>
+      </div>
+          <div class="gallery gallery-lead">
+            <img src="images/louis-xiii/1970-B.jpg" alt="Classic era Louis XIII in octagonal red box, 1969–1978" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1970-B1.jpg" alt="Classic era Louis XIII decanter, photo 2" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1969-B.jpg" alt="Classic era Louis XIII decanter, photo 3" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1970-P.jpg" alt="Classic era Louis XIII decanter, photo 4" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1970-S.jpg" alt="Classic era Louis XIII decanter, photo 5" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1975-B.jpg" alt="Classic era Louis XIII decanter, photo 6" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1975-P.jpg" alt="Classic era Louis XIII decanter, photo 7" loading="lazy" data-zoom/>
+          </div>
+    </div>
+  </section>
+  <section class="era" id="asia">
+    <div class="wrap era-grid">
+      <div class="era-text">
+        <div class="era-top"><span class="era-num">07</span><span class="chip chip-plain">Asia</span></div>
+        <p class="era-years">1969–1981</p>
+        <h2>Asian Market</h2>
+        <p class="era-sub">Japanese Market — A Second Crystal Maker</p>
+        <ul class="tells">
+            <li>Made by <strong>Saint Louis</strong> crystal, not Baccarat, for Japan</li>
+            <li>Base reads “E. Rémy Martin &amp; Co. <strong>SA</strong>”. “SA” dates it to the 1960s or later</li>
+            <li>10 very regular fins, clear ridge around the base</li>
+            <li>All-crystal stopper that doesn’t fit the decanter well</li>
+        </ul>
+        <details class="more">
+          <summary>Full spec sheet &amp; notes</summary>
+          <div class="more-body">
+            <div class="table-wrap">
+              <table class="clean spec">
+                <tbody>
+                <tr><th scope="row">Manufacturer</th><td><strong>Saint Louis Cristalleries</strong> — not Baccarat. Rémy Martin confirmed that high Asian demand exceeded Baccarat's production capacity; Saint Louis was contracted for the Japanese export market.</td></tr>
+                <tr><th scope="row">Fins</th><td>10 fins per side, very regular shape. Some examples 9 fins. Clearly defined ridge around the base.</td></tr>
+                <tr><th scope="row">Base Engraving</th><td><em>E. Rémy Martin &amp; Co. SA</em> — Made in France by Saint Louis. <strong>"SA" instead of "Cie"</strong> is the key tell: Société Anonyme was only added to the company name in the 1960s. Volume indicated under the bottle (another post-1965 addition).</td></tr>
+                <tr><th scope="row">Stopper</th><td>All-crystal stopper (1969–78); later standard hollow crystal. <strong>Does not fit the decanter properly</strong> — considered lower quality by crystal collectors.</td></tr>
+                <tr><th scope="row">Label</th><td>Bean-shaped <em>"Tres Vieille"</em> or <em>"Grand Champagne — Very Old"</em> (French and English versions exist).</td></tr>
+                <tr><th scope="row">Packaging</th><td>Octagonal box identical to European/USA Baccarat version. 1981: plexiglass cases used for remaining "white-top" stock in duty-free shops throughout Asia.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="notes">
+              <p>Saint Louis bottles are <strong>frequently misidentified as early Baccarat or even 1900s examples.</strong> One was marketed by a major auction house as an "early 1900s Saint Louis bottle" — this was wrong. The use of "Co. SA" and volume indication on the base both place it firmly in the 1960s at earliest.</p>
+              <p>By 1981, remaining "white-top" stock was being liquidated through duty-free shops in plexiglass display cases — a presentation not seen in Western markets.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+          <div class="gallery gallery-lead">
+            <img src="images/louis-xiii/1981-B.jpg" alt="Louis XIII Asian market Saint Louis crystal bottle, 1969–1981" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1981-A.jpg" alt="Asian Market era Louis XIII decanter, photo 2" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1981-P.jpg" alt="Asian Market era Louis XIII decanter, photo 3" loading="lazy" data-zoom/>
+          </div>
+    </div>
+  </section>
+  <section class="era" id="gold-top">
+    <div class="wrap era-grid">
+      <div class="era-text">
+        <div class="era-top"><span class="era-num">08</span><span class="chip chip-plain">Global</span></div>
+        <p class="era-years">1979–2002</p>
+        <h2>Gold-Top</h2>
+        <p class="era-sub">The Modern Baccarat — Numbered Again, 23 Years Running</p>
+        <ul class="tells">
+            <li>Gold capsule over the cork</li>
+            <li>Solid-core <strong>Fleur-de-Lys stopper</strong>, the most reliable single sign</li>
+            <li>Numbered again: 1–2 letters + 4 digits</li>
+            <li>Clear plastic decals instead of paper labels; square red box with pyramid lid</li>
+        </ul>
+        <details class="more">
+          <summary>Full spec sheet &amp; notes</summary>
+          <div class="more-body">
+            <div class="table-wrap">
+              <table class="clean spec">
+                <tbody>
+                <tr><th scope="row">Manufacturer</th><td>Baccarat (primary). Saint Louis also produced some bottles, typically for the Asian export market but occasionally found elsewhere.</td></tr>
+                <tr><th scope="row">Base Engraving</th><td>New layout: Baccarat logo centered, with "Baccarat Cristal" and "Liquor Bottle." <strong>Numbered again</strong> — 1–2 letters + 4 digits. Early bottles hand-engraved; later machine-engraved.</td></tr>
+                <tr><th scope="row">Stopper</th><td>New solid-core <strong>"Fleur-de-Lys" stopper</strong> — replaces all previous hollow and numbered designs. The most reliable single indicator of this era.</td></tr>
+                <tr><th scope="row">Seal</th><td>Gold capsule with stamped metal cap over cork. Older style gold seal (1980–1989); updated gold seal (1990 onward). Difference is subtle but visible to a trained eye.</td></tr>
+                <tr><th scope="row">Label</th><td>Paper labels eliminated entirely. <strong>Clear plastic decals</strong> with gold lettering for content and importer information replace them.</td></tr>
+                <tr><th scope="row">Card</th><td>No hanging tag cards. The card tradition ends with this generation.</td></tr>
+                <tr><th scope="row">Packaging</th><td>Square red box with truncated pyramid lid and gold lettering. Runs through 2002 with only minor cosmetic changes.</td></tr>
+                <tr><th scope="row">US Importer</th><td>Rémy-Cointreau via Rémy Amerique Inc. — the company now imports its own cognac directly.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="notes">
+              <p>The gold-top era is the <strong>longest-running single design in Louis XIII history</strong> — nearly 23 years. The return to individual bottle numbering (after a 15-year gap) makes authentication straightforward: if a gold-top bottle lacks a serial number, examine it carefully — it may be a Saint Louis example or have a replaced stopper.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+          <div class="gallery gallery-lead">
+            <img src="images/louis-xiii/1985-B.jpg" alt="Gold-top era Louis XIII Baccarat decanter, 1979–2002" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1985-B1.jpg" alt="Gold-Top era Louis XIII decanter, photo 2" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1985-A.jpg" alt="Gold-Top era Louis XIII decanter, photo 3" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1985-P.jpg" alt="Gold-Top era Louis XIII decanter, photo 4" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1985-S1.jpg" alt="Gold-Top era Louis XIII decanter, photo 5" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1985-S2.jpg" alt="Gold-Top era Louis XIII decanter, photo 6" loading="lazy" data-zoom/>
+          </div>
+    </div>
+  </section>
+  <section class="era" id="special">
+    <div class="wrap era-grid">
+      <div class="era-text">
+        <div class="era-top"><span class="era-num">09</span><span class="chip chip-plain">Global</span></div>
+        <p class="era-years">1999</p>
+        <h2>Rendez-Vous 2000</h2>
+        <p class="era-sub">Rendez-Vous 2000 — A Millennium Commission</p>
+        <ul class="tells">
+            <li>Base engraved with the decanter number / <strong>2000A</strong>: one of exactly 2,000 bottles</li>
+            <li>Standard Fleur-de-Lys stopper, <em>not</em> numbered</li>
+            <li>Special artwork on the bottle and its presentation case</li>
+        </ul>
+        <details class="more">
+          <summary>Full spec sheet &amp; notes</summary>
+          <div class="more-body">
+            <div class="table-wrap">
+              <table class="clean spec">
+                <tbody>
+                <tr><th scope="row">Base Engraving</th><td>Special markings: Baccarat logo + decanter number / <strong>2000A</strong> + logo indicating limited series of 2,000 bottles. Machine engraved. Bottle size (0.75L) also engraved.</td></tr>
+                <tr><th scope="row">Stopper</th><td>Standard Fleur-de-Lys solid core stopper — <em>not</em> individually numbered on this edition.</td></tr>
+                <tr><th scope="row">Seal</th><td>Gold capsule with stamped metal cap over cork — same as standard gold-top bottles.</td></tr>
+                <tr><th scope="row">Label</th><td>Clear plastic decal with gold lettering. Rémy-Cointreau / Rémy Amerique Inc. listed as US importer.</td></tr>
+                <tr><th scope="row">Content</th><td>Standard Louis XIII Grande Champagne cognac. The collectible value is driven by the limited run and special artwork — not by any difference in the spirit.</td></tr>
+                <tr><th scope="row">Presentation</th><td>Special artwork on both bottle and presentation case. The name urges a "meeting in the year 2000."</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="notes">
+              <p>The Rendez-Vous 2000 is a gold-top bottle with <strong>special Baccarat engraving and a unique presentation case</strong>. It marks the end of this guide's scope — over 125 years from the first irregular hand-blown glass to a numbered millennium commission.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+          <div class="gallery gallery-lead">
+            <img src="images/louis-xiii/1999-B.jpg" alt="Louis XIII Rendez-Vous 2000 special edition, 1999" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1999-B1.jpg" alt="Rendez-Vous 2000 era Louis XIII decanter, photo 2" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1999-A.jpg" alt="Rendez-Vous 2000 era Louis XIII decanter, photo 3" loading="lazy" data-zoom/>
+            <img src="images/louis-xiii/1999-P.jpg" alt="Rendez-Vous 2000 era Louis XIII decanter, photo 4" loading="lazy" data-zoom/>
+          </div>
+    </div>
+  </section>
+
+  <section class="section" id="quick-ref">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Dating cheat sheet</h2>
+        <p>Match what you see to a date range. Combine several clues.</p>
+      </div>
+      <details class="more">
+        <summary>What you see → what it tells you (25 clues)</summary>
+        <div class="more-body">
+        <div class="table-wrap">
+          <table class="clean">
+            <thead><tr><th>What you see</th><th>What it tells you</th></tr></thead>
+            <tbody>
+            <tr><td>White capsule top</td><td>Bottled before 1981</td></tr>
+            <tr><td>Gold capsule top</td><td>Bottled 1979 or later</td></tr>
+            <tr><td>Both white and gold tops possible</td><td>1979–1981 overlap window</td></tr>
+            <tr><td>No Baccarat logo on base</td><td>Pre-1950 <em>or</em> 1946–1950 postwar — not necessarily pre-WWII</td></tr>
+            <tr><td>"Saint-Louis" on base</td><td>After 1969; Asian market production; 10-fin profile, all-crystal stopper</td></tr>
+            <tr><td>Slim Centaur, spear pointing at "Y" of Rémy</td><td>Pre-1963</td></tr>
+            <tr><td>Centaur spear pointing up at "R" of Martin</td><td>1963–1968</td></tr>
+            <tr><td>Fat Centaur (old style) on a newer-looking bottle</td><td>1969–1978 — the octagonal box era paradoxically reverted to old Centaur</td></tr>
+            <tr><td>"Age Inconnu" label</td><td>European market; pre-1963</td></tr>
+            <tr><td>"Rarest Reserve" label (bean-shaped)</td><td>US market; used throughout most of the 20th century</td></tr>
+            <tr><td>Serial number (letters + 4 digits)</td><td>1979 or later</td></tr>
+            <tr><td>No serial number</td><td>Pre-1937 <em>or</em> 1964–1968 (that generation was unnumbered)</td></tr>
+            <tr><td>Solid "Fleur-de-Lys" stopper (not hollow)</td><td>1979 or later</td></tr>
+            <tr><td>Green velvet box</td><td>1946–1958 US market</td></tr>
+            <tr><td>Red velvet box</td><td>1959–1961 US market</td></tr>
+            <tr><td>Red oval split box</td><td>1964–1968; US market; unnumbered generation</td></tr>
+            <tr><td>Octagonal red "silk" box</td><td>1969–1978</td></tr>
+            <tr><td>Red square box</td><td>1979–2002</td></tr>
+            <tr><td>Rattan basket</td><td>European market; 1946–1962</td></tr>
+            <tr><td>Royal Banquet Card</td><td>1938–1968 US market</td></tr>
+            <tr><td>Battle of Jarnac card</td><td>1969 onward</td></tr>
+            <tr><td>4/5 Quart volume</td><td>Pre-metric; US market before 1981</td></tr>
+            <tr><td>0.7L or 0.75L volume</td><td>Post-1962 Europe / post-1981 US</td></tr>
+            <tr><td>"2000A" on base engraving</td><td>Rendez-Vous 2000; limited to exactly 2,000 bottles</td></tr>
+            <tr><td>NFC chip in cork stopper</td><td>Modern Classic Decanter; enables authentication via LOUIS XIII Society app</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">No single feature is definitive — use several in combination. Sets are sometimes reassembled from mismatched parts; verify that bottle, stopper, box, and card are consistent with each other.</p>
+        </div>
+      </details>
+      <details class="more">
+        <summary>US tax strip dating</summary>
+        <div class="more-body">
+          <p class="fine">Applies to US-market bottles only. One of the most reliable dating tools for pre-1985 bottles.</p>
+        <div class="table-wrap">
+          <table class="clean">
+            <thead><tr><th>Tax strip</th><th>Date range</th></tr></thead>
+            <tbody>
+            <tr><td>No "Series" near eagle</td><td>1934–1944</td></tr>
+            <tr><td>"Series 111" below eagle</td><td>1944–1960</td></tr>
+            <tr><td>"Series 112" below eagle</td><td>1961–1982</td></tr>
+            <tr><td>References "Dept. of Revenue"</td><td>1961–1977</td></tr>
+            <tr><td>References "Bureau of ATF"</td><td>1977–1985</td></tr>
+            <tr><td>Tax strips discontinued</td><td>After 1985</td></tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </details>
+      <details class="more">
+        <summary>US importer timeline</summary>
+        <div class="more-body">
+          <p class="fine">The back-label importer is a quick dating shortcut for US-market bottles.</p>
+        <div class="table-wrap">
+          <table class="clean">
+            <thead><tr><th>Importer</th><th>Period</th></tr></thead>
+            <tbody>
+            <tr><td>Joseph H. Reinfeld Inc. / Browne Vintners</td><td>1933–1940</td></tr>
+            <tr><td>Renfield Importers Ltd. (Union, NJ)</td><td>1940s–1990s</td></tr>
+            <tr><td>Remy Amerique Inc. / Remy-Cointreau</td><td>~1999–present</td></tr>
+            </tbody>
+          </table>
+        </div>
+          <p class="fine"><strong>Common myth corrected:</strong> Many collectors assume that the absence of a Baccarat logo on the base indicates a pre-WWII bottle. This is incorrect — many post-WWII bottles (1946–1950) also lack the engraved logo. The logo only became standard after 1950.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="section-tight section-alt" id="more">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>More about Louis XIII</h2>
+        <p>The house, the cognac and the market, for when you want the full story.</p>
+      </div>
+      <details class="more">
+        <summary>History of the house</summary>
+        <div class="more-body">
+          <p>Louis XIII is the flagship expression of Rémy Martin — and the decanter is inseparable from the cognac inside it.</p>
+          <div class="ref-grid"><div class="ref-block"><span class="ref-kicker">1874</span><h4>The First Blend</h4><p><strong>Paul-Émile Rémy Martin</strong>, great-grandson of the family founder, drew from tierçons quietly aging in the cellars and assembled what he called <em>Grande Champagne, Très Vieille, Age Inconnu</em> — very old, of unknown age, from the best terroir. He named it after <strong>King Louis XIII</strong>, the first French monarch to formally recognize cognac as a spirit. The blend reached international attention at the 1900 Paris Universal Exhibition.</p></div>
+<div class="ref-block"><span class="ref-kicker">1569</span><h4>The Decanter's Origin</h4><p>Paul-Émile modeled the decanter on a <strong>16th-century metal flask</strong> carried by a chevalier at the battlefield of Jarnac in 1569, later unearthed and used as the mold. The form — rounded body, fluted fins, fleur-de-lys medallions — has stayed fundamentally unchanged since. <em>Every Louis XIII decanter traces its shape to that battlefield flask.</em></p></div>
+<div class="ref-block"><span class="ref-kicker">Cellar Masters</span><h4>The Unbroken Chain</h4><p>Each cellar master selects eaux-de-vie they will <strong>never taste in their finished form</strong> — the blend they choose will only be bottled decades after they retire.</p><div class="table-wrap">
+          <table class="clean">
+            <thead><tr><th>Master</th><th>Tenure</th></tr></thead>
+            <tbody>
+            <tr><td>André Renaud</td><td>1924–1960</td></tr>
+            <tr><td>André Giraud</td><td>1960–1990</td></tr>
+            <tr><td>Georges Clot</td><td>1990–2003</td></tr>
+            <tr><td>Pierrette Trichet</td><td>2003–2014</td></tr>
+            <tr><td>Baptiste Loiseau</td><td>2014–present</td></tr>
+            </tbody>
+          </table>
+        </div></div></div>
+        </div>
+      </details>
+      <details class="more">
+        <summary>How Louis XIII is made</summary>
+        <div class="more-body">
+          <p>From vine to decanter spans up to a century and four generations of cellar masters. Less than 5% of eaux-de-vie evaluated each year are selected.</p>
+          <div class="ref-grid"><div class="ref-block"><span class="ref-kicker">The Terroir</span><h4>Grande Champagne Only</h4><p>Louis XIII uses exclusively <strong>Grande Champagne</strong> grapes — the innermost, most prized of Cognac's six crus, just 4% of the appellation's vineyards, with chalk-rich soils suited to century-long aging. Rémy Martin's other expressions blend Grande and Petit Champagne; Louis XIII is 100% Grande Champagne, double-distilled in copper pot stills smaller than conventional ones.</p></div>
+<div class="ref-block"><span class="ref-kicker">The Tierçons</span><h4>Barrels Older Than the Republic</h4><p>Louis XIII ages in <strong>tierçons</strong> — oversized Limousin oak barrels, handmade and air-dried at least three years, then reused for decades. <strong>Some in the cellars date to 1744.</strong> A new tierçon first holds young eaux-de-vie; beyond 50 years old, it holds material destined for the final blend. About 15 replacements are made each year, restored by four dedicated in-house coopers.</p></div>
+<div class="ref-block"><span class="ref-kicker">The Blend</span><h4>Up to 1,200 Eaux-de-Vie</h4><p>The final blend assembles <strong>up to 1,200 individual eaux-de-vie</strong>, aged 40 to 100 years, chosen by only five experts and checked against previous years for consistency. It then spends an <strong>additional four years in a tierçon</strong> before moving to the Baccarat decanter — a journey that can span an entire century.</p></div></div>
+        </div>
+      </details>
+      <details class="more">
+        <summary>Decanter formats &amp; sizes</summary>
+        <div class="more-body">
+          <p>From a single-serve personal vessel to a monumental 9-liter sculpture. Historical US-market sizes used pre-metric designations; the shift to metric became mandatory in the US from 1981.</p>
+        <div class="table-wrap">
+          <table class="clean">
+            <thead><tr><th>Format</th><th>Volume</th><th>Notable Details</th></tr></thead>
+            <tbody>
+            <tr><td>The Drop</td><td>1cl</td><td>Personal experience format; designed for mixing and travel</td></tr>
+            <tr><td>Miniature</td><td>5cl</td><td>Hand-blown Baccarat crystal; same defining features as full-size</td></tr>
+            <tr><td>Classic</td><td>70cl / 75cl</td><td>Signature size; modern version includes NFC chip in cork stopper for LOUIS XIII Society authentication</td></tr>
+            <tr><td>Magnum</td><td>1.75L</td><td>—</td></tr>
+            <tr><td>Jeroboam</td><td>3L</td><td>Includes four glasses, Cellar Master letter, and LOUIS XIII Spear</td></tr>
+            <tr><td>Mathusalem</td><td>6L</td><td>Only 50 produced per year; presented in display chest with eight glasses</td></tr>
+            <tr><td>Le Salmanazar</td><td>9L</td><td>One-of-a-kind; created by 20 master sculptors at Baccarat; weighs over 15kg without cognac</td></tr>
+            <tr><td>4/5 Quart (historical)</td><td>~757ml</td><td>Standard US size through the 1970s; replaced by 75cl after 1981</td></tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </details>
+      <details class="more">
+        <summary>Tasting profile</summary>
+        <div class="more-body">
+          <p>Consistently 40% ABV. Classified Hors d'Age — beyond age designation — with a minimum component age of 40 years and a maximum of 100. Deep amber with warm mahogany and copper reflections; occasional flaming red tones suggesting great age.</p>
+          <div class="ref-grid"><div class="ref-block"><h4>Nose</h4><p>Honeysuckle, leather, cigar box, figs, dried roses, plum, passion fruit, myrrh, honey, candied fruits, toasted oak, vanilla. Also: almond, allspice, orange peel, clementine, medjool date, baked pear, cocoa, dried chamomile, jasmine.</p></div><div class="ref-block"><h4>Palate</h4><p>Candied figs, raisins, nuts, cinnamon, ginger, clove, oak, rancio, grape skins, slight salt, orange. Pairs well with caviar or wafer-thin bellota ham. The <em>rancio</em> — a nutty, cheesy oxidative note found only in very old cognacs — is among the most distinctive characteristics.</p></div><div class="ref-block"><h4>Finish</h4><p>Exceptionally long. Sweet oak, cherry, and rancio persist, with baking spices and pepper. Widely regarded as having one of the longest finishes of any cognac. The house describes it as "a magical firework of flavors and aromas" — theatrical, but not inaccurate.</p></div></div>
+        </div>
+      </details>
+      <details class="more">
+        <summary>Notable special releases</summary>
+        <div class="more-body">
+          <p>Beyond the Classic decanter, Rémy Martin has produced a series of limited editions tied to specific cellar selections, anniversaries, and collaborations. The Black Pearl series is the most collectible.</p>
+        <div class="table-wrap">
+          <table class="clean">
+            <thead><tr><th>Edition</th><th>Year</th><th>Details</th><th>Release Price</th></tr></thead>
+            <tbody>
+            <tr><td>Rendez-Vous 2000</td><td>1999</td><td>Exactly 2,000 bottles; millennium edition; red square box with gold scrolling; stopper not numbered</td><td>—</td></tr>
+            <tr><td>Black Pearl AHD</td><td>Various</td><td>Multiple versions produced using private reserves of former chairman Heriard Dubreuil; also includes Anniversary Edition and a single bottle for the 2011 Montreal Grand Prix</td><td>—</td></tr>
+            <tr><td>Black Pearl Rare Cask 42.6</td><td>2013</td><td>738 Baccarat decanters; single tierçon selected by Pierrette Trichet in 2009; 42.6% ABV; most collectible of the Black Pearl series</td><td>~$23,000 USD</td></tr>
+            <tr><td>The Origin — 1874</td><td>2017</td><td>Tribute to the 1874 original; Saint-Louis crystal; woven metal case</td><td>~$7,200 USD</td></tr>
+            <tr><td>Louis XIII Legacy</td><td>n/d</td><td>500 created; signed by four of the five cellar masters; Italian calfskin leather box; numbered plaque</td><td>~$12,000 USD</td></tr>
+            <tr><td>Rare Cask 43.8</td><td>Current</td><td>Latest single-cask release</td><td>~$20,000+ USD</td></tr>
+            </tbody>
+          </table>
+        </div>
+          <p class="fine"><strong>The "100 Years" Project:</strong> In 2017, Pharrell Williams and Louis XIII collaborated on a climate change initiative in which Pharrell recorded a song entitled <em>100 Years</em> that will be locked away until 2117. The recording is stored on a clay disc in a safe that will self-destruct if submerged in water — a characteristically theatrical expression of the brand's centurial philosophy.</p>
+        </div>
+      </details>
+      <details class="more">
+        <summary>Pricing, resale &amp; authentication</summary>
+        <div class="more-body">
+          <div class="ref-grid"><div class="ref-block"><span class="ref-kicker">Current Retail</span><h4>New Release Pricing</h4><div class="table-wrap">
+          <table class="clean">
+            <thead><tr><th>Format</th><th>Retail</th></tr></thead>
+            <tbody>
+            <tr><td>Classic (70cl/75cl)</td><td>$3,000–$4,100</td></tr>
+            <tr><td>Miniature (5cl)</td><td>~$762</td></tr>
+            <tr><td>Black Pearl Rare Cask</td><td>~$23,000</td></tr>
+            <tr><td>Louis XIII Legacy</td><td>~$12,000</td></tr>
+            <tr><td>The Origin — 1874</td><td>~$7,200</td></tr>
+            </tbody>
+          </table>
+        </div></div>
+<div class="ref-block"><span class="ref-kicker">Vintage Resale</span><h4>Older Decanter Market</h4><p>White-top bottles from before 1981 generally sell for around the same as a new decanter, sometimes more — condition, completeness, and documented provenance drive the premium. A rare Black Pearl discovered on a Mediterranean cruise ship, estimated by Bonhams at £5,000–£7,000, ultimately sold for <strong>£10,350</strong>.</p></div>
+<div class="ref-block"><span class="ref-kicker">Authentication & Notes</span><h4>Verifying Your Bottle</h4><p><strong>Before 1981:</strong> the bottling date can be read directly from the decanter.</p><p><strong>After 1981:</strong> provide the engraved serial number to Rémy Martin; they can retrieve the bottling date.</p><p><strong>Modern Classic:</strong> NFC chip in the cork stopper enables digital authentication via the LOUIS XIII Society app.</p><p><strong>Lead crystal:</strong> Pre-1969 Baccarat decanters were made with lead crystal. Any spirit stored in confirmed lead crystal for extended periods should be tested before consumption.</p></div></div>
+        </div>
+      </details>
+      <details class="more">
+        <summary>About this guide</summary>
+        <div class="more-body">
+          <p>This guide reflects research that is neither complete nor 100% accurate — exactly as the original author notes. Rémy Martin kept few production records. Many conclusions were derived by cross-referencing advertisements, tax stamps, label types, and date cards spanning decades of collecting.</p>
+          <p class="fine">Original research by <strong style="color:var(--cream-dim)">Michael at Vieux Cognacs</strong> (vieuxcognacs.com), October 2013. With thanks to Austin Chan and Tron. Presented here for educational and reference purposes. If you have a bottle, a photograph, or information that extends this timeline, <a href="contact.html">get in touch</a>.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="cta-card">
+        <div>
+          <h2>Have a Louis XIII decanter?</h2>
+          <p>Send us a photo of the base, stopper and case. We’ll help you place it and figure out what it’s worth.</p>
+          <a class="btn btn-solid" href="contact.html">Get in touch →</a>
+        </div>
+        <img class="art photo-art" src="images/louis-xiii/1985-B.jpg" alt="Gold-top era Louis XIII decanter" loading="lazy"/>
+      </div>
+      <p class="source-line">Source: research by Michael at Vieux Cognacs (vieuxcognacs.com), October 2013. Presented for reference only; dates are approximate.</p>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <div class="wrap">
+      <a href="index.html" class="logo">Boozy <span>Estate</span></a>
+      <span>© 2026</span>
+      <ul>
+        <li><a href="history.html">History</a></li>
+        <li><a href="valuing.html">Values</a></li>
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="decanters.html">Database</a></li>
+        <li><a href="louis-xiii.html">Louis XIII</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
-  </nav>
-
-  <!-- ══ HERO ══ -->
-  <section class="hero-full">
-    <div class="hero-bg"></div>
-    <div class="hero-vignette"></div>
-    <div class="hero-content">
-      <p class="hero-eyebrow">Rémy Martin &middot; Baccarat Crystal &middot; Since 1874</p>
-      <h1 class="hero-title">The <em>Louis XIII</em><br>Identification Guide</h1>
-      <p class="hero-sub">Over 125 years of evolution, one decanter at a time. Identify any bottle by fins, base engraving, stopper, label, and packaging — from the first hand-blown glass to the modern gold-top era.</p>
-      <div class="hero-scroll" onclick="document.getElementById('identifier').scrollIntoView({behavior:'smooth'})">
-        <div class="hero-scroll-line"></div>
-        <span>Scroll</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ ATTRIBUTION ══ -->
-  <div class="attribution">
-    <div class="attribution-inner">
-      <span class="attribution-icon">📋</span>
-      <p><strong>Source:</strong> Research by Michael at <strong>Vieux Cognacs</strong> (vieuxcognacs.com), October 2013. Dates are approximate; some conclusions remain disputed. Use as a reference, not a final authority — bottle photography and original research available at the source.</p>
-    </div>
-  </div>
-
-  <!-- ══ ORIGINS & HISTORY ══ -->
-  <section class="deep-section">
-    <div class="deep-inner">
-      <p class="section-label">Origins</p>
-      <h2 class="section-title">History of the House</h2>
-      <p class="section-desc">Louis XIII is the flagship expression of Rémy Martin — and the decanter is inseparable from the cognac inside it.</p>
-      <div class="card-grid-3">
-        <div class="deep-card">
-          <p class="deep-card-label">1874</p>
-          <h3>The First Blend</h3>
-          <p><strong>Paul-Émile Rémy Martin</strong>, great-grandson of the family founder, drew from tierçons quietly aging in the cellars and assembled what he called <em>Grande Champagne, Très Vieille, Age Inconnu</em> — very old, of unknown age, from the best terroir. He named it after <strong>King Louis XIII</strong>, the first French monarch to formally recognize cognac as a spirit. The blend reached international attention at the 1900 Paris Universal Exhibition.</p>
-        </div>
-        <div class="deep-card">
-          <p class="deep-card-label">1569</p>
-          <h3>The Decanter's Origin</h3>
-          <p>Paul-Émile modeled the decanter on a <strong>16th-century metal flask</strong> carried by a chevalier at the battlefield of Jarnac in 1569, later unearthed and used as the mold. The form — rounded body, fluted fins, fleur-de-lys medallions — has stayed fundamentally unchanged since. <em>Every Louis XIII decanter traces its shape to that battlefield flask.</em></p>
-        </div>
-        <div class="deep-card">
-          <p class="deep-card-label">Cellar Masters</p>
-          <h3>The Unbroken Chain</h3>
-          <p>Each cellar master selects eaux-de-vie they will <strong>never taste in their finished form</strong> — the blend they choose will only be bottled decades after they retire.</p>
-          <table class="ref-table masters-table" style="margin-top:16px;">
-            <thead><tr><th>Master</th><th>Tenure</th></tr></thead>
-            <tbody>
-              <tr><td>André Renaud</td><td>1924–1960</td></tr>
-              <tr><td>André Giraud</td><td>1960–1990</td></tr>
-              <tr><td>Georges Clot</td><td>1990–2003</td></tr>
-              <tr><td>Pierrette Trichet</td><td>2003–2014</td></tr>
-              <tr><td>Baptiste Loiseau</td><td>2014–present</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ THE LIQUID ══ -->
-  <section class="deep-section">
-    <div class="deep-inner">
-      <p class="section-label">Production</p>
-      <h2 class="section-title">How Louis XIII Is Made</h2>
-      <p class="section-desc">From vine to decanter spans up to a century and four generations of cellar masters. Less than 5% of eaux-de-vie evaluated each year are selected.</p>
-      <div class="card-grid-3">
-        <div class="deep-card">
-          <p class="deep-card-label">The Terroir</p>
-          <h3>Grande Champagne Only</h3>
-          <p>Louis XIII uses exclusively <strong>Grande Champagne</strong> grapes — the innermost, most prized of Cognac's six crus, just 4% of the appellation's vineyards, with chalk-rich soils suited to century-long aging. Rémy Martin's other expressions blend Grande and Petit Champagne; Louis XIII is 100% Grande Champagne, double-distilled in copper pot stills smaller than conventional ones.</p>
-        </div>
-        <div class="deep-card">
-          <p class="deep-card-label">The Tierçons</p>
-          <h3>Barrels Older Than the Republic</h3>
-          <p>Louis XIII ages in <strong>tierçons</strong> — oversized Limousin oak barrels, handmade and air-dried at least three years, then reused for decades. <strong>Some in the cellars date to 1744.</strong> A new tierçon first holds young eaux-de-vie; beyond 50 years old, it holds material destined for the final blend. About 15 replacements are made each year, restored by four dedicated in-house coopers.</p>
-        </div>
-        <div class="deep-card">
-          <p class="deep-card-label">The Blend</p>
-          <h3>Up to 1,200 Eaux-de-Vie</h3>
-          <p>The final blend assembles <strong>up to 1,200 individual eaux-de-vie</strong>, aged 40 to 100 years, chosen by only five experts and checked against previous years for consistency. It then spends an <strong>additional four years in a tierçon</strong> before moving to the Baccarat decanter — a journey that can span an entire century.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ SIX IDENTIFIERS ══ -->
-  <section class="identifier-section" id="identifier">
-    <div class="identifier-inner">
-      <p class="section-label">How to date a bottle</p>
-      <h2 class="section-title">Six Ways to Identify an Era</h2>
-      <p class="section-desc">No single characteristic is definitive. Use the full profile — all six — to narrow a date range. Sets are sometimes reassembled from mismatched parts, so verify that bottle, stopper, box, and card are consistent with each other.</p>
-      <div class="id-grid">
-        <div class="id-card">
-          <div class="id-num">01</div>
-          <div class="id-label">Fins</div>
-          <div class="id-desc">Count the vertical fins on each side. Early bottles range wildly (8–17). Post-1950 Baccarat standardized at 10, very regular.</div>
-        </div>
-        <div class="id-card">
-          <div class="id-num">02</div>
-          <div class="id-label">Base Engraving</div>
-          <div class="id-desc">Pre-WW2 Baccarat = name only, no logo. Baccarat logo appears after ~1950. Machine engraving replaces hand engraving later still.</div>
-        </div>
-        <div class="id-card">
-          <div class="id-num">03</div>
-          <div class="id-label">Stopper</div>
-          <div class="id-desc">Early: numbered to match the decanter. Later: hollow crystal. 1979 onward: solid "Fleur-de-Lys" core stopper — the clearest modern indicator.</div>
-        </div>
-        <div class="id-card">
-          <div class="id-num">04</div>
-          <div class="id-label">Label</div>
-          <div class="id-desc">"Age Inconnu" (rectangular) predates "Louis XIII Brand" (bean-shaped). US bottles switched first; Europe retained Age Inconnu until 1962.</div>
-        </div>
-        <div class="id-card">
-          <div class="id-num">05</div>
-          <div class="id-label">Card</div>
-          <div class="id-desc">1938 Royal Banquet card used for decades. Replaced by the 1957 card, then by the "Battle of Jarnac" card from ~1969 onward.</div>
-        </div>
-        <div class="id-card">
-          <div class="id-num">06</div>
-          <div class="id-label">Packaging</div>
-          <div class="id-desc">Rattan basket → velvet box → cardboard → oval silk → octagonal silk → square red pyramid-lid box. Each era has a signature case.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ ERA NAV ══ -->
-  <nav class="era-nav" id="era-nav" aria-label="Era navigation">
-    <div class="era-nav-inner">
-      <a href="#pre-baccarat">
-        <span class="era-nav-year">1870</span>
-        <span>Pre-Baccarat</span>
-      </a>
-      <a href="#first-baccarat">
-        <span class="era-nav-year">1937</span>
-        <span>First Baccarat</span>
-      </a>
-      <a href="#wwii">
-        <span class="era-nav-year">1941</span>
-        <span>WW2 Suspension</span>
-      </a>
-      <a href="#post-war">
-        <span class="era-nav-year">1946</span>
-        <span>Post-War</span>
-      </a>
-      <a href="#transition">
-        <span class="era-nav-year">1962</span>
-        <span>Transition</span>
-      </a>
-      <a href="#classic">
-        <span class="era-nav-year">1969</span>
-        <span>Classic Era</span>
-      </a>
-      <a href="#asia">
-        <span class="era-nav-year">1969</span>
-        <span>Asian Market</span>
-      </a>
-      <a href="#gold-top">
-        <span class="era-nav-year">1979</span>
-        <span>Gold-Top Era</span>
-      </a>
-      <a href="#special">
-        <span class="era-nav-year">1999</span>
-        <span>Special Edition</span>
-      </a>
-    </div>
-  </nav>
-
-  <!-- ══════════════════════════════════════════════════
-       ERA 1: PRE-BACCARAT 1870–1936
-  ══════════════════════════════════════════════════ -->
-  <section class="era-section" id="pre-baccarat">
-    <div class="era-img-col">
-      <div class="era-img-sticky">
-        <div class="era-img-main">
-          <img src="images/louis-xiii/1870-B.jpg" alt="Pre-Baccarat hand-blown glass Louis XIII bottle, c.1870s" id="img-pre-baccarat"/>
-        </div>
-        <div class="era-thumbs">
-          <div class="era-thumb active" onclick="swapImg('img-pre-baccarat', this, 'images/louis-xiii/1870-B.jpg')">
-            <img src="images/louis-xiii/1870-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-pre-baccarat', this, 'images/louis-xiii/1871-B.jpg')">
-            <img src="images/louis-xiii/1871-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-pre-baccarat', this, 'images/louis-xiii/1872-B.jpg')">
-            <img src="images/louis-xiii/1872-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-pre-baccarat', this, 'images/louis-xiii/1900-B.jpg')">
-            <img src="images/louis-xiii/1900-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-pre-baccarat', this, 'images/louis-xiii/1901-B.jpg')">
-            <img src="images/louis-xiii/1901-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-pre-baccarat', this, 'images/louis-xiii/1910-B.jpg')">
-            <img src="images/louis-xiii/1910-B.jpg" alt=""/>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="era-info-col">
-      <div class="era-watermark">1870</div>
-      <div class="era-date-display">1870–<br>1936</div>
-      <div class="market-pills"><span class="market-pill global">Global</span></div>
-      <div class="era-pill">Pre-Crystal Era</div>
-      <h2 class="era-title">Hand-Blown Glass &amp; Early Commercial Bottles</h2>
-      <dl class="spec-table">
-        <div class="spec-row">
-          <dt>Manufacturer</dt>
-          <dd>Unknown. Almost certainly not Baccarat. Hand-blown glass with visible bubbles and foreign matter.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Name on Label</dt>
-          <dd><em>"Age Inconnu"</em> — used on all bottles 1874–1937 per Rémy Martin records.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Base Engraving</dt>
-          <dd>None; or the word <strong>DEPOSE</strong> cast into the glass (barely visible). Some show only a cast number (e.g. No.10).</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Fins</dt>
-          <dd>Highly irregular. Known examples: 8 &amp; 9 fins (Type 1), 11 fins (Type 2), 17 &amp; 16 fins (Type 3). Post-1900 commercial: 9 fins per side.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Stopper</dt>
-          <dd>Very coarse design. Irregular hand-ground insert. Rough cut-off under the insert.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Fleur-de-Lys</dt>
-          <dd>Gold-plated medallions with random orientation on early types. Later commercial bottles more consistent but still irregular.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Packaging</dt>
-          <dd>Unknown for 1870s–1900s. Rattan baskets appear on European "Age Inconnu" bottles in the 1930s–1940s.</dd>
-        </div>
-      </dl>
-      <div class="era-notes">
-        <p><strong>No confirmed full bottle has ever been found</strong> from before 1938. All date estimates for the three earliest known bottle types are speculative. The three types share the same basic silhouette but differ dramatically in fin count and manufacturing precision — clear evidence of hand production without controlled molds.</p>
-        <p>The 1900–1936 commercial bottle (9 fins, acid-etched markings, cylindrical neck with offset opening) is probably what was sold through prohibition-era gray markets before Baccarat crystal arrived.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════
-       ERA 2: FIRST BACCARAT 1937–1940
-  ══════════════════════════════════════════════════ -->
-  <section class="era-section" id="first-baccarat">
-    <div class="era-img-col">
-      <div class="era-img-sticky">
-        <div class="era-img-main">
-          <img src="images/louis-xiii/1937-B1.jpg" alt="First Baccarat Louis XIII decanter, 1937–1940" id="img-first-baccarat"/>
-        </div>
-        <div class="era-thumbs">
-          <div class="era-thumb active" onclick="swapImg('img-first-baccarat', this, 'images/louis-xiii/1937-B1.jpg')">
-            <img src="images/louis-xiii/1937-B1.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-first-baccarat', this, 'images/louis-xiii/1937-B2.jpg')">
-            <img src="images/louis-xiii/1937-B2.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-first-baccarat', this, 'images/louis-xiii/1939-B.jpg')">
-            <img src="images/louis-xiii/1939-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-first-baccarat', this, 'images/louis-xiii/1937-T.jpg')">
-            <img src="images/louis-xiii/1937-T.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-first-baccarat', this, 'images/louis-xiii/1935-S1.jpg')">
-            <img src="images/louis-xiii/1935-S1.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-first-baccarat', this, 'images/louis-xiii/1939-T.jpg')">
-            <img src="images/louis-xiii/1939-T.jpg" alt=""/>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="era-info-col">
-      <div class="era-watermark">1937</div>
-      <div class="era-date-display">1937–<br>1940</div>
-      <div class="market-pills"><span class="market-pill europe">Europe</span><span class="market-pill usa">USA</span></div>
-      <div class="era-pill">First Baccarat Crystal</div>
-      <h2 class="era-title">Early Crystal Decanters — No Engraved Logo</h2>
-      <dl class="spec-table">
-        <div class="spec-row">
-          <dt>Manufacturer</dt>
-          <dd>Baccarat crystal — but <strong>no engraved logo or name.</strong> Identification relied solely on a paper Baccarat label (registered trademark since 1860, now frequently missing).</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Base Engraving</dt>
-          <dd>E. Rémy Martin &amp; Cie, Cognac France. Decanters individually numbered (e.g. No.2, 6, 10, 12, 39, 40, 42, 59).</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Stopper</dt>
-          <dd>Numbered to match the decanter. Stamped glass Fleur-de-Lys medallion on top. Interior occasionally "contaminated" with white specks from fabrication.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Seal / Cork</dt>
-          <dd>Slim Centaur with spear handle pointing at the <em>"Y" of Rémy</em> (old-style logo).</dd>
-        </div>
-        <div class="spec-row">
-          <dt>US Label</dt>
-          <dd>Bean-shaped <strong>"Louis XIII Brand — Rarest Reserve."</strong> Appears 12–15 years before Rémy Martin claims to have introduced the name in America.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>European Label</dt>
-          <dd>Rectangular <em>"Age Inconnu."</em></dd>
-        </div>
-        <div class="spec-row">
-          <dt>Card</dt>
-          <dd>1938 Royal Banquet Card — some blank on one side, others bilingual French/English.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Packaging</dt>
-          <dd>Two types: plain cardboard shipping box, or Red Velvet presentation case similar to the 1946 green cases.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>US Importer</dt>
-          <dd>Joseph H. Reinfeld Inc. / Browne Vintners (1938–1940). Any bottle with a Browne Vintners label dates to <strong>1933–1940.</strong></dd>
-        </div>
-      </dl>
-      <div class="era-notes">
-        <p>The critical authentication point: <strong>no Baccarat logo does not mean pre-WW2.</strong> Many post-war bottles (1946–1950) also lack the engraved logo. A logo on the base confirms post-1950; its absence is inconclusive either way.</p>
-        <p>Note the Fleur-de-Lys medallion size and position varies on these early bottles compared to post-WW2 Baccarat — a secondary dating clue when bottle numbers are missing.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════
-       ERA 3: WW2 (full-width, no image)
-  ══════════════════════════════════════════════════ -->
-  <section class="era-section-full" id="wwii">
-    <div class="era-full-inner">
-      <div>
-        <div class="era-date-display" style="font-size:3rem;">1941–<br>1945</div>
-        <div class="market-pills" style="margin-top:12px;"><span class="market-pill global">Global</span></div>
-        <div class="era-pill" style="margin-top:8px;">Production Suspended</div>
-      </div>
-      <div>
-        <h2 class="era-title" style="font-size:1.4rem;">World War II — No Production</h2>
-        <dl class="spec-table">
-          <div class="spec-row">
-            <dt>Status</dt>
-            <dd>Louis XIII production was completely suspended. No bottles were produced from 1941 through 1945.</dd>
-          </div>
-        </dl>
-        <div class="era-notes">
-          <p>Any set presented as a "WW2-era" Louis XIII should be viewed with extreme skepticism. Authentic 1938–1940 bottles are sometimes incorrectly combined with post-war cases, stoppers, or cards. <strong>Always verify all components of a set match the same era.</strong></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════
-       ERA 4: POST-WAR 1946–1961
-  ══════════════════════════════════════════════════ -->
-  <section class="era-section" id="post-war">
-    <div class="era-img-col">
-      <div class="era-img-sticky">
-        <div class="era-img-main">
-          <img src="images/louis-xiii/1946-B.jpg" alt="Post-war Louis XIII 'Louis XIII Brand' Rarest Reserve, 1946–1950" id="img-post-war"/>
-        </div>
-        <div class="era-thumbs">
-          <div class="era-thumb active" onclick="swapImg('img-post-war', this, 'images/louis-xiii/1946-B.jpg')">
-            <img src="images/louis-xiii/1946-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-post-war', this, 'images/louis-xiii/1946-B1.jpg')">
-            <img src="images/louis-xiii/1946-B1.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-post-war', this, 'images/louis-xiii/1945-B.jpg')">
-            <img src="images/louis-xiii/1945-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-post-war', this, 'images/louis-xiii/1946-P1.jpg')">
-            <img src="images/louis-xiii/1946-P1.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-post-war', this, 'images/louis-xiii/1946-P3.jpg')">
-            <img src="images/louis-xiii/1946-P3.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-post-war', this, 'images/louis-xiii/1951-B.jpg')">
-            <img src="images/louis-xiii/1951-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-post-war', this, 'images/louis-xiii/1953-B.jpg')">
-            <img src="images/louis-xiii/1953-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-post-war', this, 'images/louis-xiii/1957-B.jpg')">
-            <img src="images/louis-xiii/1957-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-post-war', this, 'images/louis-xiii/1959-B.jpg')">
-            <img src="images/louis-xiii/1959-B.jpg" alt=""/>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="era-info-col">
-      <div class="era-watermark">1946</div>
-      <div class="era-date-display">1946–<br>1961</div>
-      <div class="market-pills"><span class="market-pill europe">Europe</span><span class="market-pill usa">USA</span></div>
-      <div class="era-pill">Post-War Baccarat</div>
-      <h2 class="era-title">Two Markets, Two Names — The Split Identity Era</h2>
-      <dl class="spec-table">
-        <div class="spec-row">
-          <dt>Manufacturer</dt>
-          <dd>Baccarat. No engraved logo until after ~1950 — logo added to base after that alongside the name.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Base (1946–50)</dt>
-          <dd>"Made in France by Baccarat" — no logo. Individually engraved numbers: 26, 28, 29, 32, 42, 55, 56, 103, 114.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Base (1951–61)</dt>
-          <dd>Baccarat logo added under base in addition to the name. Some bottles numbered, most not.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>European Label</dt>
-          <dd>Rectangular <em>"Age Inconnu"</em> continues through the 1950s. Rattan basket packaging.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>US Label</dt>
-          <dd>Bean-shaped <strong>"Louis XIII Brand — Rarest Reserve."</strong> Renfield Importers Ltd. listed on back label from 1946 onward.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>US Packaging</dt>
-          <dd><strong>1946–56:</strong> Green velvet presentation cases with gold tassel; some had a mirror inside the lid.<br/>
-              <strong>1957–58:</strong> Plain green velvet, no gold accents. First 1957 Royal Visit Card.<br/>
-              <strong>1959–61:</strong> Red cardboard with silk liner, gold Centaur on lid. First origin drawing included.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Card</dt>
-          <dd>1938 Royal Banquet Card through the 1950s. 1957 Royal Visit Card for newer sets. Both types coexist.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>US Importer</dt>
-          <dd>Renfield Importers Ltd. (formed 1936, took over from Browne Vintners in 1940).</dd>
-        </div>
-      </dl>
-      <div class="era-notes">
-        <p><strong>US buyers knew it as "Louis XIII" while the rest of the world still bought "Age Inconnu."</strong> For roughly 30 years the two names coexisted in parallel — which is why sets with different labels are found on either side of the Atlantic.</p>
-        <p>Low serial numbers in the 1946–1950 range reflect small yearly production restarting after the war. The rule that "no logo = pre-WW2" is <strong>wrong</strong> — many 1946–1950 bottles also lack the engraved logo.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════
-       ERA 5: TRANSITION 1962–1968
-  ══════════════════════════════════════════════════ -->
-  <section class="era-section" id="transition">
-    <div class="era-img-col">
-      <div class="era-img-sticky">
-        <div class="era-img-main">
-          <img src="images/louis-xiii/1963-B.jpg" alt="Louis XIII transition era bottle, 1962–1963" id="img-transition"/>
-        </div>
-        <div class="era-thumbs">
-          <div class="era-thumb active" onclick="swapImg('img-transition', this, 'images/louis-xiii/1963-B.jpg')">
-            <img src="images/louis-xiii/1963-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-transition', this, 'images/louis-xiii/1962-B1.jpg')">
-            <img src="images/louis-xiii/1962-B1.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-transition', this, 'images/louis-xiii/1962-B2.jpg')">
-            <img src="images/louis-xiii/1962-B2.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-transition', this, 'images/louis-xiii/1962-P2.jpg')">
-            <img src="images/louis-xiii/1962-P2.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-transition', this, 'images/louis-xiii/1963-P.jpg')">
-            <img src="images/louis-xiii/1963-P.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-transition', this, 'images/louis-xiii/1965-A.jpg')">
-            <img src="images/louis-xiii/1965-A.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-transition', this, 'images/louis-xiii/1965-P.jpg')">
-            <img src="images/louis-xiii/1965-P.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-transition', this, 'images/louis-xiii/1968-A.jpg')">
-            <img src="images/louis-xiii/1968-A.jpg" alt=""/>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="era-info-col">
-      <div class="era-watermark">1962</div>
-      <div class="era-date-display">1962–<br>1968</div>
-      <div class="market-pills"><span class="market-pill global">Global</span><span class="market-pill usa">USA</span></div>
-      <div class="era-pill">Logo &amp; Name Transition</div>
-      <h2 class="era-title">Last "Age Inconnu" — New Centaur, One World Name</h2>
-      <dl class="spec-table">
-        <div class="spec-row">
-          <dt>1962 — Key Year</dt>
-          <dd>Last bottles with the "Age Inconnu" label. From 1963 onward, <strong>all markets worldwide</strong> use the "Louis XIII" name. Multiple confirmed matching-serial sets make 1962 one of the best-documented transition years.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>New Centaur Logo</dt>
-          <dd>Spear now points <em>up</em> at the "R" of Martin — replacing the old logo where the spear handle pointed at the "Y" of Rémy.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Numbering</dt>
-          <dd><strong>1962–63:</strong> Some numbered (e.g. 80, 316, 832). <strong>1964–68:</strong> Not numbered — the first era with no serial numbers at all.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Label</dt>
-          <dd>Bean-shaped <em>"Tres Vieille"</em> or <em>"Rarest Reserve."</em> Volume (0.7L) indicated on European bottles for the first time.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Packaging 1962–63</dt>
-          <dd>Plain white/cream cardboard with silk liner and gold trim. Lid features old or new Centaur depending on production date.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Packaging 1964–68</dt>
-          <dd>Red oval split "silk" box with Fleur-de-Lys and gold diagonal on lid. Almost exclusively a North American product — very rare to find in Europe or Asia.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Card</dt>
-          <dd>1938 and 1957 Royal Banquet Cards continue through 1968.</dd>
-        </div>
-      </dl>
-      <div class="era-notes">
-        <p>The 1964–1968 red oval box is the <strong>rarest packaging type in Louis XIII history</strong> outside North America. If one appears in Europe or Asia, examine it closely — it almost certainly did not originate there.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════
-       ERA 6: CLASSIC 1969–1978
-  ══════════════════════════════════════════════════ -->
-  <section class="era-section" id="classic">
-    <div class="era-img-col">
-      <div class="era-img-sticky">
-        <div class="era-img-main">
-          <img src="images/louis-xiii/1970-B.jpg" alt="Classic era Louis XIII in octagonal red box, 1969–1978" id="img-classic"/>
-        </div>
-        <div class="era-thumbs">
-          <div class="era-thumb active" onclick="swapImg('img-classic', this, 'images/louis-xiii/1970-B.jpg')">
-            <img src="images/louis-xiii/1970-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-classic', this, 'images/louis-xiii/1970-B1.jpg')">
-            <img src="images/louis-xiii/1970-B1.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-classic', this, 'images/louis-xiii/1969-B.jpg')">
-            <img src="images/louis-xiii/1969-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-classic', this, 'images/louis-xiii/1970-P.jpg')">
-            <img src="images/louis-xiii/1970-P.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-classic', this, 'images/louis-xiii/1970-S.jpg')">
-            <img src="images/louis-xiii/1970-S.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-classic', this, 'images/louis-xiii/1975-B.jpg')">
-            <img src="images/louis-xiii/1975-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-classic', this, 'images/louis-xiii/1975-P.jpg')">
-            <img src="images/louis-xiii/1975-P.jpg" alt=""/>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="era-info-col">
-      <div class="era-watermark">1969</div>
-      <div class="era-date-display">1969–<br>1978</div>
-      <div class="market-pills"><span class="market-pill europe">Europe</span><span class="market-pill usa">USA</span></div>
-      <div class="era-pill">Classic Era</div>
-      <h2 class="era-title">Octagonal Box — Return of the Old Centaur</h2>
-      <dl class="spec-table">
-        <div class="spec-row">
-          <dt>Bottle</dt>
-          <dd>Not numbered. Visible quality control decline. Later examples show painted markings instead of etched lettering; some have mold ring marks — evidence of machine rather than hand production.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Base Engraving</dt>
-          <dd>New layout: Baccarat logo centered. No individual serial numbers.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Seal / Cork</dt>
-          <dd>Return of the <strong>old-style fat Centaur</strong> (spear handle at "Y" of Rémy) — after nearly a decade of the new logo. An unexplained design reversal.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Label</dt>
-          <dd>Bean-shaped with <em>"Tres Vieille," "Very Old,"</em> or <em>"Rarest Reserve"</em> designation.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Card</dt>
-          <dd>New <strong>"Battle of Jarnac"</strong> hanging tag replaces the Royal Banquet Cards that had been used since 1938.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Packaging</dt>
-          <dd>Octagonal red "silk" box. Around 1971 a new label, card, and cork seal revive the aesthetic of 1930s bottle design.</dd>
-        </div>
-      </dl>
-      <div class="era-notes">
-        <p>The octagonal box and Battle of Jarnac card are the clearest markers for this era. The return of the old Centaur logo (after a decade of the new version) remains unexplained — a useful dating indicator when the case has been separated from the bottle.</p>
-        <p>The quality decline across this period is visible: compare a 1970 bottle (still sharp, hand-etched lettering) to a 1977 or 1978 example (painted markings, visible mold lines).</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════
-       ERA 7: ASIAN MARKET 1969–1981
-  ══════════════════════════════════════════════════ -->
-  <section class="era-section" id="asia">
-    <div class="era-img-col">
-      <div class="era-img-sticky">
-        <div class="era-img-main">
-          <img src="images/louis-xiii/1981-B.jpg" alt="Louis XIII Asian market Saint Louis crystal bottle, 1969–1981" id="img-asia"/>
-        </div>
-        <div class="era-thumbs">
-          <div class="era-thumb active" onclick="swapImg('img-asia', this, 'images/louis-xiii/1981-B.jpg')">
-            <img src="images/louis-xiii/1981-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-asia', this, 'images/louis-xiii/1981-A.jpg')">
-            <img src="images/louis-xiii/1981-A.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-asia', this, 'images/louis-xiii/1981-P.jpg')">
-            <img src="images/louis-xiii/1981-P.jpg" alt=""/>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="era-info-col">
-      <div class="era-watermark">Asia</div>
-      <div class="era-date-display">1969–<br>1981</div>
-      <div class="market-pills"><span class="market-pill asia">Asia</span></div>
-      <div class="era-pill">Saint Louis Crystal</div>
-      <h2 class="era-title">Japanese Market — A Second Crystal Maker</h2>
-      <dl class="spec-table">
-        <div class="spec-row">
-          <dt>Manufacturer</dt>
-          <dd><strong>Saint Louis Cristalleries</strong> — not Baccarat. Rémy Martin confirmed that high Asian demand exceeded Baccarat's production capacity; Saint Louis was contracted for the Japanese export market.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Fins</dt>
-          <dd>10 fins per side, very regular shape. Some examples 9 fins. Clearly defined ridge around the base.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Base Engraving</dt>
-          <dd><em>E. Rémy Martin &amp; Co. SA</em> — Made in France by Saint Louis. <strong>"SA" instead of "Cie"</strong> is the key tell: Société Anonyme was only added to the company name in the 1960s. Volume indicated under the bottle (another post-1965 addition).</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Stopper</dt>
-          <dd>All-crystal stopper (1969–78); later standard hollow crystal. <strong>Does not fit the decanter properly</strong> — considered lower quality by crystal collectors.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Label</dt>
-          <dd>Bean-shaped <em>"Tres Vieille"</em> or <em>"Grand Champagne — Very Old"</em> (French and English versions exist).</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Packaging</dt>
-          <dd>Octagonal box identical to European/USA Baccarat version. 1981: plexiglass cases used for remaining "white-top" stock in duty-free shops throughout Asia.</dd>
-        </div>
-      </dl>
-      <div class="era-notes">
-        <p>Saint Louis bottles are <strong>frequently misidentified as early Baccarat or even 1900s examples.</strong> One was marketed by a major auction house as an "early 1900s Saint Louis bottle" — this was wrong. The use of "Co. SA" and volume indication on the base both place it firmly in the 1960s at earliest.</p>
-        <p>By 1981, remaining "white-top" stock was being liquidated through duty-free shops in plexiglass display cases — a presentation not seen in Western markets.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════
-       ERA 8: GOLD-TOP 1979–2002
-  ══════════════════════════════════════════════════ -->
-  <section class="era-section" id="gold-top">
-    <div class="era-img-col">
-      <div class="era-img-sticky">
-        <div class="era-img-main">
-          <img src="images/louis-xiii/1985-B.jpg" alt="Gold-top era Louis XIII Baccarat decanter, 1979–2002" id="img-gold-top"/>
-        </div>
-        <div class="era-thumbs">
-          <div class="era-thumb active" onclick="swapImg('img-gold-top', this, 'images/louis-xiii/1985-B.jpg')">
-            <img src="images/louis-xiii/1985-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-gold-top', this, 'images/louis-xiii/1985-B1.jpg')">
-            <img src="images/louis-xiii/1985-B1.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-gold-top', this, 'images/louis-xiii/1985-A.jpg')">
-            <img src="images/louis-xiii/1985-A.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-gold-top', this, 'images/louis-xiii/1985-P.jpg')">
-            <img src="images/louis-xiii/1985-P.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-gold-top', this, 'images/louis-xiii/1985-S1.jpg')">
-            <img src="images/louis-xiii/1985-S1.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-gold-top', this, 'images/louis-xiii/1985-S2.jpg')">
-            <img src="images/louis-xiii/1985-S2.jpg" alt=""/>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="era-info-col">
-      <div class="era-watermark">1979</div>
-      <div class="era-date-display">1979–<br>2002</div>
-      <div class="market-pills"><span class="market-pill global">Global</span></div>
-      <div class="era-pill">Gold-Top Era</div>
-      <h2 class="era-title">The Modern Baccarat — Numbered Again, 23 Years Running</h2>
-      <dl class="spec-table">
-        <div class="spec-row">
-          <dt>Manufacturer</dt>
-          <dd>Baccarat (primary). Saint Louis also produced some bottles, typically for the Asian export market but occasionally found elsewhere.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Base Engraving</dt>
-          <dd>New layout: Baccarat logo centered, with "Baccarat Cristal" and "Liquor Bottle." <strong>Numbered again</strong> — 1–2 letters + 4 digits. Early bottles hand-engraved; later machine-engraved.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Stopper</dt>
-          <dd>New solid-core <strong>"Fleur-de-Lys" stopper</strong> — replaces all previous hollow and numbered designs. The most reliable single indicator of this era.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Seal</dt>
-          <dd>Gold capsule with stamped metal cap over cork. Older style gold seal (1980–1989); updated gold seal (1990 onward). Difference is subtle but visible to a trained eye.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Label</dt>
-          <dd>Paper labels eliminated entirely. <strong>Clear plastic decals</strong> with gold lettering for content and importer information replace them.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Card</dt>
-          <dd>No hanging tag cards. The card tradition ends with this generation.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Packaging</dt>
-          <dd>Square red box with truncated pyramid lid and gold lettering. Runs through 2002 with only minor cosmetic changes.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>US Importer</dt>
-          <dd>Rémy-Cointreau via Rémy Amerique Inc. — the company now imports its own cognac directly.</dd>
-        </div>
-      </dl>
-      <div class="era-notes">
-        <p>The gold-top era is the <strong>longest-running single design in Louis XIII history</strong> — nearly 23 years. The return to individual bottle numbering (after a 15-year gap) makes authentication straightforward: if a gold-top bottle lacks a serial number, examine it carefully — it may be a Saint Louis example or have a replaced stopper.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════
-       ERA 9: SPECIAL EDITION 1999
-  ══════════════════════════════════════════════════ -->
-  <section class="era-section" id="special">
-    <div class="era-img-col">
-      <div class="era-img-sticky">
-        <div class="era-img-main">
-          <img src="images/louis-xiii/1999-B.jpg" alt="Louis XIII Rendez-Vous 2000 special edition, 1999" id="img-special"/>
-        </div>
-        <div class="era-thumbs">
-          <div class="era-thumb active" onclick="swapImg('img-special', this, 'images/louis-xiii/1999-B.jpg')">
-            <img src="images/louis-xiii/1999-B.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-special', this, 'images/louis-xiii/1999-B1.jpg')">
-            <img src="images/louis-xiii/1999-B1.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-special', this, 'images/louis-xiii/1999-A.jpg')">
-            <img src="images/louis-xiii/1999-A.jpg" alt=""/>
-          </div>
-          <div class="era-thumb" onclick="swapImg('img-special', this, 'images/louis-xiii/1999-P.jpg')">
-            <img src="images/louis-xiii/1999-P.jpg" alt=""/>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="era-info-col">
-      <div class="era-watermark">1999</div>
-      <div class="era-date-display">1999</div>
-      <div class="market-pills"><span class="market-pill global">Global</span></div>
-      <div class="era-pill">Limited Edition — 2,000 Bottles</div>
-      <h2 class="era-title">Rendez-Vous 2000 — A Millennium Commission</h2>
-      <dl class="spec-table">
-        <div class="spec-row">
-          <dt>Base Engraving</dt>
-          <dd>Special markings: Baccarat logo + decanter number / <strong>2000A</strong> + logo indicating limited series of 2,000 bottles. Machine engraved. Bottle size (0.75L) also engraved.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Stopper</dt>
-          <dd>Standard Fleur-de-Lys solid core stopper — <em>not</em> individually numbered on this edition.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Seal</dt>
-          <dd>Gold capsule with stamped metal cap over cork — same as standard gold-top bottles.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Label</dt>
-          <dd>Clear plastic decal with gold lettering. Rémy-Cointreau / Rémy Amerique Inc. listed as US importer.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Content</dt>
-          <dd>Standard Louis XIII Grande Champagne cognac. The collectible value is driven by the limited run and special artwork — not by any difference in the spirit.</dd>
-        </div>
-        <div class="spec-row">
-          <dt>Presentation</dt>
-          <dd>Special artwork on both bottle and presentation case. The name urges a "meeting in the year 2000."</dd>
-        </div>
-      </dl>
-      <div class="era-notes">
-        <p>The Rendez-Vous 2000 is a gold-top bottle with <strong>special Baccarat engraving and a unique presentation case</strong>. It marks the end of this guide's scope — over 125 years from the first irregular hand-blown glass to a numbered millennium commission.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ QUICK REFERENCE ══ -->
-  <section class="deep-section" id="quick-ref">
-    <div class="deep-inner">
-      <p class="section-label">Collector's Reference</p>
-      <h2 class="section-title">What to Look For</h2>
-      <p class="section-desc">No single feature is definitive — use several in combination. Sets are sometimes reassembled from mismatched parts; verify that bottle, stopper, box, and card are consistent with each other.</p>
-      <table class="ref-table qr">
-        <thead><tr><th>What you see</th><th>What it tells you</th></tr></thead>
-        <tbody>
-          <tr><td>White capsule top</td><td>Bottled before 1981</td></tr>
-          <tr><td>Gold capsule top</td><td>Bottled 1979 or later</td></tr>
-          <tr><td>Both white and gold tops possible</td><td>1979–1981 overlap window</td></tr>
-          <tr><td>No Baccarat logo on base</td><td>Pre-1950 <em>or</em> 1946–1950 postwar — not necessarily pre-WWII</td></tr>
-          <tr><td>"Saint-Louis" on base</td><td>After 1969; Asian market production; 10-fin profile, all-crystal stopper</td></tr>
-          <tr><td>Slim Centaur, spear pointing at "Y" of Rémy</td><td>Pre-1963</td></tr>
-          <tr><td>Centaur spear pointing up at "R" of Martin</td><td>1963–1968</td></tr>
-          <tr><td>Fat Centaur (old style) on a newer-looking bottle</td><td>1969–1978 — the octagonal box era paradoxically reverted to old Centaur</td></tr>
-          <tr><td>"Age Inconnu" label</td><td>European market; pre-1963</td></tr>
-          <tr><td>"Rarest Reserve" label (bean-shaped)</td><td>US market; used throughout most of the 20th century</td></tr>
-          <tr><td>Serial number (letters + 4 digits)</td><td>1979 or later</td></tr>
-          <tr><td>No serial number</td><td>Pre-1937 <em>or</em> 1964–1968 (that generation was unnumbered)</td></tr>
-          <tr><td>Solid "Fleur-de-Lys" stopper (not hollow)</td><td>1979 or later</td></tr>
-          <tr><td>Green velvet box</td><td>1946–1958 US market</td></tr>
-          <tr><td>Red velvet box</td><td>1959–1961 US market</td></tr>
-          <tr><td>Red oval split box</td><td>1964–1968; US market; unnumbered generation</td></tr>
-          <tr><td>Octagonal red "silk" box</td><td>1969–1978</td></tr>
-          <tr><td>Red square box</td><td>1979–2002</td></tr>
-          <tr><td>Rattan basket</td><td>European market; 1946–1962</td></tr>
-          <tr><td>Royal Banquet Card</td><td>1938–1968 US market</td></tr>
-          <tr><td>Battle of Jarnac card</td><td>1969 onward</td></tr>
-          <tr><td>4/5 Quart volume</td><td>Pre-metric; US market before 1981</td></tr>
-          <tr><td>0.7L or 0.75L volume</td><td>Post-1962 Europe / post-1981 US</td></tr>
-          <tr><td>"2000A" on base engraving</td><td>Rendez-Vous 2000; limited to exactly 2,000 bottles</td></tr>
-          <tr><td>NFC chip in cork stopper</td><td>Modern Classic Decanter; enables authentication via LOUIS XIII Society app</td></tr>
-        </tbody>
-      </table>
-
-      <div class="table-grid" style="margin-top:56px;">
-        <div class="table-group">
-          <h4>US Tax Strip Dating</h4>
-          <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:4px;">Applies to US-market bottles only. One of the most reliable dating tools for pre-1985 bottles.</p>
-          <table class="ref-table">
-            <thead><tr><th>Tax Strip</th><th>Date Range</th></tr></thead>
-            <tbody>
-              <tr><td>No "Series" near eagle</td><td>1934–1944</td></tr>
-              <tr><td>"Series 111" below eagle</td><td>1944–1960</td></tr>
-              <tr><td>"Series 112" below eagle</td><td>1961–1982</td></tr>
-              <tr><td>References "Dept. of Revenue"</td><td>1961–1977</td></tr>
-              <tr><td>References "Bureau of ATF"</td><td>1977–1985</td></tr>
-              <tr><td>Tax strips discontinued</td><td>After 1985</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="table-group">
-          <h4>US Importer Timeline</h4>
-          <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:4px;">The back-label importer is a quick dating shortcut for US-market bottles.</p>
-          <table class="ref-table">
-            <thead><tr><th>Importer</th><th>Period</th></tr></thead>
-            <tbody>
-              <tr><td>Joseph H. Reinfeld Inc. / Browne Vintners</td><td>1933–1940</td></tr>
-              <tr><td>Renfield Importers Ltd. (Union, NJ)</td><td>1940s–1990s</td></tr>
-              <tr><td>Remy Amerique Inc. / Remy-Cointreau</td><td>~1999–present</td></tr>
-            </tbody>
-          </table>
-          <div class="market-note" style="margin-top:16px;">
-            <strong>Common Myth Corrected:</strong> Many collectors assume that the absence of a Baccarat logo on the base indicates a pre-WWII bottle. This is incorrect — many post-WWII bottles (1946–1950) also lack the engraved logo. The logo only became standard after 1950.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ DECANTER FORMATS ══ -->
-  <section class="deep-section">
-    <div class="deep-inner">
-      <p class="section-label">The Lineup</p>
-      <h2 class="section-title">Decanter Formats & Sizes</h2>
-      <p class="section-desc">From a single-serve personal vessel to a monumental 9-liter sculpture. Historical US-market sizes used pre-metric designations; the shift to metric became mandatory in the US from 1981.</p>
-      <table class="ref-table" style="margin-top:28px;">
-        <thead><tr><th>Format</th><th>Volume</th><th>Notable Details</th></tr></thead>
-        <tbody>
-          <tr><td>The Drop</td><td>1cl</td><td>Personal experience format; designed for mixing and travel</td></tr>
-          <tr><td>Miniature</td><td>5cl</td><td>Hand-blown Baccarat crystal; same defining features as full-size</td></tr>
-          <tr><td>Classic</td><td>70cl / 75cl</td><td>Signature size; modern version includes NFC chip in cork stopper for LOUIS XIII Society authentication</td></tr>
-          <tr><td>Magnum</td><td>1.75L</td><td>—</td></tr>
-          <tr><td>Jeroboam</td><td>3L</td><td>Includes four glasses, Cellar Master letter, and LOUIS XIII Spear</td></tr>
-          <tr><td>Mathusalem</td><td>6L</td><td>Only 50 produced per year; presented in display chest with eight glasses</td></tr>
-          <tr><td>Le Salmanazar</td><td>9L</td><td>One-of-a-kind; created by 20 master sculptors at Baccarat; weighs over 15kg without cognac</td></tr>
-          <tr><td>4/5 Quart (historical)</td><td>~757ml</td><td>Standard US size through the 1970s; replaced by 75cl after 1981</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ══ TASTING PROFILE ══ -->
-  <section class="deep-section">
-    <div class="deep-inner">
-      <p class="section-label">The Liquid</p>
-      <h2 class="section-title">Tasting Profile</h2>
-      <p class="section-desc">Consistently 40% ABV. Classified Hors d'Age — beyond age designation — with a minimum component age of 40 years and a maximum of 100. Deep amber with warm mahogany and copper reflections; occasional flaming red tones suggesting great age.</p>
-      <div class="tasting-grid">
-        <div class="tasting-card">
-          <p class="tasting-label">Nose</p>
-          <p>Honeysuckle, leather, cigar box, figs, dried roses, plum, passion fruit, myrrh, honey, candied fruits, toasted oak, vanilla. Also: almond, allspice, orange peel, clementine, medjool date, baked pear, cocoa, dried chamomile, jasmine.</p>
-        </div>
-        <div class="tasting-card">
-          <p class="tasting-label">Palate</p>
-          <p>Candied figs, raisins, nuts, cinnamon, ginger, clove, oak, rancio, grape skins, slight salt, orange. Pairs well with caviar or wafer-thin bellota ham. The <em>rancio</em> — a nutty, cheesy oxidative note found only in very old cognacs — is among the most distinctive characteristics.</p>
-        </div>
-        <div class="tasting-card">
-          <p class="tasting-label">Finish</p>
-          <p>Exceptionally long. Sweet oak, cherry, and rancio persist, with baking spices and pepper. Widely regarded as having one of the longest finishes of any cognac. The house describes it as "a magical firework of flavors and aromas" — theatrical, but not inaccurate.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ SPECIAL RELEASES ══ -->
-  <section class="deep-section">
-    <div class="deep-inner">
-      <p class="section-label">Limited Editions</p>
-      <h2 class="section-title">Notable Special Releases</h2>
-      <p class="section-desc">Beyond the Classic decanter, Rémy Martin has produced a series of limited editions tied to specific cellar selections, anniversaries, and collaborations. The Black Pearl series is the most collectible.</p>
-      <table class="ref-table editions-table">
-        <thead><tr><th>Edition</th><th>Year</th><th>Details</th><th>Release Price</th></tr></thead>
-        <tbody>
-          <tr><td>Rendez-Vous 2000</td><td>1999</td><td>Exactly 2,000 bottles; millennium edition; red square box with gold scrolling; stopper not numbered</td><td>—</td></tr>
-          <tr><td>Black Pearl AHD</td><td>Various</td><td>Multiple versions produced using private reserves of former chairman Heriard Dubreuil; also includes Anniversary Edition and a single bottle for the 2011 Montreal Grand Prix</td><td>—</td></tr>
-          <tr><td>Black Pearl Rare Cask 42.6</td><td>2013</td><td>738 Baccarat decanters; single tierçon selected by Pierrette Trichet in 2009; 42.6% ABV; most collectible of the Black Pearl series</td><td>~$23,000 USD</td></tr>
-          <tr><td>The Origin — 1874</td><td>2017</td><td>Tribute to the 1874 original; Saint-Louis crystal; woven metal case</td><td>~$7,200 USD</td></tr>
-          <tr><td>Louis XIII Legacy</td><td>n/d</td><td>500 created; signed by four of the five cellar masters; Italian calfskin leather box; numbered plaque</td><td>~$12,000 USD</td></tr>
-          <tr><td>Rare Cask 43.8</td><td>Current</td><td>Latest single-cask release</td><td>~$20,000+ USD</td></tr>
-        </tbody>
-      </table>
-      <div class="market-note">
-        <strong>The "100 Years" Project:</strong> In 2017, Pharrell Williams and Louis XIII collaborated on a climate change initiative in which Pharrell recorded a song entitled <em>100 Years</em> that will be locked away until 2117. The recording is stored on a clay disc in a safe that will self-destruct if submerged in water — a characteristically theatrical expression of the brand's centurial philosophy.
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ COLLECTOR MARKET ══ -->
-  <section class="deep-section">
-    <div class="deep-inner">
-      <p class="section-label">The Market</p>
-      <h2 class="section-title">Pricing, Resale & Authentication</h2>
-      <div class="card-grid-3" style="margin-top:28px;">
-        <div class="deep-card">
-          <p class="deep-card-label">Current Retail</p>
-          <h3>New Release Pricing</h3>
-          <table class="ref-table" style="margin-top:12px;">
-            <thead><tr><th>Format</th><th>Retail</th></tr></thead>
-            <tbody>
-              <tr><td>Classic (70cl/75cl)</td><td>$3,000–$4,100</td></tr>
-              <tr><td>Miniature (5cl)</td><td>~$762</td></tr>
-              <tr><td>Black Pearl Rare Cask</td><td>~$23,000</td></tr>
-              <tr><td>Louis XIII Legacy</td><td>~$12,000</td></tr>
-              <tr><td>The Origin — 1874</td><td>~$7,200</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="deep-card">
-          <p class="deep-card-label">Vintage Resale</p>
-          <h3>Older Decanter Market</h3>
-          <p>White-top bottles from before 1981 generally sell for around the same as a new decanter, sometimes more — condition, completeness, and documented provenance drive the premium. A rare Black Pearl discovered on a Mediterranean cruise ship, estimated by Bonhams at £5,000–£7,000, ultimately sold for <strong>£10,350</strong>.</p>
-        </div>
-        <div class="deep-card">
-          <p class="deep-card-label">Authentication & Notes</p>
-          <h3>Verifying Your Bottle</h3>
-          <p><strong>Before 1981:</strong> the bottling date can be read directly from the decanter.</p>
-          <p style="margin-top:10px;"><strong>After 1981:</strong> provide the engraved serial number to Rémy Martin; they can retrieve the bottling date.</p>
-          <p style="margin-top:10px;"><strong>Modern Classic:</strong> NFC chip in the cork stopper enables digital authentication via the LOUIS XIII Society app.</p>
-          <p style="margin-top:10px;"><strong>Lead crystal:</strong> Pre-1969 Baccarat decanters were made with lead crystal. Any spirit stored in confirmed lead crystal for extended periods should be tested before consumption.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ CLOSER ══ -->
-  <section class="closer">
-    <div class="closer-inner">
-      <div class="closer-rule"></div>
-      <h2>A Living Reference</h2>
-      <p>This guide reflects research that is neither complete nor 100% accurate — exactly as the original author notes. Rémy Martin kept few production records. Many conclusions were derived by cross-referencing advertisements, tax stamps, label types, and date cards spanning decades of collecting.</p>
-      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:24px;">Original research by <strong style="color:var(--cream-dim)">Michael at Vieux Cognacs</strong> (vieuxcognacs.com), October 2013. With thanks to Austin Chan and Tron. Presented here for educational and reference purposes. If you have a bottle, a photograph, or information that extends this timeline, <a href="contact.html">get in touch</a>.</p>
-    </div>
-  </section>
-
-  <footer class="site-footer">
-    <p>Boozy Estate — Vintage Liquor &middot; Information Hub</p>
-    <p style="margin-top:8px;"><a href="index.html">Home</a> &middot; <a href="history.html">History</a> &middot; <a href="valuing.html">Valuing Your Collection</a> &middot; <a href="collection.html">The Collection</a> &middot; <a href="decanters.html">Decanter Database</a> &middot; <a href="louis-xiii.html">Louis XIII</a> &middot; <a href="contact.html">Contact</a></p>
-    <p class="footer-copy">© 2026 Boozy Estate. All rights reserved.</p>
   </footer>
 
   <script src="nav.js"></script>
-  <script>
-    // ── Image swap ──
-    function swapImg(imgId, thumbEl, src) {
-      document.getElementById(imgId).src = src;
-      const strip = thumbEl.closest('.era-thumbs');
-      strip.querySelectorAll('.era-thumb').forEach(t => t.classList.remove('active'));
-      thumbEl.classList.add('active');
-    }
-
-    // ── Scrollspy ──
-    const eraSections = document.querySelectorAll('.era-section, .era-section-full');
-    const eraLinks = document.querySelectorAll('.era-nav a');
-
-    const spyObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          eraLinks.forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
-          });
-        }
-      });
-    }, { rootMargin: '-25% 0px -65% 0px' });
-
-    eraSections.forEach(s => spyObserver.observe(s));
-
-    // ── Fade-in on scroll ──
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.05 });
-
-    eraSections.forEach(s => fadeObserver.observe(s));
-  </script>
 </body>
 </html>
