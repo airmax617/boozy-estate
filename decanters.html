@@ -2961,6 +2961,9 @@
   }
 
   document.getElementById('searchInput').addEventListener('input', render);
+  // Prefill from ?q= (homepage search box)
+  const initialQ = new URLSearchParams(location.search).get('q');
+  if (initialQ) document.getElementById('searchInput').value = initialQ;
   document.getElementById('brandFilter').addEventListener('change', render);
   document.getElementById('categoryFilter').addEventListener('change', render);
   document.getElementById('sortSelect').addEventListener('change', e => {

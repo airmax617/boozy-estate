@@ -14,15 +14,97 @@
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Boozy Estate — Vintage Liquor Information Hub · Jim Beam Decanters & Beyond"/>
   <meta name="twitter:description" content="The definitive resource for vintage and collectible liquor. Starting with Jim Beam's Regal China decanters — history, valuation guides, and a searchable database of 2,289 entries."/>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site.css"/>
   <style>
-    .aw-trigger {
-      cursor: pointer;
-      border-bottom: 1px dashed var(--amber);
-      transition: border-color 0.2s, color 0.2s;
+    :root {
+      /* aliases used by the glossary modal styles */
+      --amber-dark: #8B5A0A; --cream-dim: #c8b890; --text-muted: #a08050; --border: #4A3010; --dark-mid: #1A1208;
     }
-    .aw-trigger:hover { color: var(--amber-light); border-color: var(--amber-light); }
+    /* ── Hero ── */
+    .hero { position: relative; overflow: hidden; padding: 88px 0 56px; text-align: center; }
+    .hero::before {
+      content: ""; position: absolute; inset: -20% -10% auto; height: 120%;
+      background: radial-gradient(ellipse 55% 45% at 50% 62%, rgba(208,138,30,0.26), transparent 70%);
+      pointer-events: none;
+    }
+    .hero .wrap { position: relative; }
+    .hero h1 { font-size: clamp(2.6rem, 6.4vw, 5rem); letter-spacing: -0.02em; }
+    .hero h1 em { color: var(--amber); font-style: italic; }
+    .hero p.lede { max-width: 520px; margin: 20px auto 0; font-size: 1.12rem; color: var(--text); }
+    .search {
+      display: flex; max-width: 520px; margin: 34px auto 0;
+      background: rgba(245,237,214,0.06); border: 1px solid rgba(245,237,214,0.16);
+      border-radius: 999px; padding: 6px; transition: border-color .15s;
+    }
+    .search:focus-within { border-color: var(--amber); }
+    .search input {
+      flex: 1; min-width: 0; background: none; border: 0; outline: 0;
+      color: var(--cream); font: inherit; padding: 0 18px;
+    }
+    .search input::placeholder { color: var(--muted); }
+    .hero .sub-link { display: inline-block; margin-top: 16px; font-size: 0.92rem; color: var(--muted); }
+    .hero .sub-link:hover { color: var(--cream); }
 
+    /* shelf of real decanters */
+    .shelf {
+      position: relative; margin: 56px auto 0; max-width: 1040px; height: 300px;
+      display: flex; align-items: flex-end; justify-content: center; gap: 22px;
+    }
+    .shelf img { height: auto; filter: drop-shadow(0 18px 22px rgba(0,0,0,0.55)); transition: transform .3s; }
+    .shelf img:hover { transform: translateY(-6px); }
+    .shelf .tall { width: 132px; }
+    .shelf .car  { width: 230px; }
+    .shelf::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 14px;
+      background: linear-gradient(180deg, #3a2610, #1f1407);
+      border-radius: 3px; box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    /* ── Explore bento ── */
+    .explore { padding: 96px 0; }
+    .section-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
+    .bento {
+      display: grid; gap: 16px;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: 250px;
+    }
+    .tile {
+      position: relative; overflow: hidden; border-radius: var(--radius);
+      background: var(--tile); border: 1px solid var(--line);
+      padding: 26px; display: flex; flex-direction: column; justify-content: flex-end;
+      transition: border-color .2s, transform .2s;
+    }
+    .tile:hover { border-color: rgba(208,138,30,0.55); transform: translateY(-3px); }
+    .tile h3 { font-size: 1.5rem; position: relative; z-index: 2; }
+    .tile p { position: relative; z-index: 2; margin-top: 6px; color: var(--text); font-size: 0.95rem; max-width: 30ch; }
+    .tile .arrow { position: absolute; top: 22px; right: 24px; z-index: 3; color: var(--amber); font-size: 1.2rem; transition: transform .2s; }
+    .tile:hover .arrow { transform: translateX(4px); }
+    .tile .art { position: absolute; z-index: 1; filter: drop-shadow(0 14px 18px rgba(0,0,0,0.5)); transition: transform .35s; }
+    .tile:hover .art { transform: scale(1.04); }
+    .t-db   { grid-column: span 4; grid-row: span 2; background: radial-gradient(ellipse at 70% 30%, #2c1c0a, var(--tile) 65%); }
+    .t-db h3 { font-size: 2.1rem; }
+    .t-db .art.a1 { width: 56%; top: 16%; right: 4%; }
+    .t-db .art.a2 { width: 50%; top: 42%; right: 20%; }
+    .t-hist { grid-column: span 2; grid-row: span 2; }
+    .t-hist .art { height: 66%; top: 7%; left: 50%; transform: translateX(-50%); }
+    .t-hist:hover .art { transform: translateX(-50%) scale(1.04); }
+    .t-val  { grid-column: span 2; }
+    .t-val .art { height: 70%; bottom: 18px; right: 22px; }
+    .t-coll { grid-column: span 2; }
+    .t-coll .art { width: 42%; top: 54px; right: 22px; }
+    .t-l13  { grid-column: span 2; padding: 0; }
+    .t-l13 .photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; opacity: 0.62; transition: transform .35s, opacity .2s; }
+    .t-l13:hover .photo { transform: scale(1.04); opacity: 0.75; }
+    .t-l13 .shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(14,10,4,0.92) 10%, transparent 70%); z-index: 1; }
+    .t-l13 .inner { position: relative; z-index: 2; padding: 26px; }
+    .t-val p, .t-coll p { max-width: 20ch; }
+    .tag { position: relative; z-index: 2; align-self: flex-start; margin-bottom: 10px; font-size: 0.75rem; font-weight: 600; color: var(--amber); background: rgba(208,138,30,0.12); padding: 4px 10px; border-radius: 999px; }
+
+    /* ── CTA ── */
+    .cta { padding: 0 0 96px; }
     .aw-overlay {
       display: none;
       position: fixed;
@@ -153,109 +235,158 @@
       line-height: 1.6;
       margin: 0;
     }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 220px; }
+      .t-db { grid-column: span 2; grid-row: span 2; }
+      .t-hist { grid-column: span 1; grid-row: span 2; }
+      .t-val, .t-coll { grid-column: span 1; }
+      .t-l13 { grid-column: span 2; }
+      .shelf { height: 220px; }
+      .shelf .tall { width: 92px; }
+      .shelf .car { width: 160px; }
+      .shelf { gap: 14px; }
+    }
+    @media (max-width: 680px) {
+      .hero { padding-top: 56px; }
+      .shelf { height: 150px; margin-top: 40px; gap: 10px; }
+      .shelf .tall { width: 58px; }
+      .shelf .car { width: 104px; }
+      .shelf .hide-sm { display: none; }
+      .explore { padding: 64px 0; }
+      .bento { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+      .t-db, .t-hist, .t-val, .t-coll, .t-l13 { grid-column: span 1; grid-row: span 1; }
+      .t-db { grid-row: span 2; }
+      .t-db h3 { font-size: 1.7rem; }
+      .t-hist .art { height: 52%; left: auto; right: 22px; transform: none; top: 52px; }
+      .t-val .art { height: 52%; top: 52px; bottom: auto; }
+      .t-coll .art { width: 36%; top: 46px; right: 56px; }
+      .t-hist:hover .art { transform: scale(1.04); }
+      .cta { padding-bottom: 64px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="site-nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">Boozy <span>Estate</span></a>
-      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a href="index.html" class="logo">Boozy <span>Estate</span></a>
       <ul class="nav-links">
         <li><a href="history.html">History</a></li>
-        <li><a href="valuing.html">Valuing Your Collection</a></li>
-        <li><a href="collection.html">The Collection</a></li>
-        <li><a href="decanters.html">Decanter Database</a></li>
+        <li><a href="valuing.html">Values</a></li>
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="decanters.html">Database</a></li>
         <li><a href="louis-xiii.html">Louis XIII</a></li>
-        <li><a href="contact.html">Contact</a></li>
       </ul>
+      <a href="contact.html" class="btn btn-solid">Get in touch</a>
+      <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <p class="hero-eyebrow">Vintage Liquor · Information Hub</p>
-    <h1>Where <em>History</em> Meets<br>the Bottle</h1>
-    <p class="hero-sub">Boozy Estate is a resource for vintage and collectible liquor — starting with Jim Beam, where the data runs deepest. History, valuation, and a searchable database built from the ground up.</p>
-    <div class="hero-rule"></div>
+  <header class="hero">
+    <div class="wrap">
+      <h1>Vintage whiskey,<br><em>documented.</em></h1>
+      <p class="lede">History, values and a searchable database of collectible decanters — starting with Jim Beam.</p>
+      <form class="search" action="decanters.html" method="get" role="search">
+        <input type="search" name="q" placeholder="Search 2,289 decanters — try “Corvette”" aria-label="Search decanters"/>
+        <button class="btn btn-solid" type="submit">Search</button>
+      </form>
+      <a class="sub-link" href="collection.html">or browse the collection →</a>
+
+      <div class="shelf" aria-hidden="true">
+        <img class="tall hide-sm" src="images/home/trout.webp" alt="">
+        <img class="car" src="images/home/woodie.webp" alt="">
+        <img class="tall" src="images/home/post.webp" alt="">
+        <img class="car" src="images/home/pacecar.webp" alt="">
+        <img class="car hide-sm" src="images/home/firetruck.webp" alt="">
+      </div>
+    </div>
+  </header>
+
+  <section class="stats">
+    <div class="wrap">
+      <div class="stat"><b>2,289</b><span>decanters catalogued</span></div>
+      <div class="stat"><b>1955–92</b><span>Regal China era</span></div>
+      <div class="stat"><b>4</b><span>brands covered</span></div>
+      <div class="stat"><b>400</b><span>years of history</span></div>
+    </div>
   </section>
 
-  <!-- THREE PILLARS -->
-  <section style="padding: 72px 0 80px; background: var(--dark-mid);">
-    <div class="wrapper">
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-
-        <!-- Pillar 1: History -->
-        <a href="history.html" style="display: block; text-decoration: none;">
-          <div class="card" style="height: 100%; padding: 36px 28px; border-color: #3a2208;">
-            <div style="font-size: 2rem; margin-bottom: 18px; opacity: 0.7;">📜</div>
-            <p class="section-label">The History</p>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--cream); margin-bottom: 14px; line-height: 1.25;">History of American Whiskey</h2>
-            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 24px;">From colonial corn mash to the Regal China decanter era — a complete timeline of the distillers, brands, and cultural moments that shaped the American spirit.</p>
-            <span class="btn btn-outline" style="font-size: 0.72rem;">Explore the Timeline →</span>
+  <main class="explore">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Start exploring</h2>
+      </div>
+      <div class="bento">
+        <a class="tile t-db" href="decanters.html">
+          <span class="arrow">→</span>
+          <img class="art a1" src="images/home/corvette57.webp" alt="">
+          <img class="art a2" src="images/home/stingray.webp" alt="">
+          <span class="tag">Jim Beam · Ezra Brooks · Ski Country · Wild Turkey</span>
+          <h3>Decanter Database</h3>
+          <p>Year, mintage and guide value for every design.</p>
+        </a>
+        <a class="tile t-hist" href="history.html">
+          <span class="arrow">→</span>
+          <img class="art" src="images/home/post.webp" alt="">
+          <h3>History</h3>
+          <p>American whiskey in 11 eras, from colonial stills to Regal China.</p>
+        </a>
+        <a class="tile t-val" href="valuing.html">
+          <span class="arrow">→</span>
+          <img class="art" src="images/home/trout.webp" alt="">
+          <h3>What's it worth?</h3>
+          <p>Where decanters really sell, and for how much.</p>
+        </a>
+        <a class="tile t-coll" href="collection.html">
+          <span class="arrow">→</span>
+          <img class="art" src="images/home/paddywagon.webp" alt="">
+          <h3>The Collection</h3>
+          <p>A rotating look inside our vault.</p>
+        </a>
+        <a class="tile t-l13" href="louis-xiii.html">
+          <img class="photo" src="images/louis-xiii/1945-B.jpg" alt="">
+          <div class="shade"></div>
+          <span class="arrow">→</span>
+          <div class="inner">
+            <h3>Louis XIII</h3>
+            <p>Date a Rémy Martin decanter by its details.</p>
           </div>
         </a>
+      </div>
+    </div>
+  </main>
 
-        <!-- Pillar 2: Valuing -->
-        <a href="valuing.html" style="display: block; text-decoration: none;">
-          <div class="card" style="height: 100%; padding: 36px 28px; border-color: #3a2208;">
-            <div style="font-size: 2rem; margin-bottom: 18px; opacity: 0.7;">⚖️</div>
-            <p class="section-label">The Guide</p>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--cream); margin-bottom: 14px; line-height: 1.25;">Valuing Your Collection</h2>
-            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 24px;">Primary markets, underground secondary trades, and online resellers — understanding where decanters actually trade and what fair value looks like in each market.</p>
-            <span class="btn btn-outline" style="font-size: 0.72rem;">Read the Guide →</span>
-          </div>
-        </a>
-
-        <!-- Pillar 3: Collection -->
-        <a href="collection.html" style="display: block; text-decoration: none;">
-          <div class="card" style="height: 100%; padding: 36px 28px; border-color: #3a2208;">
-            <div style="font-size: 2rem; margin-bottom: 18px; opacity: 0.7;">🥃</div>
-            <p class="section-label">The Collection</p>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--cream); margin-bottom: 14px; line-height: 1.25;">The Boozy Estate Collection</h2>
-            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 24px;">A look at the kinds of bottles we know and seek out — vintage decanters, rare single barrels, and historically significant American whiskey. This is the standard we collect to.</p>
-            <span class="btn btn-outline" style="font-size: 0.72rem;">See What We Collect →</span>
-          </div>
-        </a>
-
+  <section class="cta">
+    <div class="wrap">
+      <div class="cta-card">
+        <div>
+          <h2>Found a box of these in the basement?</h2>
+          <p>Tell us what you have. We'll help you figure out what it is and what it's worth.</p>
+          <a class="btn btn-solid" href="contact.html">Get in touch →</a>
+        </div>
+        <img class="art" src="images/home/firetruck.webp" alt="">
       </div>
     </div>
   </section>
 
-  <!-- ABOUT STRIP -->
-  <section style="padding: 72px 28px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-    <div style="max-width: 680px; margin: 0 auto; text-align: center;">
-      <p class="section-label" style="text-align: center;">About This Site</p>
-      <h2 style="font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--cream); margin-bottom: 20px; line-height: 1.2;">Vintage Liquor, Documented</h2>
-      <p style="color: var(--cream-dim); font-size: 0.95rem; margin-bottom: 18px;">Boozy Estate is an information hub for vintage and collectible liquor. We start with Jim Beam — because that's where the data runs deepest. Jim Beam's Regal China decanter program ran from 1955 to 1992 and produced over 1,500 unique designs (with multiple colorways and variants bringing the catalogued total to 2,289). They're still out there, attainable, and largely undervalued by people who don't know what they're looking at.</p>
-      <p style="color: var(--cream-dim); font-size: 0.95rem; margin-bottom: 30px;">Jim Beam is the foundation. The goal is to build this out across the full spectrum of vintage spirits — Scotch, tequila, cognac, and beyond. If you collect it, we want to document it.</p>
-      <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-        <a href="history.html" class="btn btn-primary">Start with the History</a>
-        <a href="collection.html" class="btn btn-outline">See What We Collect</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-logo">Boozy <span>Estate</span></div>
-    <p class="footer-tagline">Vintage Liquor · Information Hub</p>
-    <ul class="footer-links">
-      <li><a href="history.html">History</a></li>
-      <li><a href="valuing.html">Valuing</a></li>
-      <li><a href="collection.html">Collection</a></li>
-      <li><a href="decanters.html">Database</a></li>
-      <li><a href="louis-xiii.html">Louis XIII</a></li>
+  <footer class="site-foot">
+    <div class="wrap">
+      <a href="index.html" class="logo">Boozy <span>Estate</span></a>
+      <span>© 2026</span>
+      <ul>
+        <li><a href="history.html">History</a></li>
+        <li><a href="valuing.html">Values</a></li>
+        <li><a href="collection.html">Collection</a></li>
+        <li><a href="decanters.html">Database</a></li>
+        <li><a href="louis-xiii.html">Louis XIII</a></li>
         <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <p class="footer-copy">© 2026 Boozy Estate. All rights reserved.</p>
+        <li><button class="link-btn" id="awTrigger" type="button">Whiskey terms</button></li>
+      </ul>
+    </div>
   </footer>
 
-  <!-- AMERICAN WHISKEY MODAL -->
   <div class="aw-overlay" id="awOverlay">
     <div class="aw-modal">
       <button class="aw-close" id="awClose" aria-label="Close">✕</button>
@@ -396,7 +527,7 @@
   <script src="nav.js"></script>
   <script>
     const overlay = document.getElementById('awOverlay');
-    document.getElementById('awTrigger')?.addEventListener('click', () => {
+    document.getElementById('awTrigger').addEventListener('click', () => {
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
     });
@@ -420,5 +551,6 @@
     "sameAs": ["https://github.com/airmax617/boozy-estate"]
   }
   </script>
+
 </body>
 </html>

@@ -1,32 +1,44 @@
-// Boozy Estate — Shared Navigation JS
+// Boozy Estate — shared navigation + lightbox
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── Mobile hamburger toggle ──
-  const toggle = document.querySelector('.nav-toggle');
-  const links  = document.querySelector('.nav-links');
-
-  if (toggle && links) {
-    const closeMenu = () => {
-      links.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    };
-
-    toggle.addEventListener('click', () => {
-      const isOpen = links.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
+  // ── Mobile menu ──
+  const nav = document.querySelector('.nav');
+  const btn = document.querySelector('.menu-btn');
+  if (nav && btn) {
+    btn.addEventListener('click', () => {
+      btn.setAttribute('aria-expanded', String(nav.classList.toggle('open')));
     });
-
-    // Close on link click (mobile)
-    links.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', closeMenu);
-    });
+    nav.querySelectorAll('.nav-links a').forEach(a =>
+      a.addEventListener('click', () => { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); })
+    );
   }
 
-  // ── Active nav link highlighting ──
-  const page = window.location.pathname.split('/').pop() || 'index.html';
+  // ── Active link ──
+  const page = location.pathname.split('/').filter(Boolean)[0] || 'index.html';
   document.querySelectorAll('.nav-links a').forEach(a => {
-    if (a.getAttribute('href') === page) a.classList.add('active');
+    const href = a.getAttribute('href').replace(/^\//, '');
+    if (href === page || (page === 'decanters' && href === 'decanters.html')) a.classList.add('active');
   });
 
+  // ── Lightbox: any <img data-zoom> (optionally data-zoom="full-size-url") ──
+  const zoomables = document.querySelectorAll('img[data-zoom]');
+  if (zoomables.length) {
+    const lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.innerHTML = '<img alt="">';
+    document.body.appendChild(lb);
+    const big = lb.querySelector('img');
+    const close = () => lb.classList.remove('open');
+    zoomables.forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => {
+        big.src = img.dataset.zoom || img.currentSrc || img.src;
+        big.alt = img.alt;
+        lb.classList.add('open');
+      });
+    });
+    lb.addEventListener('click', close);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  }
 });
