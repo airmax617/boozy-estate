@@ -29,9 +29,9 @@
       padding: 0; transition: border-color .2s, transform .2s;
     }
     .bottle:hover { border-color: rgba(208,138,30,0.5); transform: translateY(-3px); }
-    .bottle-photo { background: #fff; aspect-ratio: 1 / 1; overflow: hidden; }
+    .bottle-photo { background: #1a1107; aspect-ratio: 4 / 3; overflow: hidden; }
     /* White panel so Baxus product shots (white backdrops) blend into the card */
-    .bottle-photo img { width: 100%; height: 100%; object-fit: contain; transition: transform .35s; }
+    .bottle-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s; }
     .bottle:hover .bottle-photo img { transform: scale(1.04); }
     .bottle:focus { outline: none; }
     .bottle:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
@@ -49,8 +49,8 @@
     .modal-close { position: absolute; top: 14px; right: 16px; z-index: 2; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(14,10,4,0.7); color: var(--cream); font-size: 1.4rem; cursor: pointer; line-height: 1; }
     .modal-close:hover { background: var(--amber); color: #1a1004; }
     .modal-inner { display: grid; grid-template-columns: 1fr 1.15fr; }
-    .modal-img-col { background: #fff; display: flex; align-items: center; justify-content: center; padding: 32px; min-height: 360px; }
-    .modal-img-col img { max-height: 440px; width: 100%; object-fit: contain; }
+    .modal-img-col { background: #1a1107; display: flex; align-items: center; justify-content: center; min-height: 360px; }
+    .modal-img-col img { width: 100%; height: 100%; object-fit: cover; }
     .modal-content-col { padding: 36px 32px; display: flex; flex-direction: column; gap: 16px; }
     .modal-title { font-size: 1.7rem; padding-right: 32px; }
     .modal-specs { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -230,8 +230,9 @@
     }
 
     function cardHTML(b, idx) {
-      const imgHtml = b.image_url
-        ? `<img src="${esc(b.image_url)}" alt="${esc(b.name)}" loading="lazy" onerror="this.remove()">`
+      const src = b.photo || b.image_url;
+      const imgHtml = src
+        ? `<img src="${esc(src)}" alt="${esc(b.name)}" loading="lazy" onerror="this.remove()">`
         : ``;
       const price = b.market_price
         ? `$${Math.round(b.market_price).toLocaleString()}`
@@ -257,8 +258,8 @@
 
       // Image column
       const imgCol = document.getElementById('modalImg');
-      imgCol.innerHTML = b.image_url
-        ? `<img src="${esc(b.image_url)}" alt="${esc(b.name)}" onerror="this.parentElement.innerHTML=''">`
+      imgCol.innerHTML = (b.photo || b.image_url)
+        ? `<img src="${esc(b.photo || b.image_url)}" alt="${esc(b.name)}" onerror="this.parentElement.innerHTML=''">`
         : ``;
 
       // Specs pills
