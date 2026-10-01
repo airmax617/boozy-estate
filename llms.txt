@@ -1,6 +1,6 @@
 # Boozy Estate
 
-> Boozy Estate is a vintage and collectible liquor information hub. It provides historical reference data, valuation guides, and a searchable database of 2,291 Jim Beam, Ezra Brooks, Ski Country, and Wild Turkey ceramic decanters — year issued, mintage, and estimated dealer value sourced from Tom Dunn's Bottle Collectors Pocket Price Guide (2016 ed.). The site also covers the history of American whiskey from colonial times to the present, and hosts a detailed identification guide for Rémy Martin Louis XIII Baccarat crystal decanters spanning 1874–1999.
+> Boozy Estate is a vintage and collectible liquor information hub. It provides historical reference data, valuation guides, and a searchable database of 2,292 Jim Beam, Ezra Brooks, Ski Country, and Wild Turkey ceramic decanters — year issued, mintage, and estimated dealer value sourced from Tom Dunn's Bottle Collectors Pocket Price Guide (2016 ed.). The site also covers the history of American whiskey from colonial times to the present, and hosts a detailed identification guide for Rémy Martin Louis XIII Baccarat crystal decanters spanning 1874–1999.
 
 ## Pages
 
@@ -8,7 +8,7 @@
 - [History of American Whiskey](https://boozyestate.com/history.html): A chronological timeline of American whiskey — 9 eras from 1600s colonial corn mash through Prohibition, the Regal China decanter boom (1955–1992), and the modern craft revival. Includes brand tiles, period bottle images, and whiskey term tooltips.
 - [Valuing Your Collection](https://boozyestate.com/valuing.html): How collectible whiskey decanters are priced across three markets (estate sales, collector shows, online resellers). Covers the 6 key value factors: condition, fill level, original box, mintage, rarity, and subject matter.
 - [The Collection](https://boozyestate.com/collection.html): A rotating showcase of 12 bottles from the 349-bottle Boozy Estate vault — Jim Beam Regal China decanters and Hoffman pieces from the Regal China era (1955–1992). Each card links to a deep-dive modal with provenance, specs, and market context.
-- [Decanter Database](https://boozyestate.com/decanters.html): Searchable and filterable database of 2,291 decanters across 22 categories. Brands: Jim Beam (Regal China), Ezra Brooks, Ski Country, JB Go-Withs, Wild Turkey. Fields: name, year, mintage, estimated value, series, vault status. Wild Turkey entries include weight and yield specs.
+- [Decanter Database](https://boozyestate.com/decanters.html): Searchable and filterable database of 2,292 decanters across 22 categories. Brands: Jim Beam (Regal China), Ezra Brooks, Ski Country, JB Go-Withs, Wild Turkey. Fields: name, year, mintage, estimated value, series, vault status. Wild Turkey entries include weight and yield specs.
 - [Louis XIII Identification Guide](https://boozyestate.com/louis-xiii.html): A cinematic reference guide for identifying Rémy Martin Louis XIII Baccarat crystal cognac decanters by era (1874–1999). Covers 9 eras with 74 photographs. Key identifiers: fin shape, base engraving, stopper style, label, neck card, and packaging.
 - [Contact](https://boozyestate.com/contact.html): Contact form for collection inquiries and questions about the site.
 
