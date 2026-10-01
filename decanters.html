@@ -2682,61 +2682,92 @@
     {name:"Wild Turkey Baccarat Crystal",year:1979,mintage:null,value:null,category:"Wild Turkey",series:"Special Decanters"},
   ];
 
+  // Baxus vault bottle name → exact database entry ("Name|year" when the name repeats).
+  // Curated 2026-09-30. A bottle whose name doesn't pin down one entry (no color, several
+  // variants) is left out on purpose: better to show nothing than tag the wrong decanter.
+  const VAULT_LINKS = {
+      " Beam 100 Month San Francisco Cable Car Decanter 1980s Bottling": "Cable Car|1983",
+      "Beam 100 Month \"Bobby Unser\" Gurney Eagle Racing Car Decanter 1975 Bottling": "Olsonite Eagle #48 Race Car",
+      "Beam 100 Month 1867 Mississippi Fire Engine Decanter 1978 Bottling": "Mississippi 1867 Steam Pumper Engine",
+      "Beam 100 Month 1897 Candlestick Phone Decanter 1978 Bottling": "Telephone #2 - 1897 Candlestick",
+      "Beam 100 Month 1904 Oldsmobile Decanter 1972 Bottling": "Oldsmobile - Black 1904",
+      "Beam 100 Month 1904 Phone Decanter 1983 Bottling": "Telephone #7 - 100 Digit Dial Phone 1904",
+      "Beam 100 Month 1917 Model AC Firetruck \"Bulldog Mack\" Decanter 1980s Bottling": "Mack 1917 'Bulldog' Fire Truck",
+      "Beam 100 Month 1919 Western Electric Phone Decanter 1980 Bottling": "Telephone #4 - 1919 Dial Phone",
+      "Beam 100 Month 1928 Fire Chief Car Decanter 1980s Bottling": "Fire Chief 1928 Model 'A' Car",
+      "Beam 100 Month 1928 French Phone Decanter 1979 Bottling": "Telephone #3 - 1928 French Cradle",
+      "Beam 100 Month 1929 Ford Phaeton Car Decanter 1980s Bottling": "Ford Model A Phaeton - Green",
+      "Beam 100 Month 1929 Model A Ford Woodie Station Wagon Decanter 1983 Bottling": "Ford Model A Woodie Station Wagon - Tan",
+      "Beam 100 Month 1930 Model A Ford Beam's Fire Engine Decanter 1980s Bottling": "Fire Truck 1930 Ford Model 'A'",
+      "Beam 100 Month 1934 Fire Pumper Decanter 1987 Bottling": "Fire Truck Pumper 1934",
+      "Beam 100 Month 1953 Corvette Decanter 1989 Bottling 375ml": "'53 Corvette White",
+      "Beam 100 Month 1954 Series Corvette Decanter 1989 Bottling 375ml": "'54 Corvette Blue",
+      "Beam 100 Month 1955 Corvette Decanter 1989 Bottling 375ml": "'55 Corvette Copper-Bronze",
+      "Beam 100 Month 1956 Thunderbird Black Decanter 1986 Bottling": "'56 Thunderbird Black",
+      "Beam 100 Month 1956 Thunderbird Blue Decanter 1986 Bottling": "'56 Thunderbird Powder Blue - Pennsylvania",
+      "Beam 100 Month 1956 Thunderbird Green Decanter 1986 Bottling": "'56 Thunderbird Mint Green",
+      "Beam 100 Month 1956 Thunderbird Grey Decanter 1986 Bottling": "'56 Thunderbird Gray",
+      "Beam 100 Month 1956 Thunderbird Yellow Decanter 1980s Bottling": "'56 Thunderbird Yellow",
+      "Beam 100 Month 1956 Thunderbird Yellow Decanter 1986 Bottling": "'56 Thunderbird Yellow",
+      "Beam 100 Month 1957 Chevy Hot Rod Decanter 1988 Bottling": "'57 Bel Air Yellow Hot Rod",
+      "Beam 100 Month 1963 Corvette Stingray New York Edition Decanter 1987 Bottling": "'63 Corvette Silver Blue Stingray - New York",
+      "Beam 100 Month 1969 Camaro Pace Car Decanter 1989 Bottling": "'69 Camaro Pace Car - White & Orange",
+      "Beam 100 Month 1969 Camaro Pennsylvania Yellow Decanter 1988 Bottling": "'69 Camaro Yellow w/Black Top - Pennsylvania",
+      "Beam 100 Month 1978 Corvette Pace Car Decanter 1989 Bottling": "'78 Corvette Pace Car - Black & Silver",
+      "Beam 100 Month 1986 Corvette Pace Car Bronze Decanter 1990 Bottling": "'86 Corvette Bronze Convertible",
+      "Beam 100 Month 1986 Corvette Pace Car Pennsylvania Red Special Edition Decanter 1990 Bottling": "'86 Corvette Red Convertible - Pennsylvania",
+      "Beam 100 Month 1986 Corvette Pace Car Yellow Decanter 1990 Bottling": "'86 Corvette Yellow Pace Car Convertible",
+      "Beam 100 Month Army Jeep Decanter Late 1980s Bottling": "Army Jeep - Green",
+      "Beam 100 Month Baggage Car Decanter 1980s Bottling": "Grant Train Baggage Car",
+      "Beam 100 Month Barney's Casino Slot Machine Decanter 1978 Bottling": "Barney's Slot Machine",
+      "Beam 100 Month Canteen Decanter 1979 Bottling Liter": "Canteen",
+      "Beam 100 Month Coffee Mill Decanter 1979 Bottling": "Coffee Mill - Antique",
+      "Beam 100 Month Democrat Decanter 1976 Bottling": "Donkey - New York City",
+      "Beam 100 Month Dining Car Decanter 1980s Bottling": "Grant Train Dining Car",
+      "Beam 100 Month Emergency Ambulance Decanter 1980s Bottling": "1931 Model 'A' Emergency Ambulance",
+      "Beam 100 Month Ernie's San Francisco Wooden Flower Cart Decanter 1979 Bottling": "Ernie's Flower Cart",
+      "Beam 100 Month Globe Decanter 1980s Bottling": "Globe - Antique",
+      "Beam 100 Month Golf Car Decanter Late 1980s Bottling": "Golf Cart - Blue",
+      "Beam 100 Month Jewel Co Car Decanter 1974 Bottling": "Jewel Tea Wagon",
+      "Beam 100 Month Log Car Decanter 1984 Bottling": "J.B. Turner Train Log Car",
+      "Beam 100 Month Paddy Wagon Decanter 1980s Bottling": "1931 Model 'A' Paddy Wagon - Black",
+      "Beam 100 Month Police Tow Truck Decanter 1987 Bottling": "1935 Model 'A' Police Tow Truck",
+      "Beam 100 Month Republican Decanter 1976 Bottling": "Elephant - Kansas City",
+      "Beam 100 Month San Francisco Cable Car Decanter 1980s Bottling": "Cable Car|1983",
+      "Beam 100 Month Tank Car Decanter 1983 Bottling": "J.B. Turner Train Tank Car",
+      "Beam 100 Month Yellow Caboose Decanter 1984 Bottling": "J.B. Turner Caboose - Yellow",
+      "Beam 150 Month Grant Locomotive Decanter 1980s Bottling": "Grant Train Locomotive",
+      "Beam 150 Month Passenger Car Decanter 1980s Bottling": "Grant Train Passenger Car",
+      "Beam 4 Year 1957 Chevrolet Bel Air Convertible Decanter 1991 Bottling": "'57 Bel Air Convertible Turquoise",
+      "Beam 4 Year 1959 Pink Cadillac Eldorado Decanter 1991 Bottling": "'59 Pink Convertible",
+      "Beam 4 Year Dump Truck Decanter 1992 Bottling": "Semi Truck Dump Truck - Sand & Gravel",
+      "Beam 4 Year Fire Chief Helmet Decanter 1991 Bottling": "Firefighters Helmet - White",
+      "Beam 4 Year Jukebox Decanter 1990 Bottling": "Juke Box",
+      "Beam Coal Train Car": "Grant Train Coal Tender #197",
+      "Beam's Bass Boat Decanter 1987 Bottling 375ml": "Bass Boat w/Trailer",
+      "Beam's Choice 8 Year Rainbow Trout Decanter 1975 Bottling": "Trout Rainbow"
+  };
+
   // ─── VAULT COLLECTION MATCHING ───
-  let vaultMap = new Map(); // normalized name → baxus_url
+  const vaultByEntry = new Map(); // "name|year" → { url, count }
   let vaultCount = 0;
-
-  // Normalize: expand year abbreviations ('69 → 1969), strip punctuation
-  function normalizeN(s) {
-    return (s || '').toLowerCase()
-      .replace(/'(\d{2})\b/g, (_, y) => (parseInt(y) >= 50 ? '19' : '20') + y)
-      .replace(/[^a-z0-9]/g, ' ')
-      .trim();
-  }
-
-  // Manual aliases for known name mismatches
-  const ALIASES = [
-    [/\bdemocrat\b/g,   'political donkey'],
-    [/\brepublican\b/g, 'political elephant'],
-    [/\bchevy\b/g,      'chevrolet'],
-    [/\bvw\b/g,         'volkswagen'],
-  ];
-  function applyAliases(s) {
-    for (const [pat, rep] of ALIASES) s = s.replace(pat, rep);
-    return s;
-  }
-
-  // Generic words to ignore in reverse matching
-  const GENERIC = new Set(['beam','month','year','decanter','bottling','bottle','collection','series','mini','half','gallon','liter']);
+  const entryKey = d => `${d.name}|${d.year}`;
 
   function getVaultUrl(d) {
-    if (vaultMap.size === 0) return null;
-    const dbNorm = applyAliases(normalizeN(d.name));
-    const dbWords = dbNorm.split(' ').filter(w => w.length > 3);
-
-    for (const [vn, url] of vaultMap) {
-      const vnNorm = applyAliases(vn);
-
-      // Forward: DB words found in vault name
-      const fwd = dbWords.filter(w => vnNorm.includes(w)).length;
-      if (fwd >= 2 && fwd >= dbWords.length * 0.6) return url || null;
-
-      // Reverse: vault words (non-generic) found in DB name
-      const vnWords = vnNorm.split(' ').filter(w => w.length > 3 && !GENERIC.has(w));
-      const rev = vnWords.filter(w => dbNorm.includes(w)).length;
-      if (rev >= 2 && rev >= vnWords.length * 0.6) return url || null;
-    }
-    return null;
+    const v = vaultByEntry.get(entryKey(d)) || vaultByEntry.get(`${d.name}|*`);
+    return v ? v.url : null;
   }
 
   fetch('manifest.json')
     .then(r => r.json())
     .then(manifest => {
       manifest.forEach(b => {
-        if (b.brand && b.brand.toLowerCase().includes('jim beam')) {
-          const n = normalizeN(b.name || '');
-          vaultMap.set(n, b.baxus_url || '');
-        }
+        const target = VAULT_LINKS[b.name];
+        if (!target) return;
+        const [name, year] = target.split('|');
+        const key = `${name}|${year || '*'}`;
+        const cur = vaultByEntry.get(key);
+        if (cur) cur.count++; else vaultByEntry.set(key, { url: b.baxus_url || '', count: 1 });
       });
       vaultCount = DECANTERS.filter(d => getVaultUrl(d) !== null).length;
       document.getElementById('statCollection').textContent = vaultCount;
